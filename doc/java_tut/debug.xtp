@@ -1,0 +1,48 @@
+<title browser-title='Debugging : Resin Tutorial'>
+Debugging
+</title>
+
+<ct:subsection title='Tracing'>
+
+For larger projects, tracing is vital.  Smaller projects can get away
+with printing to stderr for debugging or stepping through statements.
+Larger projects need to have tracing in place before debugging.  When
+debugging, you turn on the tracing.  When you deploy the application,
+you turn off the tracing.
+
+<p>In Resin, logging is just another stream, similar to the familiar
+print writer.  It's enabled by the configuration file.  Using the
+following idiom adds tracing with essentially no performance penalty.
+
+<ct:example>
+&lt;%@ page import='com.caucho.vfs.*' %>
+&lt;%!
+static WriteStream dbg = LogStream.open("/foo.com/jsp");
+%>
+
+&lt;%
+if (dbg.canWrite())
+  dbg.log("starting page");
+%>
+</ct:example>
+
+<p>When you run this, nothing will get logged until the configuration
+file enables '/foo.com/test'.  You could also enable '/foo.com' to
+get all logging from foo.com.
+
+<p>Here's the configuration file for logging to a log file in log/foo.log.
+
+<ct:example>
+&lt;caucho.com&gt;
+  &lt;log id='/foo.com/jsp' href='log/foo.log'/>
+
+  &lt;http-config&gt;
+    ...
+  &lt;/http-config&gt;
+&lt;/caucho.com&gt;
+</ct:example>
+
+<p><var/href/> can be any VFS path known to Resin.  'stderr:' will
+log to the standard error.
+
+</ct:subsection>

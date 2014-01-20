@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Servlet</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><em>Servlet</em>
+<tr><td><a href="virtual-host.html">Virtual Hosts</a>
+<tr><td><a href="caching.html">Caching</a>
+<tr><td><a href="balance.html">Balancing</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Servlet</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>Servlets are Java classes which service HTTP requests.  The only
+requirement for writing a servlet is that it implements the
+<a href="../javadoc/javax/servlet/Servlet.html">Servlet</a> interface.
+
+<p>Servlets are loaded from the classpath like all Java classes.
+Normally, users put servlets in <span class="meta">WEB-INF/classes</span> so Resin will
+automatically reload them when they change.
+
+<p><a href="jsp.html">JSP</a> pages are actually implemented as
+Servlet, but tend to be more efficient for pages with lots of text.
+
+<a name="Basic_Example"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Basic Example</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>The following is a complete working resin.conf to run this example.  If
+you're using a web server like Apache, you'll need to restart Apache to use
+the new configuration.  After restarting the web server, the
+<span class="meta">http://localhost/caucho-status</span> will show <span class="meta">/hello</span> as a
+dispatching URL.
+
+<p>The <span class="meta">servlet-mapping</span> tells Resin and Apache that the URL
+<span class="meta">/hello</span> should invoke the <span class="meta">hello-world</span> servlet.
+
+<p>The <span class="meta">servlet</span> tells Resin that <span class="meta">hello-world</span> uses the
+<span class="meta">test.HelloWorld</span> class and that the value of the <span class="meta">greeting</span>
+init parameter is <span class="meta">Hello World</span>.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server&nbsp;app-dir='/usr/local/resin/doc'><br>
+&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='/hello'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='hello-world'/><br>
+<br>
+&nbsp;&nbsp;&lt;servlet&nbsp;servlet-name='hello-world'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-class='test.HelloWorld'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;init-param&nbsp;greeting='Hello,&nbsp;World'/><br>
+&nbsp;&nbsp;&lt;/servlet><br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>As indicated by the <span class="meta">app-dir</span>, <span class="meta">HelloWorld.java</span> belongs in
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">/usr/local/resin/doc/WEB-INF/classes/test/HelloWorld.java<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Or, if you're compiling the servlet yourself, the class file belongs in
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">/usr/local/resin/doc/WEB-INF/classes/test/HelloWorld.class<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Following is the actual servlet code.  It just prints a trivial
+HTML page filled with the greeting specified in the resin.conf.
+
+<p>
+          <span class="meta">init()</span> and <span class="meta">destroy()</span> are included mostly for
+illustration.  Resin will call <span class="meta">init()</span> when it starts the servlet
+and <span class="meta">destroy</span> before Resin destroys it.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">package&nbsp;test;<br>
+<br>
+import&nbsp;java.io.*;<br>
+import&nbsp;javax.servlet.*;<br>
+import&nbsp;javax.servlet.http.*;<br>
+<br>
+public&nbsp;class&nbsp;HelloWorld&nbsp;extends&nbsp;<a href="../javadoc/javax/servlet/http/HttpServlet.html">HttpServlet</a>&nbsp;{<br>
+&nbsp;&nbsp;private&nbsp;String&nbsp;greeting;<br>
+<br>
+&nbsp;&nbsp;public&nbsp;void&nbsp;<a href="../javadoc/javax/servlet/GenericServlet.html#init()">init</a>()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;throws&nbsp;ServletException<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;greeting&nbsp;=&nbsp;<a href="../javadoc/javax/servlet/GenericServlet.html#getInitParameter(java.lang.String)">getInitParameter</a>("greeting");<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;public&nbsp;void&nbsp;doGet(<a href="../javadoc/javax/servlet/http/HttpServletRequest.html">HttpServletRequest</a>&nbsp;request,&nbsp;<a href="../javadoc/javax/servlet/http/HttpServletResponse.html">HttpServletResponse</a>&nbsp;response)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;throws&nbsp;ServletException,&nbsp;IOException<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PrintWriter&nbsp;pw&nbsp;=&nbsp;response.getPrintWriter();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pw.println("&lt;title>"&nbsp;+&nbsp;greeting&nbsp;+&nbsp;"&lt;/title>");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pw.println("&lt;h1>"&nbsp;+&nbsp;greeting&nbsp;+&nbsp;"&lt;/h1>");<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;public&nbsp;void&nbsp;<a href="../javadoc/javax/servlet/GenericServlet.html#destroy()">destroy</a>()<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;nothing&nbsp;to&nbsp;do<br>
+&nbsp;&nbsp;}<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='topics.html'>Topics</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='virtual-host.html'>Virtual Hosts</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Tue, 21 Mar 2000 10:26:08 -0800 (PST)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

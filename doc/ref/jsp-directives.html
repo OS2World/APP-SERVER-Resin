@@ -1,0 +1,496 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>JSP Directives</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><em>Directives</em>
+<tr><td><a href="jsp-actions.html">Actions</a>
+<tr><td><a href="jsp-variables.html">Variables</a>
+<tr><td><a href="jsp-applications.html">Applications</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;JSP Directives</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>JSP Directives</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#language">&lt;%@ page language="lang" %&gt;</a></td>
+              <td>Sets the JSP script language to <span class="meta">lang</span>. Defaults to Java.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#import">&lt;%@ page import="package" %&gt;</a></td>
+              <td>Adds to the Java package import list for the generated Java file.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#errorPage">&lt;%@ page errorPage="path" %&gt;</a></td>
+              <td>Defines a page to display if an error occurs in the JSP page.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#isErrorPage">&lt;%@ page isErrorPage=true %&gt;</a></td>
+              <td>Gives an error page access to the <code>exception</code> implicit variable.
+Default to false.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#include">&lt;%@ include file="path" %&gt;</a></td>
+              <td>Includes the raw file <span class="meta">path</span> at translation time.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#buffer">&lt;%@ page buffer=sizekb %&gt;</a></td>
+              <td>Gives the <span class="meta">size</span> of the page buffer in kb or <span class="meta">none</span> for
+no buffer. Default 8kb.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#autoFlush">&lt;%@ page autoFlush=true %&gt;</a></td>
+              <td>Tells JSP to flush the page buffer when it fills.
+Default is true.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#pagesession">&lt;%@ page session=true %&gt;</a></td>
+              <td>Tells JSP that the page participates in a session. Defaults to true.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#isThreadSafe">&lt;%@ page isThreadSafe=true %&gt;</a></td>
+              <td>Tells the JSP that multiple pages can execute in parallel.
+Defaults to true.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#info">&lt;%@ page info="description" %&gt;</a></td>
+              <td>Gives a brief description for the page.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#contentType">&lt;%@ page contentType="description" %&gt;</a></td>
+              <td>Sets the content type and character encoding of the page.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#extends">&lt;%@ page extends="Java class" %&gt;</a></td>
+              <td>Changes the generated servlet's class.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#taglib">&lt;%@ taglib prefix="x" uri="foo" %&gt;</a></td>
+              <td>Configures tags with prefix <span class="meta">x</span> to use the tag
+library <span class="meta">foo</span>.</td>
+            </tr>
+          </table>
+
+<a name="jsp"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>JSP Directives</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="language"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ page language="lang" %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the JSP script language to <span class="meta">lang</span>. Defaults to Java.
+All JSP 1.0 implementations must support Java.  Some implementations,
+like Resin<sup>tm</sup>, may support other scripting languages, e.g. JavaScript.
+</div>
+
+<a name="import"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ page import="package" %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Adds to the Java package import list for the generated Java file.
+<br>
+            <b>Note: </b>Only relevant when using Java.
+</div>
+
+<a name="errorPage"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ page errorPage="path" %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Defines a page to display if an error occurs in the JSP page.
+
+<p>Robust applications can return informative error pages when
+something goes wrong in a file, for example if a database is overloaded.
+<span class="meta">path</span> is returned as the response file.  The error page
+can use the additional implicit variable <a href="#exception">exception</a> containing the thrown exception.
+
+<p>
+              <span class="meta">path</span> is relative to the current page.  Its root is relative
+to the application root.
+
+</p>
+            <p>The error page itself can be a JSP page.  If the error page is a
+JSP page, it can use the implicit variable <code>exception</code> to get
+information about the thrown exception.
+</p>
+          </div>
+
+<a name="isErrorPage"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ page isErrorPage=true %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Gives an error page access to the <code>exception</code> implicit variable.
+Default to false.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">errorpage.jsp</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt%@&nbsp;page&nbsp;isErrorPage=true&nbsp;%&gt;<br>
+&lt;h1&gt;Received&nbsp;error&nbsp;&lt;%=&nbsp;exception.message&nbsp;%&gt;&lt;/h1&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="include"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ include file="path" %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Includes the raw file <span class="meta">path</span> at translation time.
+
+<p>The include directive is a replacement for an SSI include (or the C
+'#include').  It includes the contents of the file at <span class="meta">path</span> into
+the JSP file.  The included file is parsed as JSP, so it can have
+active elements like expressions, declarations and scriptlets.
+
+</p>
+            <p>
+              <span class="meta">path</span> is relative to the current page, and its root is the
+application root.
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">header.jsp</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;html&gt;&lt;head&gt;<br>
+&lt;title&gt;&lt%=&nbsp;title&nbsp;%&gt;&lt;/title&gt;<br>
+&lt;/head&gt;<br>
+&lt;body&nbsp;color=white&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">page.jsp</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;%&nbsp;var&nbsp;title&nbsp;=&nbsp;"Hello,&nbsp;World";&nbsp;%&gt;<br>
+&lt;%@&nbsp;include&nbsp;file='header.jsp'&nbsp;%&gt;<br>
+<br>
+&lt;h1&gt;&lt;%=&nbsp;title&nbsp;%&gt;&lt;/h1&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+</p>
+          </div>
+
+<a name="buffer"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ page buffer=sizekb %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Gives the <span class="meta">size</span> of the page buffer in kb or <span class="meta">none</span> for
+no buffer. Default 8kb.  If <code>buffer</code> is <span class="meta">none</span>, all
+output is immediately flushed. 
+
+<p>JSP 1.0 gives page writers flexibility by buffering its output
+before sending the response to HTTP.  The buffering allows <a href="#errorpage">error recovery</a> and forwarding, even after
+generating some content.  Once the buffer has filled, it will be
+flushed.  So applications must still detect their errors early.
+
+</p>
+            <p>The following example generates an XML document (for variety).  If
+the form's query is missing the 'name' parameter, it will redirect the
+results.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;?xml&nbsp;version='1.0'?&gt;<br>
+&lt;form&gt;<br>
+&lt;%<br>
+&nbsp;&nbsp;if&nbsp;(request.form["name"]&nbsp;==&nbsp;null)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pageContext.forward("redo-form.jsp");<br>
+<br>
+&nbsp;&nbsp;for&nbsp;(var&nbsp;name&nbsp;in&nbsp;request.form)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;out.print("&lt;"&nbsp;+&nbsp;name&nbsp;+&nbsp;"&gt;");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;out.print(request.form[name]);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;out.println("&lt;/"&nbsp;+&nbsp;name&nbsp;+&nbsp;"&gt;");<br>
+&nbsp;&nbsp;}<br>
+%&gt;<br>
+&lt;/form&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+</p>
+          </div>
+
+<a name="autoFlush"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ page autoFlush=true %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Tells JSP to flush the page buffer when it fills.
+Default is true.
+
+<p>If autoFlush is false, the JSP engine will throw an exception if
+the buffer overflows.
+</p>
+          </div>
+
+<a name="pagesession"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ page session=true %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Tells JSP that the page participates in a session. Defaults to true.
+
+<p>The session declaration makes the session implicit variable
+available to a JSP page.
+
+</p>
+            <p>If the page doesn't use sessions, it should set <code>session</code> to false.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;&@&nbsp;page&nbsp;session=true&nbsp;%&gt;<br>
+&lt;%&nbsp;<br>
+&nbsp;&nbsp;session.value.count++;<br>
+%&gt;<br>
+&lt;h1&gt;Welcome,&nbsp;visitor&nbsp;&lt;%=&nbsp;count&nbsp;%&gt;&lt;/h1;&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+</p>
+          </div>
+
+<a name="isThreadSafe"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ page isThreadSafe=true %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Tells the JSP that multiple pages can execute in parallel.
+Defaults to true.
+
+<p>JSP pages are always responsible for synchronization of shared
+variables, such as the <code>session</code> and <code>application</code>
+variables.  In some rare cases, a page may use servlet variables
+(created with a declaration), and be too lazy to handle the
+synchronization.
+
+</p>
+            <p>Even with <code>isThreadSafe=false</code>, the JSP engine may create
+multiple instances of the JSP servlet. So the page author can never
+absolve herself of synchronization issues.
+
+</p>
+            <p>In the following example, a JSP engine might create 3 servlet
+instances of the page.  So three calls to the same page may return
+counts of 17, 3 and 398.  In addition, the JSP engine is free to
+destroy and recreate the servlet at any time, essentially resetting
+the counter to 0.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;isThreadSafe=false&nbsp;%&gt;<br>
+&lt;%!&nbsp;var&nbsp;count&nbsp;=&nbsp;0;&nbsp;%&gt;<br>
+&lt;h1&gt;Welcome,&nbsp;visitor&nbsp;&lt;%=&nbsp;count++&nbsp;%&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+          </div>
+
+<a name="info"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ page info="description" %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Gives a brief description for the page.
+</div>
+
+<a name="contentType"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ page contentType="description" %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the content type and character encoding of the page.
+<p>
+            <code>contentType</code> can also set the character encoding, for
+example to utf-8. 
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;contentType='text/plain;&nbsp;charset=utf-8'&nbsp;%&gt;<br>
+&lt;%!&nbsp;var&nbsp;count&nbsp;=&nbsp;0;&nbsp;%&gt;<br>
+&lt;h1&gt;Welcome,&nbsp;visitor&nbsp;&lt;%=&nbsp;count++&nbsp;%&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="extends"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ page extends="Java class" %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Changes the generated servlet's class.
+
+<p>You should not use this directive unless you know exactly what
+you're doing.
+</p>
+          </div>
+
+<a name="taglib"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%@ taglib prefix="x" uri="foo" %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Configures tags with prefix <span class="meta">x</span> to use the tag
+library <span class="meta">foo</span>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;taglib&nbsp;prefix='x'&nbsp;uri='http://www.caucho.com/mytag/test'&nbsp;%><br>
+&lt;x:mytag/><br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='jsp.html'>JSP</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='jsp-actions.html'>Actions</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Fri, 12 Nov 1999 15:31:39 -0800 (PST)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

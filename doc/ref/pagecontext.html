@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>PageContext</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="corelib.html">Core Library</a>
+<tr><td><a href="filelib.html">File Library</a>
+<tr><td><a href="servletlib.html">Servlet Library</a>
+<tr><td><a href="dblib.html">Database Library</a>
+<tr><td><a href="xmllib.html">XML Library</a>
+<tr><td><hr>
+<tr><td><em>PageContext</em>
+<tr><td><a href="request.html">Request</a>
+<tr><td><a href="response.html">Response</a>
+<tr><td><a href="session.html">Session</a>
+<tr><td><a href="application.html">Application</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;PageContext</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>PageContext</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">attribute</a></td>
+              <td>This object contains page scope variables.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">out</a></td>
+              <td>Returns the JspWriter for this response.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">session</a></td>
+              <td>Returns the page's <a href="session.html">session</a>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">servletContext</a></td>
+              <td>Returns the page's <a href="application.html">application</a>
+object.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">servlet</a></td>
+              <td>Returns the page's generated servlet.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">servletRequest</a></td>
+              <td>Returns the page's <a href="request.html">request</a>
+object.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">servletResponse</a></td>
+              <td>Returns the page's <a href="response.html">response</a>
+object.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">exception</a></td>
+              <td>For <a href="jsp-directives.html#errorpage">error pages</a>,
+returns the thrown exception.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#include">include</a>(href)</td>
+              <td>Includes the dynamic contents of the page at <span class="meta">href</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#forward">forward</a>(href)</td>
+              <td>Includes the dynamic contents of the page at <span class="meta">href</span>.</td>
+            </tr>
+          </table>
+
+<a name="PageContext"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>PageContext</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="attribute"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">attribute</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+This object contains page scope variables.  In particular,
+beans declared with the jsp:useBean page scope are stored in the
+pageContext attribute.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;%&nbsp;<br>
+&nbsp;&nbsp;pageContext.attribute.a&nbsp;=&nbsp;1;<br>
+&nbsp;&nbsp;pageContext.attribute.b&nbsp;=&nbsp;2;<br>
+<br>
+&nbsp;&nbsp;for&nbsp;(var&nbsp;name&nbsp;in&nbsp;pageContext.attribute)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;out.writeln(name,&nbsp;":&nbsp;",&nbsp;pageContext.attribute[name]);&nbsp;<br>
+%&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+a:&nbsp;1<br>
+b:&nbsp;2<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="out"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">out</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the JspWriter for this response.  This is the same
+as the JSP 'out' implicit variable.  JspWriter has the same properties and
+methods as output <a href="stream.html">streams</a>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;%&nbsp;<br>
+&nbsp;&nbsp;pageContext.out.writeln("Hello,&nbsp;world");<br>
+%&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Hello,&nbsp;world<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="session"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">session</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the page's <a href="session.html">session</a>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+Welcome&nbsp;back.&nbsp;&nbsp;You've&nbsp;visited<br>
+&lt;%=&nbsp;pageContext.session.value++&nbsp;%&gt;&nbsp;times<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="servletContext"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">servletContext</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the page's <a href="application.html">application</a>
+object.  Along with application variables, the application
+object lets scripts dynamically include files and forward results.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+You&nbsp;are&nbsp;visistor<br>
+&lt;%=&nbsp;pageContext.servletContext.attribute++&nbsp;%&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="servlet"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">servlet</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the page's generated servlet.  <br>
+            <b>Note: </b>This is not
+the JSP engine's servlet, but the servlet generated for the particular
+JSP page.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;%@&nbsp;page&nbsp;info='Special&nbsp;Servlet'&nbsp;%&gt;<br>
+&lt;%=&nbsp;pageContext.servlet.servletInfo&nbsp;%gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Special&nbsp;Servlet<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="servletRequest"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">servletRequest</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the page's <a href="request.html">request</a>
+object.  The request object contains information from the HTTP
+request, such as form data and allows forwarding pages to pass along
+attributes.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;%<br>
+&nbsp;&nbsp;var&nbsp;req&nbsp;=&nbsp;pageContext.servletRequest<br>
+&nbsp;&nbsp;for&nbsp;(var&nbsp;key&nbsp;in&nbsp;req.form)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;out.writeln(key,&nbsp;":&nbsp;",&nbsp;req.form[key]);<br>
+%&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+name:&nbsp;George&nbsp;Washington<br>
+honesty:&nbsp;mythical<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="servletResponse"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">servletResponse</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the page's <a href="response.html">response</a>
+object.  The response object lets application set response
+headers and status codes.  In general, JSP applications will write to
+the 'out' object instead of using the response object directly.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;%<br>
+&nbsp;&nbsp;var&nbsp;res&nbsp;=&nbsp;pageContext.servletResponse<br>
+&nbsp;&nbsp;res.header["Expires"]&nbsp;=&nbsp;new&nbsp;Date().toString()<br>
+%&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="exception"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">exception</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+For <a href="jsp-directives.html#errorpage">error pages</a>,
+returns the thrown exception.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;%<br>
+&nbsp;&nbsp;response.setStatus(500);<br>
+&nbsp;&nbsp;out.writeln("Exception:&nbsp;",&nbsp;pageContext.exception)<br>
+%&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="include"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">include(href)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Includes the dynamic contents of the page at <span class="meta">href</span>.
+<span class="meta">href</span> is relative to the current page and its root is the
+application root.
+
+<p>
+            <code>include</code> is the proper way to include JSP generated contents in
+the current page.
+</div>
+
+<a name="forward"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">forward(href)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Includes the dynamic contents of the page at <span class="meta">href</span>.
+<span class="meta">href</span> is relative to the current page and its root is the
+application root.
+
+<p>
+            <code>forward</code> cannot be called after data has returned to the
+browser.  Because of JSP's 8k <a href="jsp-directives.html#buffer">buffer</a>,  most applications can
+ignore this limitation.
+
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='servletlib.html'>Servlet Library</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='request.html'>Request</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 03 Apr 2000 11:20:13 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

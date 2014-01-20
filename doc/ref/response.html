@@ -1,0 +1,493 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Servlet Response</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="corelib.html">Core Library</a>
+<tr><td><a href="filelib.html">File Library</a>
+<tr><td><a href="servletlib.html">Servlet Library</a>
+<tr><td><a href="dblib.html">Database Library</a>
+<tr><td><a href="xmllib.html">XML Library</a>
+<tr><td><hr>
+<tr><td><a href="pagecontext.html">PageContext</a>
+<tr><td><a href="request.html">Request</a>
+<tr><td><em>Response</em>
+<tr><td><a href="session.html">Session</a>
+<tr><td><a href="application.html">Application</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Servlet Response</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+
+The servlet response object is reflected directly from the servlet 
+interface, so all the functions listed in the servlet javadoc are
+available and that is the definitive reference.
+
+<p>In particular, we haven't listed all the error code response
+constants from that class, e.g. <code>SC_FORBIDDEN</code>, although
+they are available as properties of the Response object.</p>
+
+<p>Resin has added the <code>write,</code> <code>writeln,</code> and
+<code>printf</code> methods. 
+</p>
+
+<p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Servlet Response</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setStatus">setStatus</a>(code [, message])</td>
+              <td>Sets the status code for the response.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setHeader">setHeader</a>(name, value)</td>
+              <td>Sets the value of the named header.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#sendRedirect">sendRedirect</a>(url)</td>
+              <td>Redirect the client to the given url.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#encodeRedirectUrl">encodeRedirectUrl</a>(url)</td>
+              <td>Encodes the redirect url if necessary for session tracking.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#encodeUrl">encodeUrl</a>(url)</td>
+              <td>Encodes the url if necessary for session tracking.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#sendError">sendError</a>(code [, message])</td>
+              <td>Sends an error response to the client.  If the message is not given,
+it will send a default message.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#containsHeader">containsHeader</a>(name)</td>
+              <td>
+Returns true if the named header has already been set.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setIntHeader">setIntHeader</a>(name, value)</td>
+              <td>Sets the value of the named header as an integer.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setDateHeader">setDateHeader</a>(name, value)</td>
+              <td>Sets the value of the named header as an numeric time.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#addCookie">addCookie</a>(cookie)</td>
+              <td>
+Adds the cookie to the response.
+
+<br>
+                <b>Note: </b>
+                <code>addCookie</code> must preceed writing to the response.
+
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setContentLength">setContentLength</a>(length)</td>
+              <td>
+Sets the content length for the response.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setContentType">setContentType</a>(type)</td>
+              <td>
+Sets the content type, i.e. mime-type and encoding for the response.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">characterEncoding</a></td>
+              <td>
+This read-only property returns either the encoding set by
+<code>setContentType</code> or an encoding the client understands.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#write">write</a>(string)</td>
+              <td>
+Writes a string to the response.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#writeln">writeln</a>(string)</td>
+              <td>
+Writes a string with a linefeed.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#printf">printf</a>(fmt, ...)</td>
+              <td>
+Writes formatted output using <a href="stringobj.html#printf">printf</a>.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#flush">flush</a>()</td>
+              <td>
+Flushes any buffered output.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">outputStream</a></td>
+              <td>
+Returns a JDK OutputStream for writing responses.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">writer</a></td>
+              <td>
+Returns a JDK Writer for writing responses.
+</td>
+            </tr>
+          </table>
+
+<a name="Servlet_Response"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Servlet Response</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="setStatus_code_message_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setStatus(code [, message])</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the status code for the response.
+
+<br>
+            <b>Note: </b>
+            <code>setStatus</code> must preceed writing to the response.
+
+</div>
+
+<a name="setHeader_name_value_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setHeader(name, value)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the value of the named header.
+
+<br>
+            <b>Note: </b>
+            <code>setHeader</code> must preceed writing to the response.
+
+</div>
+
+<a name="sendRedirect_url_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">sendRedirect(url)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Redirect the client to the given url.
+
+<br>
+            <b>Note: </b>
+            <code>sendRedirect</code> must preceed writing to the response.
+
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;%&nbsp;<br>
+var&nbsp;url&nbsp;=&nbsp;"http://newhost.com/";<br>
+url&nbsp;=&nbsp;Response.encodeRedirectUrl(url)<br>
+Response.sendRedirect(url);<br>
+%&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="encodeRedirectUrl_url_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">encodeRedirectUrl(url)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Encodes the redirect url if necessary for session tracking.
+Session tracking for cookie-ignorant browsers requires this.  
+</div>
+
+<a name="encodeUrl_url_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">encodeUrl(url)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Encodes the url if necessary for session tracking.  Session
+tracking for cookie-ignorant browsers requires this.  
+
+<p>All urls sent to the client should go through this.</p>
+</div>
+
+<a name="sendError_code_message_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">sendError(code [, message])</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sends an error response to the client.  If the message is not given,
+it will send a default message.
+
+<br>
+            <b>Note: </b>
+            <code>sendError</code> must preceed writing to the response.
+
+</div>
+
+<a name="containsHeader_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">containsHeader(name)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns true if the named header has already been set.
+</div>
+
+<a name="setIntHeader_name_value_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setIntHeader(name, value)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the value of the named header as an integer.
+
+<br>
+            <b>Note: </b>
+            <code>setIntHeader</code> must preceed writing to the response.
+
+</div>
+
+<a name="setDateHeader_name_value_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setDateHeader(name, value)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the value of the named header as an numeric time.
+
+<br>
+            <b>Note: </b>
+            <code>setDateHeader</code> must preceed writing to the response.
+
+</div>
+
+<a name="addCookie_cookie_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">addCookie(cookie)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Adds the cookie to the response.
+
+<br>
+            <b>Note: </b>
+            <code>addCookie</code> must preceed writing to the response.
+
+</div>
+
+<a name="setContentLength_length_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setContentLength(length)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the content length for the response.
+</div>
+
+<a name="setContentType_type_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setContentType(type)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the content type, i.e. mime-type and encoding for the response.
+</div>
+
+<a name="characterEncoding"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">characterEncoding</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+This read-only property returns either the encoding set by
+<code>setContentType</code> or an encoding the client understands.
+</div>
+
+<a name="write_string_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">write(string)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Writes a string to the response.
+</div>
+
+<a name="writeln_string_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">writeln(string)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Writes a string with a linefeed.
+</div>
+
+<a name="printf_fmt_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">printf(fmt, ...)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Writes formatted output using <a href="stringobj.html#printf">printf</a>.
+</div>
+
+<a name="flush_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">flush()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Flushes any buffered output.
+</div>
+
+<a name="outputStream"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">outputStream</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a JDK OutputStream for writing responses.
+</div>
+
+<a name="writer"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">writer</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a JDK Writer for writing responses.
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='request.html'>Request</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='session.html'>Session</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 03 Apr 2000 11:20:13 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+<navigation top="/">
+  <page name="Examples" href="../index.html">
+    <page name="Navigation" href="navigation.xtp"/>
+    <page name="Counter" href="counter.xtp"/>
+    <page name="Loops" href="control.xtp"/>
+    <page name="XSLT-lite" href="control-lite.xtp"/>
+    <page name="Fortune" href="file.xtp"/>
+<!--    <page name="Quote" href="quote.xtp"/> -->
+  </page>
+</navigation>

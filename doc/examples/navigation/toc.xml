@@ -1,0 +1,9 @@
+<navigation top="/">
+  <page name="Examples" href="../index.html">
+    <page name="Navigation" href="navigation.jsp">
+      <page name="XML TOC" href="child1.jsp"/>
+      <page name="Fancy Child" href="child2.jsp"/>
+    </page>
+    <page name="Conclusion" href="conclusion.jsp"/>
+  </page>
+</navigation>

@@ -1,0 +1,1450 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Statements</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="sourcetext.html">Source Text</a>
+<tr><td><a href="literals.html">Literals</a>
+<tr><td><a href="regexp.html">Regexp</a>
+<tr><td><a href="ops.html">Operators</a>
+<tr><td><a href="objects.html">Objects</a>
+<tr><td><a href="functions.html">Functions</a>
+<tr><td><em>Statements</em>
+<tr><td><a href="wrap.html">Java Wrapping</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Statements</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#empty">empty</a></li>
+                    <li><a href="#block">block</a></li>
+                    <li><a href="#expression">expression</a></li>
+                    <li><a href="#var">var</a></li>
+                    <li><a href="#if">if</a></li>
+                    <li><a href="#switch">switch</a></li>
+                    <li><a href="#while">while</a></li>
+                    <li><a href="#for">for</a></li>
+                    <li><a href="#forin">for ... in</a></li>
+                    <li><a href="#do">do ... while</a></li>
+                    <li><a href="#break">break</a></li>
+                    <li><a href="#continue">continue</a></li>
+                    <li><a href="#label">labeled statements</a></li>
+                    <li><a href="#return">return</a></li>
+                    <li><a href="#with">with</a></li>
+                    <li><a href="#class">class</a><ol>
+                        <li><a href="#extends">extends</a></li>
+                      </ol>
+                    </li>
+                    <li><a href="#Exceptions">Exceptions</a></li>
+                    <li><a href="#catch">catch</a><ol>
+                        <li><a href="#Matching_Exceptions">Matching Exceptions</a></li>
+                      </ol>
+                    </li>
+                    <li><a href="#finally">finally</a></li>
+                    <li><a href="#throw">throw</a></li>
+                    <li><a href="#synchronize">synchronize</a></li>
+                    <li><a href="#import">import</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<a name="empty"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>empty</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">&nbsp;&nbsp;;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The empty statement does nothing.  Its primary use is to separate
+statements. (See <a href="whitespace.html#autosemicolon">automatic semicolon
+insertion</a>.)
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">a&nbsp;=&nbsp;3;&nbsp;a++;&nbsp;var&nbsp;b&nbsp;=&nbsp;3;&nbsp;if&nbsp;(a)&nbsp;b&nbsp;=&nbsp;9;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="block"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>block</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="meta">statement_1</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="meta">statement_n</span><br>
+&nbsp;&nbsp;}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The block statement sequentially executes <span class="meta">statement_1</span> through
+<span class="meta">statement_n</span>.
+
+
+
+<a name="expression"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>expression</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">&nbsp;&nbsp;<span class="meta">expr</span><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The expression statement executes any expression <span class="meta">expr</span>.
+
+
+
+<a name="var"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>var</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">&nbsp;&nbsp;var&nbsp;<span class="meta">id_1</span>&nbsp;[=&nbsp;<span class="meta">expr_1</span>],&nbsp;...,&nbsp;<span class="meta">id_n</span>&nbsp;[=&nbsp;<span class="meta">expr_n</span>]<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The <code>var</code> statement declares and initializes variables
+<span class="meta">id_1</span> through <span class="meta">id_n</span>.  If <span class="meta">expr_i</span> exists, <span class="meta">id_i</span>
+gets its value, otherwise <span class="meta">id_i</span> gets <code>undefined</code>.
+
+<p>The <code>var</code> statement is most important in declaring 
+local variables in a function.  Although variables can be used without the
+<code>var</code> statement, undeclared variables are necessarily global.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Local variable declaration</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+var&nbsp;b&nbsp;=&nbsp;"global";<br>
+var&nbsp;a&nbsp;=&nbsp;"initial";<br>
+<br>
+function&nbsp;foo()<br>
+{<br>
+&nbsp;&nbsp;var&nbsp;b&nbsp;=&nbsp;"local";<br>
+&nbsp;&nbsp;a&nbsp;=&nbsp;"global";<br>
+}<br>
+<br>
+foo();<br>
+<br>
+a&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;b<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+global&nbsp;global<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<p>Unlike Java and C, the scope of the declared variable is the
+entire function, not the enclosing block.  So in the following
+example, the second declaration of <code>a</code> is equivalent to a simple
+assignment.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Local scope is entire function</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;foo()<br>
+{<br>
+&nbsp;&nbsp;var&nbsp;a&nbsp;=&nbsp;"initial";<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;a&nbsp;=&nbsp;"inner";<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;return&nbsp;a;<br>
+}<br>
+<br>
+foo();<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+inner<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="if"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>if</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">if&nbsp;(<span class="meta">cond</span>)<br>
+&nbsp;&nbsp;<span class="meta">statement</span><br>
+[else<br>
+&nbsp;&nbsp;&nbsp;<span class="meta">else-statement</span>]<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+The <code>if</code> statement conditionally executes code.  If <span class="meta">cond</span>
+is true, it executes <span class="meta">statement</span>.  Otherwise 
+it executes <span class="meta">else-statement</span> if the else statement exists.
+
+<p>
+            <span class="meta">cond</span> may be any expression, except that assignments must be
+enclosed in parentheses to ensure assignment is not confused with
+equality.</p>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Illegal</font>
+              </caption>
+              <tr>
+                <td color="red" class="badexample">if&nbsp;(a&nbsp;=&nbsp;3)<br>
+&nbsp;&nbsp;writeln("bad&nbsp;bad&nbsp;bad");<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Okay</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">if&nbsp;((a&nbsp;=&nbsp;3))<br>
+&nbsp;&nbsp;writeln("discouraged,&nbsp;but&nbsp;okay");<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+Here are some simple examples of the <code>if</code> statement.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Taken Branch</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;13<br>
+if&nbsp;(a&nbsp;&lt;&nbsp;20)<br>
+&nbsp;&nbsp;writeln("small");<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+small<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Not Taken Branch</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;30<br>
+if&nbsp;(a&nbsp;&lt;&nbsp;20)<br>
+&nbsp;&nbsp;writeln("small");<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&nbsp;&nbsp;<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Else Statement</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;30<br>
+if&nbsp;(a&nbsp;&lt;&nbsp;20)<br>
+&nbsp;&nbsp;writeln("small");<br>
+else<br>
+&nbsp;&nbsp;writeln("large");<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+large<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="switch"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>switch</b>
+                </font>
+              </td><td align=right>JavaScript 1.2</td>
+</tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">switch&nbsp;(<span class="meta">expr</span>)&nbsp;{<br>
+case&nbsp;<span class="meta">literal_1</span>:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;<span class="meta">statement_list_1</span><br>
+<br>
+...<br>
+<br>
+case&nbsp;<span class="meta">literal_n</span>:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;<span class="meta">statement_list_n</span><br>
+<br>
+[default:<br>
+&nbsp;&nbsp;&nbsp;<span class="meta">default_statement_list</span>]<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+The <code>switch</code> statement executes one of a number of branches.  It
+evaluates <span class="meta">expr</span> and selects the matching <span class="meta">literal_i</span>.  If
+none of the literals match, it selects <code>default</code>.  It then
+executes <span class="meta">statement_list_i</span> and any following statements in the
+<code>switch</code>.  A <code>branch</code> in a <span class="meta">statement_list_i</span> breaks
+out of the <code>switch</code> statement.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">switch fall-through</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+switch&nbsp;(1)&nbsp;{<br>
+case&nbsp;0:&nbsp;writeln(0);<br>
+case&nbsp;1:&nbsp;writeln(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln(2);<br>
+case&nbsp;3:&nbsp;writeln(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+case&nbsp;4:&nbsp;writeln(4);<br>
+}<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+1<br>
+2<br>
+3<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">switch default</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+switch&nbsp;("c")&nbsp;{<br>
+case&nbsp;"a":<br>
+&nbsp;&nbsp;writeln(0);<br>
+&nbsp;&nbsp;break;<br>
+case&nbsp;"b":<br>
+&nbsp;&nbsp;writeln(1);<br>
+&nbsp;&nbsp;break;<br>
+default:<br>
+&nbsp;&nbsp;writeln("default");<br>
+&nbsp;&nbsp;break;<br>
+}<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+default<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="while"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>while</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">while&nbsp;(<span class="meta">cond</span>)<br>
+&nbsp;&nbsp;<span class="meta">statement</span><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+The <code>while</code> statement repeatedly executes code.  While <span class="meta">cond</span>
+is true, it executes <span class="meta">statement</span>.
+
+<p>Like <a href="statements.html#if">if</a>, <span class="meta">cond</span> may be any expression,
+except that assignments must be enclosed in parentheses to ensure
+assignment is not confused with equality.</p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+i&nbsp;=&nbsp;4<br>
+while&nbsp;(i--)<br>
+&nbsp;&nbsp;writeln("Hello,&nbsp;world")<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Hello,&nbsp;world<br>
+Hello,&nbsp;world<br>
+Hello,&nbsp;world<br>
+Hello,&nbsp;world<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+<a name="for"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>for</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">for&nbsp;([<span class="meta">init</span>];&nbsp;[<span class="meta">cond</span>];&nbsp;[<span class="meta">incr</span>])<br>
+&nbsp;&nbsp;<span class="meta">statement</span><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+The <code>for</code> statement repeatedly executes code.  While <span class="meta">cond</span>
+is true, it executes <span class="meta">statement</span>.  After executing 
+<span class="meta">statement</span>, it executes <span class="meta">incr</span>.
+
+<p>The <code>for</code> statement is equivalent to:
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">
+                  <span class="meta">init</span>;<br>
+while&nbsp;(<span class="meta">cont</span>)&nbsp;{<br>
+&nbsp;&nbsp;<span class="meta">statement</span>;<br>
+&nbsp;&nbsp;<span class="meta">incr</span>;<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+except it executes <span class="meta">incr</span> after a <code>continue</code>.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+for&nbsp;(var&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;4;&nbsp;i++)<br>
+&nbsp;&nbsp;writeln("Hello,&nbsp;world")<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Hello,&nbsp;world<br>
+Hello,&nbsp;world<br>
+Hello,&nbsp;world<br>
+Hello,&nbsp;world<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="forin"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>for ... in</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">for&nbsp;([var]&nbsp;<span class="meta">i</span>&nbsp;in&nbsp;<span class="meta">expr</span>])<br>
+&nbsp;&nbsp;<span class="meta">statement</span><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The <code>for ... in</code> statement iterates over property names of
+an object.  It does not guarantee any order.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+o&nbsp;=&nbsp;{a:1,&nbsp;b:2,&nbsp;c:3}<br>
+for&nbsp;(var&nbsp;i&nbsp;in&nbsp;o)<br>
+&nbsp;&nbsp;writeln(i);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+c<br>
+a<br>
+b<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+o&nbsp;=&nbsp;[3,&nbsp;2,&nbsp;1]<br>
+for&nbsp;(var&nbsp;i&nbsp;in&nbsp;o)<br>
+&nbsp;&nbsp;writeln(i);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+2<br>
+0<br>
+1<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="do"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>do ... while</b>
+                </font>
+              </td><td align=right>JavaScript 1.2</td>
+</tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">do<br>
+&nbsp;&nbsp;<span class="meta">statement</span><br>
+while&nbsp;(<span class="meta">expr</span>)<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<code>do</code> executes <span class="meta">statement</span> as long as <span class="meta">expr</span> is true.
+<span class="meta">statement</span> is guaranteed to be executed at least once.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+i&nbsp;=&nbsp;7<br>
+do<br>
+&nbsp;&nbsp;writeln(i);<br>
+while&nbsp;(i&nbsp;&lt;&nbsp;3);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+7<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="break"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>break</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">break&nbsp;[<span class="meta">label</span>]<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<code>break</code> immediately terminates an enclosing loop or jumps to the
+end of a labelled block.
+
+
+<a name="continue"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>continue</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">continue&nbsp;[<span class="meta">label</span>]<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<code>continue</code> jumps to the end of a loop, allowing it to execute
+again.
+
+
+
+<a name="label"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>labeled statements</b>
+                </font>
+              </td><td align=right>JavaScript 1.2</td>
+</tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">
+                  <span class="meta">label</span>:&nbsp;<span class="meta">statement</span><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+A labeled statement executes as any other statement, except that a
+<code>break</code> executed in the statement will terminate the statement.
+If <span class="meta">statement</span> is a loop, a <code>continue</code> within the
+statement will continue the loop.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+foo:<br>
+{<br>
+&nbsp;&nbsp;a&nbsp;=&nbsp;13;<br>
+&nbsp;&nbsp;break&nbsp;foo;<br>
+&nbsp;&nbsp;a&nbsp;=&nbsp;19;<br>
+}<br>
+writeln(a);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+13<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+<br>
+loop:<br>
+for&nbsp;(var&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;<&nbsp;3;&nbsp;i++)&nbsp;{<br>
+&nbsp;&nbsp;for&nbsp;(var&nbsp;j&nbsp;=&nbsp;0;&nbsp;j&nbsp;<&nbsp;10;&nbsp;j++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(j&nbsp;==&nbsp;3)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break&nbsp;loop;<br>
+&nbsp;&nbsp;}<br>
+}<br>
+writeln(i);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+0<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="return"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>return</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">return&nbsp;[<span class="meta">expr</span>]<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+The <code>return</code> statement immediately terminates the enclosing
+function and returns the value of <span class="meta">expr</span> as the function's
+value.   If <span class="meta">expr</span> is missing, the function returns <code>undefined</code>.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Returning a value</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;12<br>
+function&nbsp;foo()&nbsp;{<br>
+&nbsp;&nbsp;return&nbsp;1&nbsp;+&nbsp;3;<br>
+&nbsp;&nbsp;a&nbsp;=&nbsp;19;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;never&nbsp;executed<br>
+}<br>
+<br>
+foo()&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+4&nbsp;12<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Returning without a value</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;12<br>
+function&nbsp;foo()&nbsp;{<br>
+&nbsp;&nbsp;return&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;+&nbsp;3&nbsp;&nbsp;&nbsp;//&nbsp;treated&nbsp;as&nbsp;following&nbsp;statement,&nbsp;so&nbsp;never&nbsp;executed.<br>
+}<br>
+<br>
+foo()&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+4&nbsp;12<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="with"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>with</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">with&nbsp;(<span class="meta">expr</span>)<br>
+&nbsp;&nbsp;<span class="meta">statement</span><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+The <code>with</code> extends the variable scope by looking up variables in
+<span class="meta">expr</span> before using local or global variables.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Simple use of with</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+o&nbsp;=&nbsp;{&nbsp;a&nbsp;:&nbsp;13&nbsp;}<br>
+a&nbsp;=&nbsp;1<br>
+with&nbsp;(o)&nbsp;{<br>
+&nbsp;&nbsp;writeln(a);<br>
+&nbsp;&nbsp;a&nbsp;=&nbsp;7<br>
+}<br>
+writeln(a&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;o.a)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+13<br>
+1&nbsp;7<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="class"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>class</b>
+                </font>
+              </td><td align=right>Resin 1.0</td>
+</tr>
+          </table>
+          <p>
+
+<p>Resin provides some syntactic sugar to JavaScript's prototype-based
+object inheritance to simplify objects creation.</p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">class&nbsp;<span class="meta">object-name</span>&nbsp;[extends&nbsp;<span class="meta">parent-object</span>]&nbsp;{<br>
+&nbsp;&nbsp;function&nbsp;<span class="meta">member0</span>(...)&nbsp;{&nbsp;...&nbsp;}<br>
+&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;function&nbsp;<span class="meta">membern</span>(...)&nbsp;{&nbsp;...&nbsp;}<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The <code>class</code> statement simplifies JavaScript objects without
+adding any new semantic power to the language.</p>
+
+<p>Only functions are currently allowed as members in the class.</p>
+
+
+<p>The following are (almost) equivalent.  The first using Resin's
+class extension, and the second following JavaScript's definitions.
+The only difference between the two is that the JavaScript version
+unavoidably binds the functions to the global object.</p>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Sample class definition</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">class&nbsp;Car&nbsp;{<br>
+&nbsp;&nbsp;function&nbsp;getColor()&nbsp;{&nbsp;return&nbsp;this.color;&nbsp;}<br>
+&nbsp;&nbsp;function&nbsp;setColor(color)&nbsp;{&nbsp;this.color&nbsp;=&nbsp;color;&nbsp;}<br>
+&nbsp;&nbsp;function&nbsp;start()&nbsp;{&nbsp;this.started&nbsp;=&nbsp;true;&nbsp;}<br>
+&nbsp;&nbsp;function&nbsp;Car()<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.color&nbsp;=&nbsp;"red";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.started&nbsp;=&nbsp;false;<br>
+&nbsp;&nbsp;}<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">The Car class using strict EcmaScript</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">function&nbsp;Car()<br>
+{<br>
+&nbsp;&nbsp;this.color&nbsp;=&nbsp;"red";<br>
+&nbsp;&nbsp;this.started&nbsp;=&nbsp;false;<br>
+}<br>
+<br>
+function&nbsp;getColor()&nbsp;{&nbsp;return&nbsp;this.color;&nbsp;}<br>
+Car.prototype.getColor&nbsp;=&nbsp;getColor;<br>
+<br>
+function&nbsp;setColor(color)&nbsp;{&nbsp;this.color&nbsp;=&nbsp;color;&nbsp;}<br>
+Car.prototype.setColor&nbsp;=&nbsp;setColor;<br>
+<br>
+function&nbsp;start()&nbsp;{&nbsp;this.started&nbsp;=&nbsp;true;&nbsp;}<br>
+Car.prototype.start&nbsp;=&nbsp;start;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<a name="extends"></a><h3>extends</h3>
+
+The optional extends part of the class eases inheritance.
+Again, this adds nothing to the semantic power of the language but
+makes the code far more readable.
+
+<p>The following are equivalent</p>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Using extends in Resin</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">class&nbsp;Car&nbsp;{<br>
+}<br>
+class&nbsp;Honda&nbsp;extends&nbsp;Car&nbsp;{<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">The equivalent of extends in strict EcmaScript</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">function&nbsp;Car()&nbsp;{}<br>
+<br>
+function&nbsp;Honda()&nbsp;{}<br>
+Honda.prototype.prototype&nbsp;=&nbsp;Car.prototype;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+
+<a name="Exceptions"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Exceptions</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>Resin extends JavaScript to support Java exceptions.  By supporting
+Java exceptions, Resin allows a tighter binding to Java components.
+If a server-side bean throws an exception, a Resin script can catch it
+and gracefully handle the error.</p>
+
+<p>Since the JavaScript programs are compiled into Java bytecodes, the
+exception handling mechanism is essentially the same as for Java.  The
+only real difference is the pattern matching for selecting a catch
+block.</p>
+
+
+
+<a name="catch"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>catch</b>
+                </font>
+              </td><td align=right>Resin 1.0</td>
+</tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">try&nbsp;<br>
+&nbsp;&nbsp;<span class="meta">protected statement</span><br>
+<br>
+catch&nbsp;(<span class="meta">exception_1</span>&nbsp;[<span class="meta">var_1</span>])<br>
+&nbsp;&nbsp;<span class="meta">handler_statement_1</span><br>
+<br>
+...<br>
+<br>
+catch&nbsp;([<span class="meta">exception_n</span>&nbsp;[<span class="meta">var_n</span>]])<br>
+&nbsp;&nbsp;<span class="meta">handler_statement_n</span><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>This syntax is essentially the same as Java's exception handling.
+For clarity, repeating catch blocks and the optional finally block
+have been omitted.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">
+                  <span class="meta">protected statement list</span><br>
+catch&nbsp;([<span class="meta">exception</span>&nbsp;[<span class="meta">var</span>]])<br>
+&nbsp;&nbsp;<span class="meta">handler statement</span><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The second form of the catch block protects all statements in the
+enclosing block up to the catch statement.  Scripts can use this to
+establish error handlers at the end of the script without having to
+wrap the bulk of the script in a try block.</p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">for&nbsp;(var&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i++)&nbsp;{<br>
+&nbsp;&nbsp;addBook(authors[i],&nbsp;titles[i],&nbsp;prices[i]);<br>
+<br>
+&nbsp;&nbsp;catch&nbsp;(SQLException&nbsp;e)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;writeln("Failed&nbsp;database&nbsp;insertion:&nbsp;"&nbsp;+&nbsp;e);<br>
+&nbsp;&nbsp;}<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<a name="Matching_Exceptions"></a><h3>Matching Exceptions</h3>
+
+<p>Resin exception matching uses a string suffix match instead of the
+Java type match.  Resin compares the catch
+statement name to the thrown exception's class name.  If the class
+name ends in the catch statement name, the exception is considered to
+match.</p>
+
+<p>Like Java's exceptions, if the exception class does not match,
+Resin will try the parent for a match.  However, Resin will only catch
+descendants of <code>Exception</code>.  It will not catch
+<code>Throwable</code> nor will it catch <code>Error</code> or its
+descendants.</p>
+
+<p>If the catch expression is empty, it will match all exceptions.</p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+try&nbsp;{<br>
+&nbsp;&nbsp;foo();<br>
+}&nbsp;catch&nbsp;(IOException)&nbsp;{<br>
+}<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+java.io.Exception&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;caught<br>
+java.io.FileNotFoundException&nbsp;caught<br>
+java.lang.Exception&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ignored<br>
+com.foobar.IOException&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;caught<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+
+<a name="finally"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>finally</b>
+                </font>
+              </td><td align=right>Resin 1.0</td>
+</tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">try&nbsp;<br>
+&nbsp;&nbsp;<span class="meta">protected statement</span><br>
+finally<br>
+&nbsp;&nbsp;<span class="meta">handler statement</span><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">
+                  <span class="meta">protected statement list</span><br>
+finally<br>
+&nbsp;&nbsp;<span class="meta">handler statement</span><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+The finally statement guarantees the protected statement will be executed.
+The <span class="meta">handler statement</span> will execute for normal execution,
+for exceptions, and when <code>break</code> and <code>return</code>
+statements leave the <span class="meta">protected statement</span>.
+
+
+<a name="throw"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>throw</b>
+                </font>
+              </td><td align=right>Resin 1.0</td>
+</tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">throw&nbsp;<span class="meta">exception</span>;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+The <code>throw</code> statement throws an exception.  The Java VM
+unwinds the executation stack until it finds the nearest matching
+catch handler.  All <code>finally</code> blocks are executed and 
+<code>synchronization</code> locks are released.
+
+
+
+<a name="synchronize"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>synchronize</b>
+                </font>
+              </td><td align=right>Resin 1.0</td>
+</tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">synchronize&nbsp;(<span class="meta">object</span>)<br>
+&nbsp;&nbsp;<span class="meta">statement</span><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<ol>
+<li>Convert the JavaScript <span class="meta">object</span> to its Java
+equivalent.  For Java <a href="wrap.html">wrapped</a> objects, this
+just involves unwrapping the object.  Pure JavaScript objects are
+unconverted.</li> 
+
+<li>Acquire Java object monitor using the JVM monitorenter.</li>
+
+<li>Evaluate <span class="meta">statement</span>
+            </li>
+
+<li>Release the monitor on any exit: normal, <code>break</code>, <code>return</code>, or exception.</li>
+</ol>
+
+
+
+<p>The following example synchronizes the underlying Java
+HashMap, not the JavaScript <a href="wrap.html">wrapper.</a></p>
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">map&nbsp;=&nbsp;new&nbsp;java.util.HashMap();<br>
+<br>
+synchronize&nbsp;(map)&nbsp;{<br>
+&nbsp;&nbsp;map.put("foo",&nbsp;map.get("foo")&nbsp;+&nbsp;1);<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The following example synchronizes the Number Object, not the
+JavaScript primitive number.</p>
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">number&nbsp;=&nbsp;new&nbsp;Number(1);<br>
+number.a&nbsp;=&nbsp;1<br>
+<br>
+synchronize&nbsp;(number)&nbsp;{<br>
+&nbsp;&nbsp;number.a&nbsp;+=&nbsp;3;<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+<a name="import"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>import</b>
+                </font>
+              </td><td align=right>Resin 1.0</td>
+</tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">import&nbsp;<span class="meta">scriptname</span>;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+Imports functions from another file, allowing scripts to
+share common functions and allowing developers to break their code
+into manageable chunks.
+
+<p>The imported file is treated as its own JavaScript file with its
+own global object.  Its global statements execute before the global
+code of the importing file.
+</p>
+
+<p>The import statement only imports the functions from the imported
+file.  Global variables are not imported.  The imported functions use
+the global object of the imported file, not the global object their
+imported into.</p>
+
+<p>Imported scripts are looked up along a SCRIPTPATH.  The initial
+value of SCRIPTPATH is:
+<pre>
+.:$RESIN_HOME/scripts
+</pre>
+
+<p>Where $RESIN_HOME/lib/resin.jar is the resin.jar file.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">com/caucho/test.js</font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+var&nbsp;a&nbsp;=&nbsp;10;<br>
+<br>
+writeln("Import&nbsp;Execution");<br>
+<br>
+function&nbsp;getA()&nbsp;{&nbsp;return&nbsp;a;&nbsp;}<br>
+
+      </td></tr>
+    <tr><td class='example' bgcolor='#ffccdd'>
+import&nbsp;com.caucho.test;<br>
+<br>
+writeln("Hello,&nbsp;world");<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Import&nbsp;Execution<br>
+Hello,&nbsp;world<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Import functions but not variables</font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+var&nbsp;a<br>
+import&nbsp;com.caucho.test;<br>
+<br>
+writeln(getA()&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Import&nbsp;Execution<br>
+10&nbsp;undefined<br>
+
+      </td></tr>
+    </table>
+            </center>
+</p>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='functions.html'>Functions</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='wrap.html'>Java Wrapping</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:48 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

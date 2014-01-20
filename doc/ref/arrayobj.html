@@ -1,0 +1,514 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>The Array Object</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="corelib.html">Core Library</a>
+<tr><td><a href="filelib.html">File Library</a>
+<tr><td><a href="servletlib.html">Servlet Library</a>
+<tr><td><a href="dblib.html">Database Library</a>
+<tr><td><a href="xmllib.html">XML Library</a>
+<tr><td><hr>
+<tr><td><a href="globalobj.html">Global</a>
+<tr><td><a href="objobj.html">Object</a>
+<tr><td><em>Array</em>
+<tr><td><a href="booleanobj.html">Boolean</a>
+<tr><td><a href="dateobj.html">Date</a>
+<tr><td><a href="funobj.html">Function</a>
+<tr><td><a href="mathobj.html">Math</a>
+<tr><td><a href="numberobj.html">Number</a>
+<tr><td><a href="regexpobj.html">Regexp</a>
+<tr><td><a href="stringobj.html">String</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;The Array Object</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Array Constructor</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#Array">Array</a>(n)</td>
+              <td>
+Creates an array of length <span class="meta">n</span>.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#Array">Array</a>(v1, ..., vn)</td>
+              <td>Creates an array of length <span class="meta">n</span> with initial values <span class="meta">v1</span>
+through <span class="meta">vn</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#new_Array">new Array</a>(v1, ..., vn)</td>
+              <td>Same as <code>Array(v1, ..., vn])</code>
+              </td>
+            </tr>
+          </table>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Array Instance</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">length</a></td>
+              <td>The length of the array.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#join">join</a>([separator])</td>
+              <td>Returns a string concatenating the elements of the array separated
+by <span class="meta">separator</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#reverse">reverse</a>()</td>
+              <td>Returns a new array by reversing the elements of the array.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#sort">sort</a>()</td>
+              <td>Returns a new array sorting the array.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#concat">concat</a>(a1, ..., an)</td>
+              <td>Returns a new array concatenating <code>this</code> with <span class="meta">a1</span> through
+<span class="meta">an</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#pop">pop</a>()</td>
+              <td>Pops the last element off the array, returning the element.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#push">push</a>(v1, ..., vn)</td>
+              <td>Pushes new elements on the end of the array, returning the 
+new length.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#shift">shift</a>()</td>
+              <td>Shifts an element from the start of the array, returning the 
+element.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#unshift">unshift</a>(v1, ..., vn)</td>
+              <td>Adds new elements to the front of the array, returning the
+new length.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#slice">slice</a>(begin [, end])</td>
+              <td>Returns a slice of the array.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#splice">splice</a>(begin, len, v1, ..., vn)</td>
+              <td>Removes <span class="meta">len</span> elements from the array at <span class="meta">begin</span>, and
+adds the values <span class="meta">v1</span> through <span class="meta">vn</span> at <span class="meta">begin</span>.</td>
+            </tr>
+          </table>
+
+<a name="constructor"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Array Constructor</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="Array_n_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Array(n)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates an array of length <span class="meta">n</span>.
+</div>
+
+<a name="Array_v1_vn_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Array(v1, ..., vn)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates an array of length <span class="meta">n</span> with initial values <span class="meta">v1</span>
+through <span class="meta">vn</span>.  If there is only a single argument, the other
+version of the constructor is used.
+</div>
+
+<a name="new_Array_v1_vn_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">new Array(v1, ..., vn)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Same as <code>Array(v1, ..., vn])</code>
+</div>
+
+
+
+<a name="instance"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Array Instance</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="length"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">length</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+The length of the array.
+</div>
+
+<a name="join_separator_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">join([separator])</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a string concatenating the elements of the array separated
+by <span class="meta">separator</span>.  If <span class="meta">separator</span> is omitted, ',' is used as
+a default.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+[1,2,3].join(':')<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+1:2:3<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+See <a href="stringobj.html#split">split</a>
+</div>
+
+<a name="reverse_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">reverse()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a new array by reversing the elements of the array.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+[1,,3,4].reverse()<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+4,3,,1<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="sort_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">sort()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a new array sorting the array.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+[4,9,2,,1,9,,7].sort().toSource()<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+[1,&nbsp;2,&nbsp;4,&nbsp;7,&nbsp;9,&nbsp;9,&nbsp;,&nbsp;,]<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="concat_a1_an_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">concat(a1, ..., an)</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Returns a new array concatenating <code>this</code> with <span class="meta">a1</span> through
+<span class="meta">an</span>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+["a",&nbsp;"b"].concat({1:1,&nbsp;0:0,&nbsp;length:2},&nbsp;[5,&nbsp;6])<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+a,b,0,1,5,6<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="pop_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">pop()</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Pops the last element off the array, returning the element.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;[1,2,3]<br>
+<br>
+a.pop()&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+3&nbsp;1,2<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="push_v1_vn_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">push(v1, ..., vn)</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Pushes new elements on the end of the array, returning the 
+new length.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;[1,2,3]<br>
+<br>
+a.push(4,&nbsp;5)&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+5&nbsp;1,2,3,4,5<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="shift_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">shift()</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Shifts an element from the start of the array, returning the 
+element.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;[0,&nbsp;1,&nbsp;2]<br>
+<br>
+a.shift()&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a.toSource()<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+0&nbsp;[1,&nbsp;2]<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="unshift_v1_vn_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">unshift(v1, ..., vn)</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Adds new elements to the front of the array, returning the
+new length.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;[0,&nbsp;1,&nbsp;2]<br>
+<br>
+a.unshift(3,&nbsp;4)&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a.toSource()<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+5&nbsp;[3,&nbsp;4,&nbsp;0,&nbsp;1,&nbsp;2]<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="slice_begin_end_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">slice(begin [, end])</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Returns a slice of the array.  If <span class="meta">begin</span> or <span class="meta">end</span> are
+negative, they count from the end of the array. 
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+[0,&nbsp;1,&nbsp;2,&nbsp;3,&nbsp;4].slice(1,&nbsp;-1)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+1,2,3<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="splice_begin_len_v1_vn_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">splice(begin, len, v1, ..., vn)</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Removes <span class="meta">len</span> elements from the array at <span class="meta">begin</span>, and
+adds the values <span class="meta">v1</span> through <span class="meta">vn</span> at <span class="meta">begin</span>.
+<code>splice</code> returns an array containing the removed elements.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;[1,&nbsp;2,&nbsp;3,&nbsp;4]<br>
+a.splice(1,&nbsp;2,&nbsp;"a",&nbsp;"b")&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+2,3&nbsp;1,a,b,4<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='objobj.html'>Object</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='booleanobj.html'>Boolean</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 03 Apr 2000 11:20:13 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

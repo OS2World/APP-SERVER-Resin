@@ -1,0 +1,9 @@
+<navigation top='../' css='default.css' threaded>
+
+<page href='../index.html' name='Resin'/>
+<page href='../ref/faq.html' name='FAQ'/>
+<page href='../ref/index.html' name='Reference Guide'/>
+<page href='../javadoc/index.html' name='JavaDoc'/>
+<page href='index.html' name='Demo'/>
+<page href='../java_tut/index.xtp' name='Tutorial'/>
+</navigation>

@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>JSP Variables</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="jsp-directives.html">Directives</a>
+<tr><td><a href="jsp-actions.html">Actions</a>
+<tr><td><em>Variables</em>
+<tr><td><a href="jsp-applications.html">Applications</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;JSP Variables</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>JSP Variables</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#request">request</a></td>
+              <td>Contains the request object.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#response">response</a></td>
+              <td>Contains the response object.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#pageContext">pageContext</a></td>
+              <td>State for the current page.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#session">session</a></td>
+              <td>The current session.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#application">application</a></td>
+              <td>The current application.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#out">out</a></td>
+              <td>The buffered stream to the HTTP response.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#page">page</a></td>
+              <td>The current servlet.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#exception">exception</a></td>
+              <td>For error pages, the exception thrown from the broken page.</td>
+            </tr>
+          </table>
+
+<a name="jsp"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>JSP Variables</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="request"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">request</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+<table class="def">
+              <tr>
+                <td>HttpServletRequest request</td>
+              </tr>
+            </table>
+Contains the request object.
+</div>
+
+<a name="response"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">response</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+<table class="def">
+              <tr>
+                <td>HttpServletResponse response</td>
+              </tr>
+            </table>
+Contains the response object.
+</div>
+
+<a name="pageContext"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">pageContext</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+<table class="def">
+              <tr>
+                <td>PageContext pageContext</td>
+              </tr>
+            </table>
+State for the current page.
+</div>
+
+<a name="session"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">session</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+<table class="def">
+              <tr>
+                <td>HttpSession session</td>
+              </tr>
+            </table>
+The current session.  <code>session</code> is available only
+when the <a href="jsp-directives.html#session">session</a> directive
+is true.
+</div>
+
+<a name="application"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">application</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+<table class="def">
+              <tr>
+                <td>ServletContext application</td>
+              </tr>
+            </table>
+The current application.
+</div>
+
+<a name="out"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">out</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+<table class="def">
+              <tr>
+                <td>JspWriter out</td>
+              </tr>
+            </table>
+The buffered stream to the HTTP response.
+</div>
+
+<a name="page"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">page</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+<table class="def">
+              <tr>
+                <td>Servlet page</td>
+              </tr>
+            </table>
+The current servlet.
+</div>
+
+<a name="exception"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">exception</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+<table class="def">
+              <tr>
+                <td>Throwable exception</td>
+              </tr>
+            </table>
+For error pages, the exception thrown from the broken page.
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='jsp-actions.html'>Actions</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='jsp-applications.html'>Applications</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:48 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

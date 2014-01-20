@@ -1,0 +1,17 @@
+<!--
+   - Deployment descriptor for an authenticated
+   - section of the web site.
+  -->
+<web-app>
+  <!-- use form based authentication -->
+  <login-config auth-method='form'>
+    <form-login-config form-login-page='/login.jsp'
+                       form-error-page='/error.html'/>
+    <!-- use a custom authenticator -->
+    <authenticator id='test.TestAuthenticator'/>
+  </login-config>
+  
+  <!-- only protect protected.jsp and protected.xtp -->
+  <security-constraint url-pattern='/protected.jsp' role-name='user'/>
+  <security-constraint url-pattern='/protected.xtp' role-name='user'/>
+</web-app>

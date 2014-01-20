@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Virtual File System</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+<body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="corelib.html">Core Library</a>
+<tr><td><a href="filelib.html">File Library</a>
+<tr><td><a href="servletlib.html">Servlet Library</a>
+<tr><td><a href="dblib.html">Database Library</a>
+<tr><td><a href="xmllib.html">XML Library</a>
+<tr><td><hr>
+<tr><td><em>VFS</em>
+<tr><td><a href="file.html">File</a>
+<tr><td><a href="read_stream.html">ReadStream</a>
+<tr><td><a href="write_stream.html">WriteStream</a>
+<tr><td><a href="input_stream.html">InputStream</a>
+<tr><td><a href="output_stream.html">OutputStream</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Virtual File System</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+
+Resin's <a href="file.html">File</a> support allows several URL
+schemes beyond the usual filesystem.  Scripts can use the <code>File</code>
+object to send mail and to retrieve HTTP documents.  Future
+supported filesystems will include FTP and may eventually include
+WebDav, IMAP, and LDAP.
+
+<p>The virtual filesystem lets scripts use the familiar file and
+<a href="stream.html">stream</a> APIs to send and retrieve internet
+resources.  Script writers can avoid learning new APIs for each new
+resource type.
+
+<p>
+            <table border="1" width="100%" cellpadding="3" cellspacing="0">
+              <tr class="section">
+                <td colspan="2">
+                  <font size="+2">
+                    <b>Filesystems</b>
+                  </font>
+                </td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#null">file:</a></td>
+                <td>The <code>file:</code> filesystem provides access to local
+files.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#null">mailto:</a></td>
+                <td>
+                  <code>mailto:</code> lets scripts send mail using SMTP (the internet
+mail protocol).</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#null">http:</a></td>
+                <td>Retrieves HTTP resources from the web.</td>
+              </tr>
+            </table>
+
+<a name="Filesystems"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Filesystems</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+<a name="file_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">file:</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+The <code>file:</code> filesystem provides access to local
+files.  All file paths use forward slashes to separate path
+segments, independent of operating system.
+
+<p>Resin will translate the path to the local filesystem path.
+Internally, and hidden from scripts, Resin will use '\' as the
+Windows separator and ':' for the Macintosh. 
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">/foo/bar</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">\foo\bar</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">/f:/foo/bar</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">f:\foo\bar</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">file:/c:/foo/bar</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">f:\foo\bar</td></tr>
+</table>
+                </center>
+
+</p>
+            </div>
+
+<a name="mailto_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">mailto:</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+<code>mailto:</code> lets scripts send mail using SMTP (the internet
+mail protocol).  The syntax follows the mailto url syntax (<a href="http://info.internet.isi.edu/in-notes/rfc/files/rfc2368.txt">rfc2368</a>) summarized below.
+
+<p>
+                <code>mailto:</code> allows multiple recipients.  Just separate them by
+commas.  It also lets script set mail headers by setting query
+variables.  Certain mail headers are protected, e.g. <code>Sender</code>
+and <code>Date</code>.
+
+</p>
+              <p>Scripts use a normal write stream to send the message body.  Just open
+the URL using <code>openWrite</code> and use the normal <a href="stream.html">stream</a> functions.  When the stream is closed,
+Resin will send the message.
+
+<p>
+                <center>
+                  <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                      <th>Query Variable</th>
+                      <th>Meaning
+</th>
+                    </tr>
+                    <tr>
+                      <td>Subject</td>
+                      <td>The subject of the message
+</td>
+                    </tr>
+                    <tr>
+                      <td>To</td>
+                      <td>Additional message recipients
+</td>
+                    </tr>
+                    <tr>
+                      <td>Cc</td>
+                      <td>Additional message recipients
+</td>
+                    </tr>
+                    <tr>
+                      <td>Bcc</td>
+                      <td>Additional message recipients (hidden)
+</td>
+                    </tr>
+                    <tr>
+                      <td>From</td>
+                      <td>Useful for mail lists
+</td>
+                    </tr>
+                    <tr>
+                      <td>Reply-to</td>
+                      <td>Changes reply address
+</td>
+                    </tr>
+                  </table>
+                </center>
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" class="example">var&nbsp;file&nbsp;=&nbsp;File("mailto:resin@caucho.com?subject=Feedback");<br>
+<br>
+file.writeString(@&lt;&lt;END);<br>
+Thanks&nbsp;for&nbsp;creating&nbsp;an&nbsp;awesome&nbsp;product.<br>
+<br>
+John&nbsp;W.&nbsp;Doe<br>
+END<br>
+</td>
+                    </tr>
+                  </table>
+                </center>
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" class="example">var&nbsp;file&nbsp;=&nbsp;File("mailto:survey,john.doe?subject='User&nbsp;Survey'");<br>
+<br>
+var&nbsp;stream&nbsp;=&nbsp;file.openWrite();<br>
+<br>
+for&nbsp;(var&nbsp;key&nbsp;in&nbsp;request.query)&nbsp;{<br>
+&nbsp;&nbsp;stream.writeln(key,&nbsp;"&nbsp;:&nbsp;",&nbsp;request.query[key]);<br>
+}<br>
+<br>
+stream.close();<br>
+</td>
+                    </tr>
+                  </table>
+                </center>
+
+</p>
+            </div>
+
+<a name="http_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">http:</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+Retrieves HTTP resources from the web.  Getting a file is a
+single HTTP operation.  Optimizations such as keepalives and caching
+are handled transparently by Resin.
+
+<p>To <code>GET</code> a file, use <code>openRead</code>
+</p>
+              <p>To <code>POST</code>, use <code>openReadWrite</code>.  Writing provides the
+POST data.  The first read will post the data and retrieve the reply.
+Writing after reading is illegal.
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" class="example">var&nbsp;file&nbsp;=&nbsp;File("http:/www.caucho.com/index.html");<br>
+<br>
+var&nbsp;stream&nbsp;=&nbsp;file.openRead();<br>
+out.writeStream(stream);<br>
+stream.close();<br>
+</td>
+                    </tr>
+                  </table>
+                </center>
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" class="example">var&nbsp;file&nbsp;=&nbsp;File("http:/www.caucho.com/post.jsp");<br>
+<br>
+var&nbsp;stream&nbsp;=&nbsp;file.openReadWrite();<br>
+stream.write(@&lt;&lt;END);<br>
+first.name=john<br>
+last.name=doe<br>
+END<br>
+</td>
+                    </tr>
+                  </table>
+                </center>
+
+</p>
+            </div>
+
+
+</p>
+          <hr><table border=0 width='100%'><tr>
+<td>
+<a href='filelib.html'>File Library</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='file.html'>File</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:49 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

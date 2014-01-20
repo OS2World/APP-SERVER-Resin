@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>XML Element</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="corelib.html">Core Library</a>
+<tr><td><a href="filelib.html">File Library</a>
+<tr><td><a href="servletlib.html">Servlet Library</a>
+<tr><td><a href="dblib.html">Database Library</a>
+<tr><td><a href="xmllib.html">XML Library</a>
+<tr><td><hr>
+<tr><td><a href="xmlparser.html">Parser</a>
+<tr><td><a href="xmldoc.html">Document</a>
+<tr><td><a href="xmlnode.html">Node</a>
+<tr><td><em>Element</em>
+<tr><td><a href="xmltext.html">Text</a>
+<tr><td><a href="xmlcomment.html">Comment</a>
+<tr><td><a href="xmler.html">EntityRef</a>
+<tr><td><a href="xmlcdata.html">CData</a>
+<tr><td><a href="xmlpi.html">PI</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;XML Element</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <code>Element</code> inherits from <a href="xmlnode.html">Node</a>.
+
+<p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Element</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">nodeName</a></td>
+              <td>
+Returns the tag name.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">nodeValue</a></td>
+              <td>
+Returns null.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">nodeType</a></td>
+              <td>Returns the node type, ELEMENT_NODE.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getAttribute">getAttribute</a>(name)</td>
+              <td>Returns the value of the attribute.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setAttribute">setAttribute</a>(name, value)</td>
+              <td>Sets an attribute value.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#removeAttribute">removeAttribute</a>(name)</td>
+              <td>Removes an attribute.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#normalize">normalize</a>()</td>
+              <td>Merges adjacent text nodes.  This is recursive.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getElementsByTagName">getElementsByTagName</a>(name)</td>
+              <td>Returns a NodeList of all child elements with tag 
+name <code>name</code>.</td>
+            </tr>
+          </table>
+
+<a name="Element"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Element</b>
+                </font>
+              </td><td align=right>DOM 1.0</td>
+</tr>
+          </table>
+          <p>
+
+<a name="nodeName"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">nodeName</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the tag name.
+</div>
+
+<a name="nodeValue"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">nodeValue</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns null.
+</div>
+
+<a name="nodeType"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">nodeType</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the node type, ELEMENT_NODE.
+</div>
+
+<a name="getAttribute_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getAttribute(name)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the value of the attribute.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Element Attributes</font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString('&lt;elt&nbsp;a="3"&nbsp;b="4"&nbsp;c="5"/&gt;');<br>
+<br>
+elt&nbsp;=&nbsp;xml.documentElement<br>
+<br>
+for&nbsp;(var&nbsp;name&nbsp;in&nbsp;elt.attribute)<br>
+&nbsp;&nbsp;writeln(name&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;elt.attribute[name])<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+b&nbsp;4<br>
+a&nbsp;3<br>
+c&nbsp;5<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="setAttribute_name_value_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setAttribute(name, value)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets an attribute value.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Setting Element Attributes</font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString('&lt;elt&nbsp;a="3"&nbsp;b="4"&nbsp;c="5"/&gt;');<br>
+<br>
+elt&nbsp;=&nbsp;xml.documentElement<br>
+elt.attribute.c&nbsp;=&nbsp;76<br>
+<br>
+elt.print(out)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;elt&nbsp;a="3"&nbsp;b="4"&nbsp;c="76"/&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="removeAttribute_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">removeAttribute(name)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Removes an attribute.
+</div>
+
+<a name="normalize_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">normalize()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Merges adjacent text nodes.  This is recursive.
+</div>
+
+<a name="getElementsByTagName_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getElementsByTagName(name)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a NodeList of all child elements with tag 
+name <code>name</code>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString(@&lt;&lt;END);<br>
+&lt;top&gt;<br>
+&nbsp;&nbsp;&lt;foo&nbsp;a='1'/&gt;<br>
+&nbsp;&nbsp;&lt;foo&nbsp;a='2'&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;foo&nbsp;a='3'/&gt;<br>
+&nbsp;&nbsp;&lt;/foo&gt;<br>
+&lt;/top&gt;<br>
+END<br>
+<br>
+elt&nbsp;=&nbsp;xml.documentElement<br>
+for&nbsp;(var&nbsp;node&nbsp;in&nbsp;elt.getElementsByTagName('foo'))&nbsp;{<br>
+&nbsp;&nbsp;writeln(node.attribute.a);<br>
+}<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+1<br>
+2<br>
+3<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='xmlnode.html'>Node</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='xmltext.html'>Text</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 03 Apr 2000 11:20:13 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

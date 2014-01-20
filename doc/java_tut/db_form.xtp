@@ -1,0 +1,78 @@
+<title browser-title='Forms to Databases : Resin Tutorial'>
+Forms to Databases
+</title>
+
+<p>Resin provides a trivial interface to database pooling, following
+JDBC.  Database pools are named, identifying a configuration.  The
+JSP or Bean can be written independent of the database vendor or driver.
+
+<ct:example title='Storing a Survey in a Database'>
+&lt;%@ page language=java %&gt;
+&lt;%@ page import='java.sql.*' %&gt;
+&lt;%@ page import='com.caucho.sql.*' %&gt;
+
+&lt;%
+DBPool pool = DBPool.getPool("test_db");
+Connection conn = pool.getConnection();
+try {
+  Statement stmt = conn.createStatement();
+
+  String name = request.getParameter("name");
+  String color = request.getParameter("color");
+
+  stmt.executeUpdate(
+    "insert into COLORS values (" +
+    "'" + name + "', '" + color + "')"
+  );
+} finally {
+  conn.close();
+}
+
+%&gt;
+
+&lt;h1&gt;Thank you, &lt;%= name %&gt;&lt;/h1&gt;
+
+</ct:example>
+
+<p><code/com.caucho.sql.DBPool/> is the Java class for Caucho's
+database pooling.  Once you've allocated the pooled connection, you
+can just use standard JDBC methods.
+
+<p>Closing the connection automatically returns it to the database pool.
+ 
+<ct:subsection title='Configuration'>
+
+The configuration lets you create any number of named database pools.
+It also lets you separate the vendor specific drivers and urls from
+the JSP pages.
+
+<ct:example title='resin.conf'>
+&lt;caucho.com&gt;
+  &lt;dbpool.sql id='test_db'
+    driver="org.gjt.mm.mysql.Driver"
+    url="jdbc:mysql://localhost:3306/test"
+    user="john.doe"
+    password="i8z4oM5"/&gt;
+&lt;/caucho.com&gt;
+</ct:example>
+
+</ct:subsection>
+
+<ct:subsection title='Classpath'>
+You will need to add your JDBC driver to the classpath before starting
+Resin.  There are several methods:
+
+<ol>
+<li>Add the driver to the CLASSPATH environment variable.
+<li>Start Resin with a -classpath argument including the driver.
+<li>Put the jar file in resin1.1/lib.
+</ol>
+
+<p/>You can see the classpath Resin is using by starting it with the
+-verbose option:
+
+<example>
+unix> httpd.sh -verbose
+</example>
+
+</ct:subsection>

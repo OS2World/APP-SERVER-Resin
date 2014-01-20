@@ -1,0 +1,652 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>XML Node</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="corelib.html">Core Library</a>
+<tr><td><a href="filelib.html">File Library</a>
+<tr><td><a href="servletlib.html">Servlet Library</a>
+<tr><td><a href="dblib.html">Database Library</a>
+<tr><td><a href="xmllib.html">XML Library</a>
+<tr><td><hr>
+<tr><td><a href="xmlparser.html">Parser</a>
+<tr><td><a href="xmldoc.html">Document</a>
+<tr><td><em>Node</em>
+<tr><td><a href="xmlelement.html">Element</a>
+<tr><td><a href="xmltext.html">Text</a>
+<tr><td><a href="xmlcomment.html">Comment</a>
+<tr><td><a href="xmler.html">EntityRef</a>
+<tr><td><a href="xmlcdata.html">CData</a>
+<tr><td><a href="xmlpi.html">PI</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;XML Node</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Node</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">nodeName</a></td>
+              <td>
+Returns name of the node, e.g. an element's tag name.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">nodeValue</a></td>
+              <td>
+Returns the node's value, e.g. an attribute value.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">nodeType</a></td>
+              <td>Returns the node type.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">parentNode</a></td>
+              <td>
+Returns the parent node.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">firstChild</a></td>
+              <td>Returns the first child node.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">lastChild</a></td>
+              <td>Returns the last child node.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">previousSibling</a></td>
+              <td>
+Returns the previous node.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">nextSibling</a></td>
+              <td>
+Returns the next node.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">childNodes</a></td>
+              <td>Returns a <code>NodeList</code> of the children.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">ownerDocument</a></td>
+              <td>
+Returns the <code>Document</code> object of this node.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#cloneNode">cloneNode</a>(deep)</td>
+              <td>
+Returns a copy of the node.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#insertBefore">insertBefore</a>(newNode, refNode)</td>
+              <td>Inserts <span class="meta">newNode</span> as a child of this node, before
+<span class="meta">refNode</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#replaceChild">replaceChild</a>(newNode, refNode)</td>
+              <td>Replaces <span class="meta">refNode</span> with <span class="meta">newNode</span> as a child of this
+node.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#removeChild">removeChild</a>(refNode)</td>
+              <td>Removes <span class="meta">refNode</span> as a child of this
+node.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#appendChild">appendChild</a>(newNode)</td>
+              <td>Adds <span class="meta">newNode</span> as the last child of this node.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#find">find</a>(pattern)</td>
+              <td>Returns the first node matching the XPath <span class="meta">pattern</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#select">select</a>(pattern)</td>
+              <td>Returns an iteration of nodes matching the XPath <span class="meta">pattern</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#print">print</a>(stream)</td>
+              <td>Writes the XML representation of this node and its children to 
+<a href="stream.html">stream</a></td>
+            </tr>
+          </table>
+
+<a name="Node"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Node</b>
+                </font>
+              </td><td align=right>DOM 1.0</td>
+</tr>
+          </table>
+          <p>
+
+<a name="nodeName"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">nodeName</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns name of the node, e.g. an element's tag name.
+</div>
+
+<a name="nodeValue"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">nodeValue</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the node's value, e.g. an attribute value.
+</div>
+
+<a name="nodeType"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">nodeType</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the node type.
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>ELEMENT_NODE</td>
+                  <td>&lt;sample/&gt;</td>
+                </tr>
+<tr>
+                  <td>TEXT_NODE</td>
+                  <td>some text</td>
+                </tr>
+<tr>
+                  <td>COMMENT_NODE</td>
+                  <td>&lt;!-- a comment --&gt;</td>
+                </tr>
+<tr>
+                  <td>ATTRIBUTE_NODE</td>
+                  <td>
+                    <span class="meta">an element attribute</span>
+                  </td>
+                </tr>
+<tr>
+                  <td>CDATA_SECTION_NODE</td>
+                  <td>&lt;[CDATA[[&lt;random stuff]]&gt;</td>
+                </tr>
+<tr>
+                  <td>PROCESSING_INSTRUCTION_NODE</td>
+                  <td>&lt;?name data?&gt;</td>
+                </tr>
+</table>
+            </center>
+</div>
+
+<a name="parentNode"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">parentNode</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the parent node.
+</div>
+
+<a name="firstChild"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">firstChild</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the first child node.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;a&gt;&lt;b/&gt;&lt;c/&gt;&lt;d/&gt;&lt;/a&gt;");<br>
+<br>
+top&nbsp;=&nbsp;xml.documentElement<br>
+<br>
+for&nbsp;(var&nbsp;child&nbsp;=&nbsp;top.firstChild;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child&nbsp;=&nbsp;child.nextSibling)&nbsp;{<br>
+&nbsp;&nbsp;writeln(child.nodeName);<br>
+}<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+b<br>
+c<br>
+d<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="lastChild"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">lastChild</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the last child node.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;a&gt;&lt;b/&gt;&lt;c/&gt;&lt;d/&gt;&lt;/a&gt;");<br>
+<br>
+top&nbsp;=&nbsp;xml.documentElement<br>
+<br>
+for&nbsp;(var&nbsp;child&nbsp;=&nbsp;top.lastChild;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child&nbsp;=&nbsp;child.previousSibling)&nbsp;{<br>
+&nbsp;&nbsp;writeln(child.nodeName);<br>
+}<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+d<br>
+c<br>
+b<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="previousSibling"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">previousSibling</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the previous node.
+</div>
+
+<a name="nextSibling"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">nextSibling</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the next node.
+</div>
+
+<a name="childNodes"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">childNodes</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a <code>NodeList</code> of the children.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;a&gt;&lt;b/&gt;&lt;c/&gt;&lt;d/&gt;&lt;/a&gt;");<br>
+<br>
+top&nbsp;=&nbsp;xml.documentElement<br>
+<br>
+for&nbsp;(var&nbsp;child&nbsp;in&nbsp;top.childNodes)&nbsp;{<br>
+&nbsp;&nbsp;writeln(child.nodeName);<br>
+}<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+d<br>
+c<br>
+b<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="ownerDocument"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">ownerDocument</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the <code>Document</code> object of this node.
+</div>
+
+<a name="cloneNode_deep_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">cloneNode(deep)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a copy of the node.
+</div>
+
+<a name="insertBefore_newNode_refNode_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">insertBefore(newNode, refNode)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Inserts <span class="meta">newNode</span> as a child of this node, before
+<span class="meta">refNode</span>.  If <span class="meta">refNode</span> is null, appends
+<span class="meta">newNode</span> as the last child.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;top&gt;&lt;a/&gt;&lt;top&gt;")<br>
+<br>
+top&nbsp;=&nbsp;xml.documentElement<br>
+<br>
+foo&nbsp;=&nbsp;xml.createElement("foo");<br>
+<br>
+top.insertBefore(foo,&nbsp;top.firstChild);<br>
+<br>
+top.print(out)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;top&gt;&lt;foo/&gt;&lt;a/&gt;&lt;/top&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="replaceChild_newNode_refNode_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">replaceChild(newNode, refNode)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Replaces <span class="meta">refNode</span> with <span class="meta">newNode</span> as a child of this
+node.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;top&gt;&lt;a/&gt;&lt;top&gt;")<br>
+<br>
+top&nbsp;=&nbsp;xml.documentElement<br>
+<br>
+foo&nbsp;=&nbsp;xml.createElement("foo");<br>
+<br>
+top.replaceChild(foo,&nbsp;top.firstChild);<br>
+<br>
+top.print(out)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;top&gt;&lt;foo/&gt;&lt;/top&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="removeChild_refNode_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">removeChild(refNode)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Removes <span class="meta">refNode</span> as a child of this
+node.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;top&gt;&lt;a/&gt;&lt;top&gt;")<br>
+<br>
+top&nbsp;=&nbsp;xml.documentElement<br>
+<br>
+top.removeChild(top.firstChild);<br>
+<br>
+top.print(out)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;top/&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="appendChild_newNode_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">appendChild(newNode)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Adds <span class="meta">newNode</span> as the last child of this node.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;top&gt;&lt;a/&gt;&lt;top&gt;")<br>
+<br>
+top&nbsp;=&nbsp;xml.documentElement<br>
+<br>
+foo&nbsp;=&nbsp;xml.createElement("foo");<br>
+<br>
+top.appendChild(foo)<br>
+<br>
+top.print(out)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;top&gt;&lt;a/&gt;&lt;foo/&gt;&lt;/top&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="find_pattern_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">find(pattern)</h3>
+              </td><td align=right><h3>Resin 1.0</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Returns the first node matching the XPath <span class="meta">pattern</span>.
+<code>find</code> returns <code>null</code> if no nodes match.
+
+<p>
+              <code>find</code> matches nodes based on the powerful <a href="xpath.html">XML Path Language</a>.  XPath forms the basis of XSL,
+the XML style language.
+
+</p>
+            <p>The following example finds the first descendent link with an
+<code>href</code> attribute of www.caucho.com.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">link&nbsp;=&nbsp;node.find(".//a[@href='www.caucho.com']")<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+</p>
+          </div>
+
+<a name="select_pattern_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">select(pattern)</h3>
+              </td><td align=right><h3>Resin 1.0</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Returns an iteration of nodes matching the XPath <span class="meta">pattern</span>.
+
+<p>The following example selects all the descendant images,
+essentially the same as <a href="xmlelement.html#getElementsByTagName">
+getElementsByTagName</a>.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">for&nbsp;(var&nbsp;image&nbsp;in&nbsp;node.select(".//image"))<br>
+&nbsp;&nbsp;writeln("image:&nbsp;"&nbsp;+&nbsp;image.attribute.href)<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+</p>
+          </div>
+
+<a name="print_stream_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">print(stream)</h3>
+              </td><td align=right><h3>Resin 1.0</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Writes the XML representation of this node and its children to 
+<a href="stream.html">stream</a> <br>
+            <b>Note: </b>This is an experimental API.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString(@&lt;&lt;END);<br>
+&lt;top&gt;<br>
+&nbsp;&nbsp;&lt;foo&nbsp;a='1'/&gt;<br>
+&nbsp;&nbsp;&lt;foo&nbsp;a='2'&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;foo&nbsp;a='3'/&gt;<br>
+&nbsp;&nbsp;&lt;/foo&gt;<br>
+&lt;/top&gt;<br>
+END<br>
+<br>
+xml.print(out)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;top&gt;<br>
+&nbsp;&nbsp;&lt;foo&nbsp;a="1"/&gt;<br>
+&nbsp;&nbsp;&lt;foo&nbsp;a="2"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;foo&nbsp;a="3"/&gt;<br>
+&nbsp;&nbsp;&lt;/foo&gt;<br>
+&lt;/top&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='xmldoc.html'>Document</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='xmlelement.html'>Element</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 03 Apr 2000 11:20:13 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,1110 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>HTTP/Srun Configuration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="resin-config.html">Resin Config</a>
+<tr><td><em>HTTP Config</em>
+<tr><td><a href="app-config.html">App Config</a>
+<tr><td><a href="servlet-config.html">Servlet Config</a>
+<tr><td><a href="auth-config.html">Login Config</a>
+<tr><td><a href="taglib.html">Taglib Config</a>
+<tr><td><a href="config-sum.html">Summary</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;HTTP/Srun Configuration</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>HTTP and Srun configuration is identical except for load balancing
+(<span class="meta">srun-host</span> and <span class="meta">srun-backup</span>.)
+
+<p>HTTP configuration follows the Servlet 2.2 deployment descriptors.
+The nesting depth is important, but order is generally not important.
+In the sections that follow, the section
+header tells where the attribute belongs.  For example, the
+<span class="meta">servlet-mapping</span> configuration in
+<span class="meta">caucho.com/http-server/host/web-app</span> looks like:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&nbsp;&nbsp;&lt;http-server><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;host&nbsp;id=''><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;web-app&nbsp;id='/'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='/test'&nbsp;.../><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/web-app><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/host><br>
+&nbsp;&nbsp;&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Because most sites only have a single <span class="meta">host</span> and a single
+<span class="meta">web-app</span>, that example can be shortened.  The
+<span class="meta">resin1.1/conf/samples/deploy.conf</span> sample is a good starting point.
+The following is more typical for most sites:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&nbsp;&nbsp;&lt;http-server><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='/test'&nbsp;.../><br>
+&nbsp;&nbsp;&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Most of the interesting configuration belongs in
+<a href="app-config.html">web-app</a>.  For example, <span class="meta">servlet-mapping</span>
+belongs in a <span class="meta">web-app</span> element, but
+<span class="meta">thread-max</span> belongs in the top-level <span class="meta">http-server</span> element.
+
+<p>The server contains a number of <span class="meta">host</span> elements and each
+<span class="meta">host</span> contains <span class="meta">web-app</span> elements.  Each <span class="meta">host</span>
+configures a virtual host and each <span class="meta">web-app</span> configures an
+application.
+
+<p>Simple configurations can omit the <span class="meta">host</span> and <span class="meta">web-app</span> tags.
+If you omit the <span class="meta">host</span> and <span class="meta">web-app</span>, the configuration belongs
+to the default host and default application.  A simple configuration can
+ignore <span class="meta">host</span> and <span class="meta">web-app</span> and just put all the
+<span class="meta">web-app</span> configuration in the <span class="meta">http-server</span> element.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Full Configuration</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server><br>
+&nbsp;&nbsp;&lt;host&nbsp;id='gryffindor.caucho.com'&nbsp;app-dir='gryffindor'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;web-app&nbsp;id='/'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;.../><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/web-app><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;web-app&nbsp;id='/test'&nbsp;app-dir='/usr/local/test'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/web-app><br>
+&nbsp;&nbsp;&lt;/host><br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&lt;host&nbsp;id='slytherin.caucho.com'&nbsp;app-dir='slytherin'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;&lt;/host><br>
+<br>
+&nbsp;&nbsp;...<br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Simple Configuration</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server&nbsp;app-dir='/usr/local/web'><br>
+&nbsp;&nbsp;&lt;servlet-mapping&nbsp;.../><br>
+&nbsp;&nbsp;...<br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+<p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>caucho.com/http-server</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#http_server">http-server</a></td>
+              <td>Configuration for both HTTP and srun.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#httpd_host">httpd-host</a></td>
+              <td>Sets the interface the HTTP server should listen to.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#httpd_port">httpd-port</a></td>
+              <td>Sets the TCP/IP port the HTTP server should listen to.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#srun_host">srun-host</a></td>
+              <td>Sets the Servlet Runner TCP/IP interface.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#srun_port">srun-port</a></td>
+              <td>Sets the Servlet Runner TCP/IP port.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#srun">srun</a></td>
+              <td>Defines multiple client machines for load balancing.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#srun_backup">srun-backup</a></td>
+              <td>Defines backup client machines for load balancing.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#user_name">user-name</a></td>
+              <td>Sets Unix user.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#group_name">group-name</a></td>
+              <td>Sets Unix group.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#error_page">error-page</a></td>
+              <td>The url to display if the web server can't connect to Resin.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#thread_min">thread-min</a></td>
+              <td>Minimum number of request-handling threads.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#thread_max">thread-max</a></td>
+              <td>Maximum number of request-handling threads.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#thread_keepalive">thread-keepalive</a></td>
+              <td>Number of threads to be used in keepalive requests.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#request_timeout">request-timeout</a></td>
+              <td>Time in seconds for the server to reclaim an idle thread.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#timeout_interval">timeout-interval</a></td>
+              <td>Time in seconds for the server check timeouts, including session
+timeouts.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#cache">cache</a></td>
+              <td>Activates the memory cache with a specified size.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#host">host</a></td>
+              <td>Defines a virtual host.</td>
+            </tr>
+          </table>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>caucho.com/http-server/host</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#error_log">error-log</a></td>
+              <td>Specifies the file for error logging.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#access_log">access-log</a></td>
+              <td>Specifies the access log file.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#web_app">web-app</a></td>
+              <td>Specifies an application.</td>
+            </tr>
+          </table>
+
+<a name="http"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>caucho.com/http-server</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+<a name="http_server"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">http-server</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+
+Configuration for both HTTP and srun.  The configuration for both
+is identical, so running httpd and srun will serve exactly the same pages.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>httpd-host</td>
+                  <td>The interface the HTTP server should listen to
+</td>
+                </tr>
+                <tr>
+                  <td>httpd-port</td>
+                  <td>The interface the HTTP server should listen to
+</td>
+                </tr>
+                <tr>
+                  <td>srun-host</td>
+                  <td>The interface the srun server should listen to
+</td>
+                </tr>
+                <tr>
+                  <td>srun-port</td>
+                  <td>The port the srun server should listen to
+</td>
+                </tr>
+                <tr>
+                  <td>srun</td>
+                  <td>Configuration for load balancing (used by Apache/IIS plugin)
+</td>
+                </tr>
+                <tr>
+                  <td>srun-backup</td>
+                  <td>Configuration for backup servers (used by Apache/IIS plugin)
+</td>
+                </tr>
+                <tr>
+                  <td>error-page</td>
+                  <td>Error page for the Apache/IIS plugin to display when it
+can't connect to srun.
+</td>
+                </tr>
+                <tr>
+                  <td>caucho-status</td>
+                  <td>Enable the /caucho-status special URL.
+
+</td>
+                </tr>
+                <tr>
+                  <td>user-name</td>
+                  <td>For unix, the user to run as once root binds to 80.
+</td>
+                </tr>
+                <tr>
+                  <td>group-name</td>
+                  <td>For unix, the group to run as once root binds to 80.
+</td>
+                </tr>
+                <tr>
+                  <td>thread-min</td>
+                  <td>Minimum number of live threads
+</td>
+                </tr>
+                <tr>
+                  <td>thread-max</td>
+                  <td>Maximum number of live threads
+</td>
+                </tr>
+                <tr>
+                  <td>thread-keepalive</td>
+                  <td>Number of keepalive threads
+</td>
+                </tr>
+                <tr>
+                  <td>request-timeout</td>
+                  <td>Max time for a request, after this the request
+will be interrupted.
+</td>
+                </tr>
+                <tr>
+                  <td>cache</td>
+                  <td>Create a server cache to improve performance
+</td>
+                </tr>
+                <tr>
+                  <td>host</td>
+                  <td>Virtual host configuration
+</td>
+                </tr>
+                <tr>
+                  <td>web-app</td>
+                  <td>Servlet configuration
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="httpd_host"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">httpd-host</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the interface the HTTP server should listen to.
+Useful primarily for multihomed hosts.
+
+<p>The following example will only accept connections from the
+localhost interface.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&nbsp;&nbsp;&lt;http-server&nbsp;httpd-host=localhost&nbsp;httpd-port=8000/&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="httpd_port"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">httpd-port</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the TCP/IP port the HTTP server should listen to.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&nbsp;&nbsp;&lt;http-server&nbsp;httpd-port=8000/&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="srun_host"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">srun-host</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the Servlet Runner TCP/IP interface.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&nbsp;&nbsp;&lt;http-server&nbsp;srun-host=localhost&nbsp;srun-port=8001/&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="srun_port"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">srun-port</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the Servlet Runner TCP/IP port.
+
+<p>The Caucho Servlet Engine listens to <span class="meta">srun-port</span>, waiting for
+requests from the web server.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&nbsp;&nbsp;&lt;http-server&nbsp;srun-port=8001/&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="srun"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">srun</h3>
+              </td><td align=right><h3>Resin 1.1</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Defines multiple client machines for load balancing.  This
+directive is only picked up by the web server (Apache or IIS).  The
+Java portion of Resin ignores it. 
+
+<p>Each <span class="meta">srun</span> directive adds a new client to receive load
+balanced requests.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>host</td>
+                  <td>The host name of the client srun
+</td>
+                </tr>
+                <tr>
+                  <td>port</td>
+                  <td>The port name of the client srun
+</td>
+                </tr>
+              </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Load balance over three machines</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&nbsp;&nbsp;&lt;http-server&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;srun&nbsp;host='host1.caucho.com'&nbsp;port='6802'&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;srun&nbsp;host='host2.caucho.com'&nbsp;port='6802'&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;srun&nbsp;host='host2.caucho.com'&nbsp;port='6803'&gt;<br>
+&nbsp;&nbsp;&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="srun_backup"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">srun-backup</h3>
+              </td><td align=right><h3>Resin 1.1</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Defines backup client machines for load balancing.  This
+directive is only picked up by the web server (Apache).  The
+Java portion of Resin ignores it. 
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>host</td>
+                  <td>The host name of the client srun
+</td>
+                </tr>
+                <tr>
+                  <td>port</td>
+                  <td>The port name of the client srun
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="user_name"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">user-name</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets Unix user.  To listen to port 80, Unix systems require Resin
+to start as root.  user-name lets the server change to a safer user after
+listening to port 80.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&nbsp;&nbsp;&lt;http-server&nbsp;httpd-port=80&nbsp;user-name='httpd'&nbsp;group-name='daemon'/&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="group_name"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">group-name</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets Unix group.  To listen to port 80, Unix systems require Resin
+to start as root.  group-name lets the server change to a safer user after
+listening to port 80.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&nbsp;&nbsp;&lt;http-server&nbsp;httpd-port=80&nbsp;user-name='httpd'&nbsp;group-name='daemon'/&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="error_page"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">error-page</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+The url to display if the web server can't connect to Resin.
+This is a special case of <a href="app-config.html#error-page">error-page</a>
+in the web-app configuration.
+
+<p>The Apache and IIS plugins use this special error-page directive to
+display a custom error page when the web server can't connect to Resin.
+The location must be an absolute path understandable to the web server.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&nbsp;&nbsp;&lt;http-server&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;error-page&nbsp;exception-type='connection'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;location='/connection_error.html'/&lt;><br>
+&nbsp;&nbsp;&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="thread_min"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">thread-min</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Minimum number of request-handling threads.
+</div>
+
+<a name="thread_max"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">thread-max</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Maximum number of request-handling threads.
+</div>
+
+<a name="thread_keepalive"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">thread-keepalive</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Number of threads to be used in keepalive requests.  When
+Resin is used in combination with a web server, like Apache or IIS,
+Resin will reuse the socket connection to that web server if
+possible.  <span class="meta">thread-keepalive</span> specifies the number of theads that
+can be used in these keepalive connections.
+</div>
+
+<a name="request_timeout"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">request-timeout</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Time in seconds for the server to reclaim an idle thread.
+By default, Resin does not kill threads.  Setting
+<span class="meta">request-timeout</span> will interrupt a thread frozen for longer than
+the given number of seconds.  
+
+<p>Some care should be taken when using <span class="meta">request-timeout</span>
+because some libraries, like some database drivers, do not properly
+handle interrupts.
+</div>
+
+<a name="timeout_interval"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">timeout-interval</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Time in seconds for the server check timeouts, including session
+timeouts.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&lt;http-server&nbsp;thread-min=5<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;thread-max=10<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request-timeout=120<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timeout-interval=15&gt;<br>
+<br>
+&nbsp;&nbsp;...<br>
+<br>
+&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="cache"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">cache</h3>
+              </td><td align=right><h3>Resin 1.1</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Activates the memory cache with a specified size.  Resin's
+cache acts as a proxy cache.  Pages with <span class="meta">expires</span> headers will
+be cached, avoiding expensive Java or Database processing.
+
+<p>To activate caching, you must add a cache directive.  By default,
+caching is disabled.
+
+<p>The cache combines memory and file caching.  The most referenced
+pages are served out of memory and the rest are served from the
+filesystem.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>dir</td>
+                  <td>File directory to store the cached pages
+</td>
+                </tr>
+                <tr>
+                  <td>entries</td>
+                  <td>Number of entries allowed in the memory cache
+</td>
+                </tr>
+                <tr>
+                  <td>size</td>
+                  <td>Size in kilobytes of the memory
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>For example, a page created by several sophisticated and slow
+database queries may only change every 15 minutes.  If that page sets
+its expires header, Resin can serve the generated page as fast as a
+static page.
+
+</div>
+
+<a name="host"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">host</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Defines a virtual host.  If no hosts are specified, or if a
+request doesn't match a host, configuration in http-server will be
+used instead.
+
+<p>See <a href="app-config.html">application configuration</a> for
+servlet configuration.
+
+<p>Hosts can use <span class="meta">regexp</span> instead of <span class="meta">id</span> to dynamically create
+new hosts.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>id</td>
+                  <td>The host name
+</td>
+                </tr>
+                <tr>
+                  <td>regexp</td>
+                  <td>A regular expression matching hosts.
+</td>
+                </tr>
+                <tr>
+                  <td>app-dir</td>
+                  <td>The root directory of the hose (can use replacement vars)
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&lt;http-server&gt;<br>
+<br>
+&lt;host&nbsp;id='www.foobar.com'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app-dir='foobar/docs'&gt;<br>
+&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='/servlets/*'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='invoker'/&gt;&nbsp;<br>
+&lt;/host&gt;<br>
+<br>
+&lt;host&nbsp;regexp='([^.]*).users.com'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app-dir='/home/$1/public_html'&gt;<br>
+&nbsp;&nbsp;...<br>
+&lt;/host&gt;<br>
+<br>
+<br>
+&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+
+
+<a name="host"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>caucho.com/http-server/host</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="error_log"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">error-log</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Specifies the file for error logging.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&lt;http-server&nbsp;error-log='log/error.log'&gt;<br>
+<br>
+&lt;host&nbsp;id='foo.com'&nbsp;error-log='log/foo.log'&gt;<br>
+&nbsp;...<br>
+&lt;/host&gt;<br>
+<br>
+&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="access_log"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">access-log</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Specifies the access log file.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>id</td>
+                  <td>The access log path
+</td>
+                </tr>
+                <tr>
+                  <td>format</td>
+                  <td>Access log format
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The access log formatting variables follow the Apache variables:
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>%b</td>
+                  <td>result content length
+</td>
+                </tr>
+                <tr>
+                  <td>%h</td>
+                  <td>remote IP addr
+</td>
+                </tr>
+                <tr>
+                  <td>%{<span class="meta">xxx</span>}i</td>
+                  <td>request header <span class="meta">xxx</span>
+</td>
+                </tr>
+                <tr>
+                  <td>%{<span class="meta">xxx</span>}o</td>
+                  <td>response header <span class="meta">xxx</span>
+</td>
+                </tr>
+                <tr>
+                  <td>%r</td>
+                  <td>request URI
+</td>
+                </tr>
+                <tr>
+                  <td>%s</td>
+                  <td>status code
+</td>
+                </tr>
+                <tr>
+                  <td>%t</td>
+                  <td>request time
+</td>
+                </tr>
+                <tr>
+                  <td>%u</td>
+                  <td>remote user
+</td>
+                </tr>
+              </table>
+            </center>
+
+The default format is:
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="def">"%h&nbsp;%l&nbsp;%u&nbsp;%t&nbsp;\"%r\"&nbsp;%>s&nbsp;%b&nbsp;\"%{Referer}i\"&nbsp;\"%{User-Agent}i\""<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&lt;http-server&nbsp;access-log='log/access.log'&gt;<br>
+<br>
+&nbsp;...<br>
+<br>
+&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="web_app"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">web-app</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Specifies an application.  Applications are self-contained
+subtrees of the web site.  They have distinct Application objects,
+sessions, and servlet mappings.  Applications can even be deployed
+entirely from .jar files.
+
+<p>The full <a href="app-config.html">application configuration</a> is
+described in a separate page.
+
+<p>Applications have a root <span class="meta">app-dir</span> similar to the document root.
+By default, it's just the same as the relative path.
+
+<p>Beneath the <span class="meta">app-dir</span> root, a special directory <span class="meta">WEB-INF</span>
+contains servlet classes and beans.  <span class="meta">WEB-INF/classes</span> contains Java
+source files and Java classes. <span class="meta">WEB-INF/lib</span> contains additional
+jar files for the application.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>id</td>
+                  <td>The url prefix of the application
+</td>
+                </tr>
+                <tr>
+                  <td>url-regexp</td>
+                  <td>A regular expression matching a url prefix.
+</td>
+                </tr>
+                <tr>
+                  <td>app-dir</td>
+                  <td>The application's root directory
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&lt;http-server&gt;<br>
+<br>
+&lt;web-app&nbsp;id='example/tictactoe'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app-dir='c:\work\ttt'&gt;<br>
+&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='*.foo'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='com.caucho.jsp.XtpServlet'/&gt;<br>
+&lt;/web-app&gt;<br>
+<br>
+&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The <span class="meta">url-regexp</span> configuration allows for dynamic applications,
+for example, creating a new application for each user.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&lt;http-server&gt;<br>
+<br>
+&lt;web-app&nbsp;url-regexp='^/~([^/]+)'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app-dir='/home/$1/public_html'&gt;<br>
+&nbsp;&nbsp;...<br>
+&lt;/web-app&gt;<br>
+<br>
+&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='resin-config.html'>Resin Config</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='app-config.html'>App Config</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 06 Apr 2000 15:14:52 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

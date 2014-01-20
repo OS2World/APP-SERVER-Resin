@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Caucho Servlet Engine on Netscape Unix</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="httpd.html">Resin Web Server</a>
+<tr><td><a href="cse-apache-unix.html">Unix Apache</a>
+<tr><td><a href="cse-apache-win.html">Windows Apache</a>
+<tr><td><em>Unix Netscape</em>
+<tr><td><a href="cse-iis.html">IIS</a>
+<tr><td><a href="srun-other.html">Other Servlets</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Caucho Servlet Engine on Netscape Unix</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Compiling_caucho_nsapi_so">Compiling caucho_nsapi.so</a></li>
+                    <li><a href="#Configuring_Netscape_by_hand">Configuring Netscape by hand</a><ol>
+                        <li><a href="#Load_Balancing">Load Balancing</a></li>
+                      </ol>
+                    </li>
+                    <li><a href="#Configuring_resin_conf">Configuring resin.conf</a></li>
+                    <li><a href="#Testing_the_servlet_engine">Testing the servlet engine</a></li>
+                    <li><a href="#Servlet_Engine_Production">Servlet Engine Production</a></li>
+                    <li><a href="#Windows">Windows</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+Resin provides a fast servlet runner for Netscape, allowing Netscape
+to run servlets, JSP and XTP files.
+
+<p>To configure Resin with Netscape, you must follow the following steps:
+<ol>
+<li>Compile caucho_nsapi.so
+</li>
+            <li>Configure Netscape
+</li>
+            <li>Configure resin.conf
+</li>
+            <li>Restart Netscape and start srun
+</li>
+          </ol>
+
+<a name="Compiling_caucho_nsapi_so"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Compiling caucho_nsapi.so</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+To compile and install <span class="meta">caucho_nsapi</span> on Unix, you'll need to run
+<code>configure</code> and then make.
+
+<p>The argument to --with-netscape is the directory containing the netscape
+start and stop scripts, i.e. the parent of the config directory.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">unix>&nbsp;./configure&nbsp;--with-netscape=/usr/local/netscape/https-your-hostname<br>
+unix>&nbsp;make<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>If you need finer control over the Netscape configuration, you can use
+the following arguments to ./configure.  Resin needs
+<span class="meta">netscape-include</span> and <span class="meta">netscape-conf</span>.
+
+<p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                <td>--with-netscape=dir</td>
+                <td>The Netscape root directory.
+</td>
+              </tr>
+              <tr>
+                <td>--with-netscape-include=dir</td>
+                <td>The Netscape include directory.
+</td>
+              </tr>
+              <tr>
+                <td>--with-netscape-conf=conf</td>
+                <td>The Netscape obj.conf file
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Configuring_Netscape_by_hand"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Configuring Netscape by hand</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>Making caucho_nsapi will automatically change your obj.conf file.
+For reference, here are the changes:
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">obj.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">Init&nbsp;fn="load-modules"&nbsp;shlib="&lt;build-dir>/caucho_nsapi.so"&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;funcs="caucho_service,caucho_filter,caucho_status"<br>
+<br>
+&lt;Object&nbsp;name=default><br>
+NameTrans&nbsp;fn="caucho_filter"&nbsp;conf="&lt;resin-home>/resin.conf"&nbsp;name="resin"<br>
+NameTrans&nbsp;fn="assign-name"&nbsp;from="/caucho-status"&nbsp;name="caucho-status"<br>
+...<br>
+&lt;/Object><br>
+<br>
+&lt;Object&nbsp;name="resin"><br>
+Service&nbsp;fn="caucho_service"<br>
+&lt;/Object><br>
+&lt;Object&nbsp;name="caucho-status"><br>
+Service&nbsp;fn="caucho_status"<br>
+&lt;/Object><br>
+<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<br>
+          <b>Note: </b>The caucho-status is optional and probably should be avoided in
+a production site.  It lets you ask plugin module about the
+Caucho status, valuable for debugging.
+
+<p>Restart Netscape.  Now browse http://localhost/caucho-status.  It
+should return a table indicating that the servlet runner is stopped.
+
+<p>Browse http://localhost/test.jsp.  It should return a message like:
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffccdd" class="result">Cannot&nbsp;connect&nbsp;to&nbsp;Servlet&nbsp;Runner.<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<a name="balance"></a>
+<a name="Load_Balancing"></a><h3>Load Balancing</h3>
+
+In Resin 1.1, you can distribute requests to multiple machines.  All
+requests in a session will go to the same host.  In addition, if one
+host goes down, Resin will send the request to the next available machine.
+
+<p>In addition, you can specify backup machines.  The backup only will serve
+requests if all primaries are down.
+
+<p>See the <a href="http-config.html">http config</a> section for more
+details.
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">resin.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server><br>
+&nbsp;&nbsp;&lt;srun&nbsp;host='host1'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun&nbsp;host='host2'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun-backup&nbsp;host='backup&nbsp;port='6802'/><br>
+&nbsp;&nbsp;...<br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Configuring_resin_conf"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Configuring resin.conf</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+By default, Resin will look in resin1.1/doc for JSP files and
+resin1.1/doc/WEB-INF/classes for servlets and beans.  To tell Resin
+to use Netscapex's document area, you configure the <span class="meta">app-dir</span>.
+Change <span class="meta">app-dir</span> from 'doc' to something like '/usr/local/netscape/doc'.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">resin.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&nbsp;&nbsp;&lt;http-server<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app-dir='/usr/local/netscape/docs'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='/servlets/*'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='invoker'/><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='*.xtp'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='com.caucho.jsp.XtpServlet'/><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='*.jsp'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='com.caucho.jsp.JspServlet'/><br>
+&nbsp;&nbsp;&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Testing_the_servlet_engine"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Testing the servlet engine</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Now you need to start the servlet engine.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">>&nbsp;resin1.1/bin/srun.sh<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Now browse http://localhost/test.jsp.  You should get a 'file not
+found' message.
+
+<p>Create a test file '/usr/local/netscape/htdocs/test.jsp'
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;language=javascript&nbsp;%><br>
+2&nbsp;+&nbsp;2&nbsp;=&nbsp;&lt;%=&nbsp;2&nbsp;+&nbsp;2&nbsp;%><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Browse http://localhost/test.jsp again.  You should now get
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffccdd" class="result">2&nbsp;+&nbsp;2&nbsp;=&nbsp;4<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Servlet_Engine_Production"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Servlet Engine Production</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+A better way to run the servlet engine in a production environment is
+to use the start and stop scripts.  These scripts add extra
+reliability to the server.  If Resin should ever exit, it will
+automatically be restarted.
+
+<p>To start the servlet runner, use
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;resin1.1/bin/srun.sh&nbsp;start<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>To stop it, use
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;resin1.1/bin/srun.sh&nbsp;stop<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Windows"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Windows</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+On Windows, the setup program should configure the obj.conf.  Except that
+you don't need to compile the plugin on windows, the configuration is
+identical.
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='cse-apache-win.html'>Windows Apache</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='cse-iis.html'>IIS</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Sat, 08 Apr 2000 14:55:31 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

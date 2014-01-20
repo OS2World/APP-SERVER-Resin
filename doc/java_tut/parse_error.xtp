@@ -1,0 +1,53 @@
+<title browser-title='Parse Errors : Resin Tutorial'>
+Parse Errors
+</title>
+
+Errors happen.  There's a reason the patron saint of programmers is
+St. Murphy.  Here we'll just explain Resin's error reporting to
+simplify tracking down errors.
+
+<p>There are three types of bugs you'll find in JSP code: parse errors,
+runtime exceptions, and functional errors.
+
+<p>Parse errors are easy,
+like grammatical errors.
+In the example, we've forgotten to add
+the second `2'.
+
+<ct:example title='buggy.jsp'>
+&lt;%@ page language=java %&gt;
+
+2 + 2 = &lt;%= 2 + %&gt;
+</ct:example>
+
+<p>Resin reports the file of the error, the line, and
+briefly describes what's wrong.    It'll report the error directly to
+the browser, saving the pain of hunting for an error log.
+
+<p>
+<ct:box width='80%' border=3>
+<h1>500 Servlet Exception</h1>
+<code><pre>
+/test/buggy.jsp:3: Missing term.
+out.print(( 2 + ));
+              ^
+1 error
+</pre></code>
+</ct:box>
+
+<ct:subsection title='Explanation'>
+
+<p>Behind the scenes, Resin converts the JSP file into a JavaScript
+program.  Each of the special tags gets its own JavaScript code.  The
+translation of buggy.jsp is actually something like:
+
+<ct:example title='buggy.java'>
+out.print("2 + 2 =");
+out.print((2 + ));
+out.println();
+</ct:example>
+<p>
+So the `<code/2 +/>' is still on line 3, but the character after
+`<code/+/>' is `<code/)/>'.
+
+</ct:subsection>

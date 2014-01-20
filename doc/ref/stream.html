@@ -1,0 +1,405 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>The Stream Object</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr>
+          </table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;The Stream Object</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+
+Resin Stream instances are roughly comparable to a combination of the
+Java <code>RandomAccessFile</code>, <code>Reader</code> and <code>Writer</code>
+classes, or to put it another way, to the C language's <code>FILE</code> object.
+
+<p>Stream instances are always buffered.
+
+<p>
+            <table border="1" width="100%" cellpadding="3" cellspacing="0">
+              <tr class="section">
+                <td colspan="2">
+                  <font size="+2">
+                    <b>Stream instance properties</b>
+                  </font>
+                </td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#readByte">readByte</a>()</td>
+                <td>
+Reads a single byte from the stream and returns it as a number.  
+It returns -1 on end of file.
+</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#read">read</a>([n])</td>
+                <td>Reads n characters from the stream and returns them as a string.  If n is
+omitted, reads a single character.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#readln">readln</a>()</td>
+                <td>Reads a line from the stream and returns a string.  Lines are
+delimited by a linefeed ('\n').</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#available">available</a>()</td>
+                <td>This function returns the bytes available to be
+read.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#null">position</a></td>
+                <td>The position in the file counted as bytes from the beginning of the
+file.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#null">inputStream</a></td>
+                <td>
+Returns a JDK <a href="input_stream.html">InputStream</a> tied to this stream.
+</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#writeByte">writeByte</a>(b)</td>
+                <td>Writes the byte to the stream.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#write">write</a>(string)</td>
+                <td>Writes the string to the stream.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#writeln">writeln</a>(string)</td>
+                <td>Writes the string to the stream, appending a newline.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#printf">printf</a>(fmt, ...)</td>
+                <td>Writes formatted output to the stream.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#writeStream">writeStream</a>(stream)</td>
+                <td>Writes the entire contents of <span class="meta">stream</span> to the stream.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#writeFile">writeFile</a>(file)</td>
+                <td>Writes the entire contents of the File object <span class="meta">file</span> to the stream.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#null">outputStream</a></td>
+                <td>
+Returns a JDK <a href="output_stream.html">OutputStream</a> tied to the stream.
+</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#flush">flush</a>()</td>
+                <td>
+Flushes output to the stream.
+</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#close">close</a>()</td>
+                <td>
+Closes the stream.
+</td>
+              </tr>
+            </table>
+
+<a name="Stream_instance_properties"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Stream instance properties</b>
+                  </font>
+                </td><td align=right>Resin 1.0</td>
+</tr>
+            </table>
+            <p>
+
+<a name="readByte_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">readByte()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Reads a single byte from the stream and returns it as a number.  
+It returns -1 on end of file.
+</div>
+
+<a name="read_n_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">read([n])</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Reads n characters from the stream and returns them as a string.  If n is
+omitted, reads a single character.
+It returns null on end of file.
+</div>
+
+<a name="readln_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">readln()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Reads a line from the stream and returns a string.  Lines are
+delimited by a linefeed ('\n').  The trailing cr-lf is stripped from
+the string.
+
+<p>Returns null on end of file.</p>
+
+</div>
+
+<a name="available_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">available()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+This function returns the bytes available to be
+read.  The only guarantee is that if there are bytes to be read
+available will be non-zero.
+</div>
+
+<a name="position"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">position</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+The position in the file counted as bytes from the beginning of the
+file.  Reading it will return the current position and writing to it
+will set the position. 
+
+<p>For some streams, like standard input, standard output and tcp/ip
+streams this returns a read-only value of 0.</p>
+</div>
+
+<a name="inputStream"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">inputStream</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Returns a JDK <a href="input_stream.html">InputStream</a> tied to this stream.
+</div>
+
+<a name="writeByte_b_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">writeByte(b)</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Writes the byte to the stream.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+out.writeByte(65)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+A<br>
+
+      </td></tr>
+    </table>
+              </center>
+
+</div>
+
+<a name="write_string_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">write(string)</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Writes the string to the stream.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+out.write("2&nbsp;+&nbsp;2&nbsp;=&nbsp;",&nbsp;2&nbsp;+&nbsp;2)<br>
+out.writeln(";&nbsp;4&nbsp;+&nbsp;4&nbsp;=&nbsp;",&nbsp;4&nbsp;+&nbsp;4)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+2&nbsp;+&nbsp;2&nbsp;=&nbsp;4;&nbsp;4&nbsp;+&nbsp;4&nbsp;=&nbsp;8<br>
+
+      </td></tr>
+    </table>
+              </center>
+</div>
+
+<a name="writeln_string_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">writeln(string)</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Writes the string to the stream, appending a newline.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+out.writeln("2&nbsp;+&nbsp;2&nbsp;=&nbsp;",&nbsp;2&nbsp;+&nbsp;2)<br>
+out.writeln("4&nbsp;+&nbsp;4&nbsp;=&nbsp;",&nbsp;4&nbsp;+&nbsp;4)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+2&nbsp;+&nbsp;2&nbsp;=&nbsp;4<br>
+4&nbsp;+&nbsp;4&nbsp;=&nbsp;8<br>
+
+      </td></tr>
+    </table>
+              </center>
+</div>
+
+<a name="printf_fmt_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">printf(fmt, ...)</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Writes formatted output to the stream.  Resin's <a href="stringobj.html#printf">printf</a> function follows C's.
+</div>
+
+<a name="writeStream_stream_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">writeStream(stream)</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Writes the entire contents of <span class="meta">stream</span> to the stream.
+</div>
+
+<a name="writeFile_file_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">writeFile(file)</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Writes the entire contents of the File object <span class="meta">file</span> to the stream.
+
+<p>
+                <code>writeFile</code> opens the file object <span class="meta">file</span> as in <code>openRead</code>.
+It copies the entire contents of <span class="meta">file</span> to the stream as
+<code>writeStream</code>.  Finally, it closes the stream.
+
+</p>
+              <p>The following example writes the home page of caucho.com to out.
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" class="example">out.writeFile(File("http://www.caucho.com"))<br>
+</td>
+                    </tr>
+                  </table>
+                </center>
+
+</p>
+            </div>
+
+<a name="outputStream"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">outputStream</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Returns a JDK <a href="output_stream.html">OutputStream</a> tied to the stream.
+</div>
+
+<a name="flush_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">flush()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Flushes output to the stream.
+</div>
+
+<a name="close_"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">close()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Closes the stream.
+</div>
+
+</p>
+          <hr><table border=0 width='100%'><tr>
+<td>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 03 Apr 2000 11:20:13 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

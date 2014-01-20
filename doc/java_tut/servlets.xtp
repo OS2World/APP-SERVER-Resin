@@ -1,0 +1,91 @@
+<title browser-title='Servlets : Resin Tutorial'>Adding a servlet</title>
+
+<p/>Servlets are the pure Java solution to handle web requests.
+Experienced JSP programmers use servlets in conjunction with JSP to
+create clearer and simpler applications.  The servlets handle Java
+processing: form handing, calculation and database queries.  JSP
+formats the results.
+
+<p/>Servlets belong in <ct:var>doc/WEB-INF/classes</ct:var>.  On this machine,
+you'll put the Java source in <ct:var><jsp:expression>
+application.getRealPath("/WEB-INF/classes")
+</jsp:expression></ct:var>.
+
+<p>Create the following servlet in
+<ct:var>WEB-INF/classes/test/Hello.java</ct:var> with your favorite
+text editor: notepad, emacs, vi, or whatever.  (On this machine,
+<ct:var><jsp:expression>
+  application.getRealPath("/WEB-INF/classes/test/Hello.java")
+</jsp:expression></ct:var>)
+
+<ct:example title='test/Hello.java'>
+package test;
+
+import java.io.*;
+
+import javax.servlet.http.*;
+import javax.servlet.*;
+
+public class Hello extends HttpServlet {
+  public void doGet (
+	HttpServletRequest	req,
+	HttpServletResponse	res
+    ) throws ServletException, IOException
+  {
+    PrintWriter pw = res.getWriter();
+
+    pw.println("Hello, world!");
+    pw.println("&lt;br>Init: " + getInitParameter("my.info"));
+    pw.close();
+  }
+}
+</ct:example>
+
+<p/>Now browse the servlet at <jsp:expression>
+"http://" + request.getServerName() + ":" + request.getServerPort() +
+request.getContextPath() + "/servlet/test.Hello"
+</jsp:expression>.  Resin will automatically compiles the servlet for you.
+Browsing servlets differs from page browsing because
+you're executing a servlet class, not looking at a page.
+The <ct:var>/servlet</ct:var> URL tells Resin to look for a servlet. 
+
+<p/>Resin automatically reloads and recompiles servlets, beans, and classes
+placed in WEB-INF/classes.  You should make some changes and add errors
+to become familiar with Resin's error reporting.
+
+<ct:subsection title='Configuration'>
+
+For development, using the <ct:var>/servlet</ct:var> invoker is
+convenient.  Its configuration in the resin.conf looks like
+
+<ct:example>
+&lt;caucho.com>
+&lt;http-server>
+  &lt;servlet-mapping url-pattern='/servlet/*'
+                   servlet-name='invoker'/>
+&lt;/http-server>
+&lt;/caucho.com>
+</ct:example>
+
+<p/>When deploying a web site, it's a good idea to disable the servlet
+invoker for security reasons.  You can configure Resin to invoke your
+servlet directly.  The following example will call the Hello servlet
+using just the <ct:var>/hello</ct:var> url.
+
+<p/>For many servlet you'll also want to configure init parameters.  In
+the hello example, you can set the <var/my.info/> parameter as follows:
+
+<ct:example>
+&lt;caucho.com>
+&lt;http-server>
+  &lt;servlet-mapping url-pattern='/hello'
+                   servlet-name='Hello'/>
+  &lt;servlet servlet-name='Hello'
+           servlet-class='test.Hello'>
+    &lt;init-param my.info='My Init Param'/>
+  &lt;/servlet>
+&lt;/http-server>
+&lt;/caucho.com>
+</ct:example>
+
+</ct:subsection>

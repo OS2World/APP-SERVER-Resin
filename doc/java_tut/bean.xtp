@@ -1,0 +1,100 @@
+<title browser-title='Using beans : Resin Tutorial'>Adding a Bean</title>
+
+<p/>This example will use a Java bean to create a simple hit counter.
+There's nothing complicated about Java beans.  Java beans are just
+Java classes that follow some simple naming conventions.  Resin makes
+creating beans simple.  Resin will automatically compile Java source
+in the <ct:var>WEB-INF/classes</ct:var> directory.
+
+<p/>With the configuration you're using now, <ct:var>WEB-INF/classes</ct:var>
+is in:
+
+<ct:def><jsp:expression>
+application.getRealPath("/WEB-INF/classes")
+</jsp:expression></ct:def>
+
+<p/>JSP encourages beans with the jsp:useBean tag.  JSP will
+automatically create a new bean and store it in the application
+object.
+
+<p/>The example creates a Counter bean and stores it in the
+application object.  Each request calls <ct:var>getHit()</ct:var> to get
+the next value of the counter.
+
+<ct:example title='counter.jsp'>
+&lt;%@ page language='java' %&gt;
+&lt;jsp:useBean id='counter'
+             scope='application'
+             class='test.Counter'/>
+Visitor &lt;jsp:getProperty name='counter'
+                         property='hit'/>
+</ct:example>
+
+<p/>The source of the bean looks like:
+
+<ct:example title='test/Counter.java'>
+package test;
+
+public class Counter {
+  private int hits;
+
+  public synchronized int getHit()
+  {
+    return ++hits;
+  }
+}
+</ct:example>
+
+<p/>Now, create the bean in the bean directory and load counter.jsp:
+<ct:def><jsp:expression>
+application.getRealPath("/WEB-INF/classes/test/Counter.java")
+</jsp:expression></ct:def>
+
+<p/>You should then make some changes to Counter.java and reload to see the
+auto-recompilation.  Also, introduce some errors to get familiar with
+the error reporting.
+
+<p/>You can also compile the bean separately and then put Counter.class in
+<ct:def><jsp:expression>
+application.getRealPath("/WEB-INF/classes/test/Counter.class")
+</jsp:expression></ct:def>
+
+<ct:subsection title='JSP translation'>
+
+The special <ct:var/jsp:useBean/> tag translates into standard JSP.
+Here's the translation:
+
+<ct:example>
+&lt;%@ page language='java' %&gt;
+&lt;%
+test.Counter counter;
+synchronized (application) {
+  counter = application.getAttribute("counter");
+  if (counter == null) {
+    counter = new test.Counter();
+    application.setAttribute("counter", counter);
+  }
+}
+%>
+
+Visitor &lt;%= counter.getHit() %>
+</ct:example>
+
+</ct:subsection>
+
+<ct:subsection title='Autocompile Configuration'>
+
+In a real development environment, your Java source directory may
+be different from the web server directory.  The resin.conf lets you
+select any directory as the Java source and Java classes.
+
+<ct:example>
+&lt;caucho.com>
+&lt;http-server>
+  &lt;classpath id='WEB-INF/classes'
+             source='/home/ferg/ws/src'/>
+&lt;/http-server>
+&lt;/caucho.com>
+</ct:example>
+
+</ct:subsection>

@@ -1,0 +1,20 @@
+<?xml-stylesheet href='js-control-strict.xsl'?>
+<title>JSP Tag Library: iteration</title>
+
+<p><a href='../view_source.jsp?xsl/control.xtp'>This example</a> shows
+how to create a simple JSP tag library.
+
+The source for the library is
+<a href='../view_source.jsp?xsl/WEB-INF/xsl/js-control-strict.xsl'>here</a>.
+
+<h3>Request Headers</h3>
+<ct:iter expr='request.header'>
+  <ct:get expr='i'/> : <ct:get expr='request.header[i]'/><br>
+</ct:iter>
+
+<h3>Or some distance calculations</h3>
+<ct:dist x1='0' y1='0' x2='5' y2='12'/><br>
+
+<ct:dist x1='10' y1='15' x2='13' y2='11'/><br>
+
+<ct:dist x1='0' y1='0' x2='10' y2='10'/><br>

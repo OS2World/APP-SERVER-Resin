@@ -1,0 +1,588 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Resin Configuration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><em>Resin Config</em>
+<tr><td><a href="http-config.html">HTTP Config</a>
+<tr><td><a href="app-config.html">App Config</a>
+<tr><td><a href="servlet-config.html">Servlet Config</a>
+<tr><td><a href="auth-config.html">Login Config</a>
+<tr><td><a href="taglib.html">Taglib Config</a>
+<tr><td><a href="config-sum.html">Summary</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Resin Configuration</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>General (non-HTTP) configuration.  resin.conf is actually a general
+configuration file, like NT's registry.  So some Resin modules like
+logging and DBPool also have their configuration in resin.conf,
+but outside the <span class="meta">http-server</span> block.
+
+<p>Configuration is based on element XML.  You can also think of it as
+key-value lists, like the NT registry or a Lisp assoc-list.  To make
+the configuration more readable, you can use attributes as syntactic sugar.
+
+<p>The following are equivalent:
+<p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                <td>&lt;foo>&lt;bar>13&lt;/bar>&lt;/foo></td>
+                <td>canonical representation, but verbose
+</td>
+              </tr>
+              <tr>
+                <td>&lt;foo bar=13/></td>
+                <td>typical configuration
+</td>
+              </tr>
+              <tr>
+                <td>&lt;foo>&lt;bar id=13/>&lt;/foo></td>
+                <td>Useful for a key-based list.
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>In general, the order is not important, but the nesting depth is.
+In this reference guide, <span class="meta">caucho.com/http-server/srun-port</span> refers to
+a configuration like:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&nbsp;&nbsp;&lt;http-server><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;srun-port>6802&lt;/srun-port><br>
+&nbsp;&nbsp;&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>That example could be rewritten as:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&nbsp;&nbsp;&lt;http-server&nbsp;srun-port='6802'><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>caucho.com</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#log">log</a></td>
+              <td>Starts logging for debugging.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#include">resin:include</a></td>
+              <td>Includes another configuration file.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#java">java</a></td>
+              <td>Configuration for the Java compiler</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#jsp">jsp</a></td>
+              <td>JSP configuration</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">dbpool.sql</a></td>
+              <td>Database pooling configuration.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">smtp.vfs</a></td>
+              <td>Mail configuration.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">http-server</a></td>
+              <td>httpd and srun configuration.</td>
+            </tr>
+          </table>
+
+<a name="caucho_com"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>caucho.com</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="log"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">log</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Starts logging for debugging.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>id</td>
+                  <td>Name of debugging section
+</td>
+                </tr>
+                <tr>
+                  <td>href</td>
+                  <td>Destination file
+</td>
+                </tr>
+                <tr>
+                  <td>timestamp</td>
+                  <td>timestamp format
+</td>
+                </tr>
+              </table>
+            </center>
+
+For example, to log everything to standard error use:
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&nbsp;&nbsp;&lt;log&nbsp;id='/'&nbsp;href='stderr:'&nbsp;timestamp="[%H:%M:%S.%s]"/><br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>/</td>
+                  <td>Debug everything
+</td>
+                </tr>
+                <tr>
+                  <td>/caucho.com/jsp</td>
+                  <td>Debug jsp
+</td>
+                </tr>
+                <tr>
+                  <td>/caucho.com/jsp/java</td>
+                  <td>See the JSP generated Java
+</td>
+                </tr>
+                <tr>
+                  <td>/caucho.com/jsp/js</td>
+                  <td>See the JSP generated Java
+</td>
+                </tr>
+                <tr>
+                  <td>/caucho.com/xsl</td>
+                  <td>XSL debugging
+</td>
+                </tr>
+                <tr>
+                  <td>/caucho.com/tcp-server
+    </td>
+                  <td>See thread creation and deletion
+</td>
+                </tr>
+                <tr>
+                  <td>/caucho.com/http
+    </td>
+                  <td>HTTP related information
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The timestamp can include the following patterns:
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>%a</td>
+                  <td>short weekday (mon, tue, ...)
+</td>
+                </tr>
+                <tr>
+                  <td>%A</td>
+                  <td>long weekday (Monday, Tuesday, ...)
+</td>
+                </tr>
+                <tr>
+                  <td>%b</td>
+                  <td>short month (Jan, Feb, ...)
+</td>
+                </tr>
+                <tr>
+                  <td>%B</td>
+                  <td>long month (January, February, ...)
+</td>
+                </tr>
+                <tr>
+                  <td>%c</td>
+                  <td>locale specific date
+</td>
+                </tr>
+                <tr>
+                  <td>%d</td>
+                  <td>day of month
+</td>
+                </tr>
+                <tr>
+                  <td>%H</td>
+                  <td>24-hour
+</td>
+                </tr>
+                <tr>
+                  <td>%I</td>
+                  <td>12-hour
+</td>
+                </tr>
+                <tr>
+                  <td>%j</td>
+                  <td>day of year
+</td>
+                </tr>
+                <tr>
+                  <td>%m</td>
+                  <td>day of month
+</td>
+                </tr>
+                <tr>
+                  <td>%M</td>
+                  <td>minute
+</td>
+                </tr>
+                <tr>
+                  <td>%p</td>
+                  <td>am/pm
+</td>
+                </tr>
+                <tr>
+                  <td>%S</td>
+                  <td>seconds
+</td>
+                </tr>
+                <tr>
+                  <td>%s</td>
+                  <td>milliseconds
+</td>
+                </tr>
+                <tr>
+                  <td>%W</td>
+                  <td>week of year
+</td>
+                </tr>
+                <tr>
+                  <td>%w</td>
+                  <td>day of week
+</td>
+                </tr>
+                <tr>
+                  <td>%y</td>
+                  <td>2-digit year
+</td>
+                </tr>
+                <tr>
+                  <td>%Y</td>
+                  <td>4-digit year
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="include"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">resin:include</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Includes another configuration file.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server><br>
+&nbsp;&nbsp;&lt;host&nbsp;id='host1'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;resin:include&nbsp;href='host.conf'/><br>
+&nbsp;&nbsp;&lt;/host><br>
+&nbsp;&nbsp;&lt;host&nbsp;id='host2'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;resin:include&nbsp;href='host.conf'/><br>
+&nbsp;&nbsp;&lt;/host><br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="java"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">java</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Configuration for the Java compiler
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>compiler</td>
+                  <td>Path to the java compiler or "internal"
+</td>
+                </tr>
+                <tr>
+                  <td>work-dir</td>
+                  <td>Compiler work directory
+</td>
+                </tr>
+                <tr>
+                  <td>args</td>
+                  <td>Extra args to pass to the compiler
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&nbsp;&nbsp;&lt;java&nbsp;compiler='/usr/local/bin/jikes'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;work-dir='/tmp/caucho'/><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args='-g'/><br>
+&nbsp;&nbsp;...<br>
+&lt;/caucho.com><br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="jsp"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">jsp</h3>
+              </td><td align=right><h3>Resin 1.1</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+JSP configuration
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>precompile</td>
+                  <td>use precompiled JSP classes if available
+</td>
+                </tr>
+                <tr>
+                  <td>session</td>
+                  <td>enable/disable sessions by default 
+</td>
+                </tr>
+                <tr>
+                  <td>static-encoding</td>
+                  <td>allow JSP to precompile character encoding
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="dbpool_sql"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">dbpool.sql</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Database pooling configuration.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>id</td>
+                  <td>Key for the database configuration
+</td>
+                </tr>
+                <tr>
+                  <td>driver</td>
+                  <td>JDBC driver class
+</td>
+                </tr>
+                <tr>
+                  <td>url</td>
+                  <td>JDBC url for the database
+</td>
+                </tr>
+                <tr>
+                  <td>user</td>
+                  <td>Database user
+</td>
+                </tr>
+                <tr>
+                  <td>password</td>
+                  <td>Database password
+</td>
+                </tr>
+                <tr>
+                  <td>max-connections</td>
+                  <td>Maximum number of allowed connections
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>You can use the 'id' to configure several databases, then just
+refer to the key when using DBPool.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&nbsp;&nbsp;conn&nbsp;=&nbsp;DBPool.getPool("db1").getConnection();<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="smtp_vfs"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">smtp.vfs</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Mail configuration.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>host</td>
+                  <td>SMTP host (localhost)
+</td>
+                </tr>
+                <tr>
+                  <td>port</td>
+                  <td>SMTP port (25)
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="http_server"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">http-server</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+httpd and srun configuration.
+
+<p>Configures both <a href="http-config.html">http and srun</a>.  The
+configuration is identical.
+
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='config.html'>Configuration</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='http-config.html'>HTTP Config</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 08 Jun 2000 16:56:08 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Servlet Configuration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="resin-config.html">Resin Config</a>
+<tr><td><a href="http-config.html">HTTP Config</a>
+<tr><td><a href="app-config.html">App Config</a>
+<tr><td><em>Servlet Config</em>
+<tr><td><a href="auth-config.html">Login Config</a>
+<tr><td><a href="taglib.html">Taglib Config</a>
+<tr><td><a href="config-sum.html">Summary</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Servlet Configuration</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+
+Servlet configuration follows the Servlet 2.2 deployment descriptors.
+Servlets generally belong in the <span class="meta">WEB-INF/classes</span> directory of
+the web application.
+
+<p>The mapping from url to servlet is controlled by <a href="app-config.html">servlet mapping</a> in the application configuration.
+
+<p>For a complete, working example, see <a href="servlet.html">Servlet</a>
+or experiment with the Hello, World demo.
+
+<p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>web-app</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#servlet">servlet</a></td>
+              <td>Defines a servlet alias for later mapping.</td>
+            </tr>
+          </table>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>web-app/servlet</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#servlet_name">servlet-name</a></td>
+              <td>Alias of the servlet</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#servlet_class">servlet-class</a></td>
+              <td>Class of the servlet</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#init_param">init-param</a></td>
+              <td>Initializes servlet variables.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#load_on_startup">load-on-startup</a></td>
+              <td>If present, starts the servlet when the server starts.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#run_at">run-at</a></td>
+              <td>If present, executes the servlet's <span class="meta">service()</span> method
+at the specified times.</td>
+            </tr>
+          </table>
+
+<a name="web_app"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>web-app</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="servlet"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">servlet</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Defines a servlet alias for later mapping.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>servlet-name</td>
+                  <td>The servlet's name (alias)
+</td>
+                </tr>
+                <tr>
+                  <td>servlet-class</td>
+                  <td>The servlet's class (defaults to servlet-name)
+</td>
+                </tr>
+                <tr>
+                  <td>init-param</td>
+                  <td>Initialization parameters
+</td>
+                </tr>
+                <tr>
+                  <td>load-on-startup</td>
+                  <td>Initializes the servlet when the server starts.
+</td>
+                </tr>
+                <tr>
+                  <td>run-at</td>
+                  <td>Times to execute the servlet automatically
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The following example defines a servlet alias 'hello'
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'&gt;<br>
+<br>
+&lt;servlet-mapping&nbsp;url-pattern='/hello.html'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='hello'/&gt;<br>
+<br>
+&lt;servlet&nbsp;servlet-name='hello'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-class='test.HelloWorld'&gt;<br>
+&nbsp;&nbsp;&lt;init-param&nbsp;title='Hello,&nbsp;World'/&gt;<br>
+&lt;/servlet&gt;<br>
+<br>
+&lt;servlet&nbsp;servlet-name='cron'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-class='test.DailyChores'&gt;<br>
+&nbsp;&nbsp;&lt;run-at&gt;3:00&lt;/run-at&gt;<br>
+&lt;/servlet&gt;<br>
+<br>
+&lt;/web-app&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+
+
+<a name="servlet"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>web-app/servlet</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="servlet_name"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">servlet-name</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Alias of the servlet
+</div>
+
+<a name="servlet_class"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">servlet-class</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Class of the servlet  The CLASSPATH for servlets includes
+the WEB-INF/classes directory and all jars in the WEB-INF/lib directory.
+</div>
+
+<a name="init_param"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">init-param</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Initializes servlet variables.  <code>servlet-param</code>
+defines initial values for <code>getServletConfig().getInitParameter("foo")</code>.
+
+The full servlet 2.2 syntax is supported and allows a simple shortcut
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'&gt;<br>
+<br>
+&lt;servlet&nbsp;servlet-name='test.HelloWorld'&gt;<br>
+&nbsp;&nbsp;&lt;init-param&nbsp;foo='bar'/&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;init-param&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;param-name&gt;baz&lt;/param-name&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;param-value&gt;value&lt;/param-value&gt;<br>
+&nbsp;&nbsp;&lt;/init-param&gt;<br>
+&lt;/servlet&gt;<br>
+<br>
+&lt;/web-app><br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="load_on_startup"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">load-on-startup</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+If present, starts the servlet when the server starts.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'><br>
+<br>
+&lt;servlet&nbsp;servlet-name='test.HelloWorld'&gt;<br>
+&nbsp;&nbsp;&lt;load-on-startup/&gt;<br>
+&lt;/servlet&gt;<br>
+<br>
+&lt;/web-app&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="run_at"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">run-at</h3>
+              </td><td align=right><h3>Resin 1.1</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+If present, executes the servlet's <span class="meta">service()</span> method
+at the specified times.
+&lt;run-at> lets servlet writers execute periodic tasks without worrying
+about creating a new Thread.
+
+<p>The value is a list of 24-hour times when the
+servlet should be automatically executed.  To run the servlet every 6
+hours, you could use
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;servlet&nbsp;servlet-name='test.HelloWorld'&gt;<br>
+&nbsp;&nbsp;&lt;run-at&gt;0:00,&nbsp;6:00,&nbsp;12:00,&nbsp;18:00&lt;/run-at&gt;<br>
+&lt;/servlet&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>If the hour is omitted, the servlet runs every hour at the
+specified minute.  To run the server every 15 minutes, you could use:
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;servlet&nbsp;servlet-name='test.HelloWorld'&gt;<br>
+&nbsp;&nbsp;&lt;run-at&gt;:00,&nbsp;:15,&nbsp;:30,&nbsp;:45&lt;/run-at&gt;<br>
+&lt;/servlet&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='app-config.html'>App Config</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='auth-config.html'>Login Config</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 01 May 2000 08:49:33 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Caucho Servlet Engine on IIS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="httpd.html">Resin Web Server</a>
+<tr><td><a href="cse-apache-unix.html">Unix Apache</a>
+<tr><td><a href="cse-apache-win.html">Windows Apache</a>
+<tr><td><a href="cse-netscape.html">Unix Netscape</a>
+<tr><td><em>IIS</em>
+<tr><td><a href="srun-other.html">Other Servlets</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Caucho Servlet Engine on IIS</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Configuring_IIS_PWS">Configuring IIS/PWS</a><ol>
+                        <li><a href="#ISAPI_Filter">ISAPI Filter</a></li>
+                        <li><a href="#Configuring_resin_conf">Configuring resin.conf</a></li>
+                        <li><a href="#Testing_the_servlet_engine">Testing the servlet engine</a></li>
+                        <li><a href="#Troubleshooting">Troubleshooting</a></li>
+                      </ol>
+                    </li>
+                    <li><a href="#Command_line_arguments">Command line arguments</a></li>
+                    <li><a href="#Deploying_on_NT">Deploying on NT</a></li>
+                    <li><a href="#Load_Balancing">Load Balancing</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+Resin provides a fast servlet runner for IIS 4.0 and PWS, allowing IIS
+to run servlets and JSP files.
+
+<center>
+<img src="../images/iis_srun.gif">
+</center>
+
+<p>To configure Resin with IIS, you must follow the following steps:
+<ol>
+<li>Configure IIS/PWS
+</li>
+            <li>Configure resin.conf
+</li>
+            <li>Start srun
+</li>
+          </ol>
+
+<a name="Configuring_IIS_PWS"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Configuring IIS/PWS</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="ISAPI_Filter"></a><h3>ISAPI Filter</h3>
+
+<p>You should use resin1.1/bin/setup.exe to setup your configuration.
+If you use setup.exe, you can just skip to the next section.
+
+<p>However, if you need to know the steps involved:
+
+<ol>
+<li>Make sure httpd.exe works
+</li>
+            <li>If you have a virtual site, you must have the virtual directory
+<span class="meta">/scripts</span> point to <span class="meta">d:\inetpub\scripts</span>
+</li>
+            <li>Copy iis_srun.dll to the IIS scripts directory, <span class="meta">d:\inetpub\scripts</span>.
+You may need to run <span class="meta">net stop w3svc</span>.
+</li>
+            <li>Create a resin.ini in <span class="meta">d:\inetpub\scripts</span> pointing to the resin.conf.
+</li>
+            <li>Configure IIS to load iis_srun.dll as an ISAPI filter.
+</li>
+            <li>Restart IIS (control panel/services) or <span class="meta">net stop w3svc</span> followed
+by <span class="meta">net start w3svc</span>.
+</li>
+            <li>Browse /servlet/Hello and /foo.jsp.
+You should see a "cannot connect" error.
+</li>
+            <li>Start srun.exe
+</li>
+            <li>Browse /servlet/Hello and /foo.jsp.  You should now see the servlet.
+</li>
+          </ol>
+
+<p>Copying iis_srun.dll to <span class="meta">inetpub/scripts</span> directory is relatively
+straightforward.  If you're upgrading to a new version of Resin, you
+may need to stop IIS (control panel/services) to get permission to
+overwrite iis_srun.dll.
+
+<p>The resin.ini is an optional file in <span class="meta">inetpub/scripts</span> to override the automatic registry
+$RESIN_HOME/conf/resin.conf configuration file.
+The resin.ini should contain the following line:
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">CauchoConfigFile&nbsp;d:/resin1.1/resin.conf<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Adding an ISAPI filter is accomplished in the IIS manager.
+
+
+<a name="Configuring_resin_conf"></a><h3>Configuring resin.conf</h3>
+
+<p>resin.conf should mirror the configuration of IIS.  In other words, you 
+need to configure the document root and any directory aliases.
+
+<p>For many users, you only need to change the <span class="meta">app-dir</span>
+attribute from 'doc' to something like 'd:\inetpub\wwwroot'.  For more
+complicated configurations, you'll need to add
+<a href="app-config.html">path-mapping</a> attributes.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">resin.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&nbsp;&nbsp;&lt;http-server<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app-dir='d:\inetpub\wwwroot'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='/servlet/*'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='invoker'/><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='*.xtp'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='com.caucho.jsp.XtpServlet'/><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='*.jsp'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='com.caucho.jsp.JspServlet'/><br>
+&nbsp;&nbsp;&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Testing_the_servlet_engine"></a><h3>Testing the servlet engine</h3>
+
+<p>From the Resin bin folder, you need to start srun.exe to start the
+servlet runner.
+
+<p>Now browse http://localhost/test.jsp.  You should get a 'file not
+found' message.
+
+<p>Create a test file 'd:\inetpub\wwwroot\test.jsp'
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;language=javascript&nbsp;%><br>
+2&nbsp;+&nbsp;2&nbsp;=&nbsp;&lt;%=&nbsp;2&nbsp;+&nbsp;2&nbsp;%><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Browse http://localhost/test.jsp again.  You should now get
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffccdd" class="result">2&nbsp;+&nbsp;2&nbsp;=&nbsp;4<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>As a final test, change language to 'java' and refresh the page.
+Nothing should change.
+
+
+
+<a name="Troubleshooting"></a><h3>Troubleshooting</h3>
+
+<ol>
+<li>First, check your configuration with the standalone httpd.sh.
+Both httpd.sh and srun.sh use the same configuration file, so the
+results should be identical.
+</li>
+            <li>Check <span class="meta">http://localhost/caucho-status</span>.  That will tell if
+the ISAPI filter/extension is properly installed. 
+</li>
+            <li>Each srun host should be green and the mappings should
+match your resin.conf.
+</li>
+            <li>If caucho-status fails entirely, the problem is in the <span class="meta">iis_srun</span>
+installation.  Try
+<span class="meta">http://localhost/scripts/iis_srun.dll/caucho-status</span> directly
+(bypassing the filter).  If this fails, IIS can't find iis_srun.dll.
+<ul>
+<li>Check that iis_srun.dll is in <span class="meta">c:\inetpub\scripts.</span>
+</li>
+                <li>Make sure that your IIS host has a mapping from <span class="meta">/scripts</span>
+to <span class="meta">c:\inetpub\scripts</span> and that the <span class="meta">/scripts</span> has execute
+permissions.
+</li>
+              </ul>
+</li>
+            <li>If you've created a new
+IIS web site, you need to create a virtual directory <span class="meta">/scripts</span> pointing
+to the <span class="meta">d:\inetpub\scripts</span> directory.
+</li>
+            <li>If caucho-status shows the wrong mappings, there's something wrong
+with the resin.conf.
+</li>
+            <li>If caucho-status shows a red servlet runner, then srun.exe hasn't
+properly started.
+</li>
+            <li>If you get a "cannot connect to servlet engine", caucho-status
+will show red, and srun.exe hasn't started properly.
+</li>
+            <li>If srun.exe doesn't start properly, you should look at the logs
+in resin1.1/log.  You should start <span class="meta">srun.exe -verbose</span> to get
+more information.
+</li>
+            <li>If you get Resin's file not found, the IIS configuration
+is good but the resin.conf probably points to the wrong directories.
+</li>
+          </ol>
+
+
+
+
+<a name="Command_line_arguments"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Command line arguments</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The following configuration line arguments are recognized by srun.exe and
+httpd.exe.  When installed as a service, these argument will be used when
+the service starts.
+
+<p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                <td>-verbose</td>
+                <td>Write more verbose information to the log file
+</td>
+              </tr>
+              <tr>
+                <td>-resin_home &lt;path></td>
+                <td>Sets the location of Resin
+</td>
+              </tr>
+              <tr>
+                <td>-java_home &lt;path></td>
+                <td>Specify the JDK location
+</td>
+              </tr>
+              <tr>
+                <td>-msjava</td>
+                <td>Use Microsoft's JVM
+</td>
+              </tr>
+              <tr>
+                <td>-nojit</td>
+                <td>Disable JIT compilation to help debugging
+</td>
+              </tr>
+              <tr>
+                <td>-classpath &lt;cp></td>
+                <td>Add to the classpath
+</td>
+              </tr>
+              <tr>
+                <td>-J&lt;arg></td>
+                <td>Set a Java command line argument, e.g. -J-nojit.
+</td>
+              </tr>
+              <tr>
+                <td>-D&lt;foo=bar></td>
+                <td>Set a Java variable, e.g. -Dresin.home=here.
+</td>
+              </tr>
+              <tr>
+                <td>-install</td>
+                <td>Install as an NT service
+</td>
+              </tr>
+              <tr>
+                <td>-install-as &lt;name></td>
+                <td>Install as an NT service with the specific name.
+</td>
+              </tr>
+              <tr>
+                <td>-remove</td>
+                <td>Remove as an NT service
+</td>
+              </tr>
+              <tr>
+                <td>-remove-as &lt;name></td>
+                <td>Remove as an NT service with the specific name.
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Deploying_on_NT"></a><h3>Deploying on NT</h3>
+
+Once you're comfortable with using Resin with IIS, you can install it
+as an NT service.  As a service, Resin will automatically start when
+NT reboots.  The service will automatically restart Resin if it
+unexpectedly exits.
+
+<p>To install the service, use
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">dos>&nbsp;resin1.1/bin/srun&nbsp;-install<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>To remove the service, use
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">dos>&nbsp;resin1.1/bin/srun&nbsp;-remove<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>You will either need to reboot the machine or start the service
+from the Control&nbsp;Panel/Services panel to start the server.  On a
+machine reboot, NT will automatically start the servlet runner.
+
+
+
+<a name="balance"></a>
+<a name="Load_Balancing"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Load Balancing</b>
+                </font>
+              </td><td align=right>Resin 1.1</td>
+</tr>
+          </table>
+          <p>
+
+In Resin 1.1, you can distribute requests to multiple machines.  All
+requests in a session will go to the same host.  In addition, if one
+host goes down, the IIS filter will send the request to the next
+available machine.
+
+<p>In addition, you can specify backup machines.  The backup only will serve
+requests if all primaries are down.
+
+<p>See the <a href="http-config.html">http config</a> section for more
+details.
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">resin.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server><br>
+&nbsp;&nbsp;&lt;srun&nbsp;host='host1'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun&nbsp;host='host2'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun-backup&nbsp;host='backup'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;...<br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='cse-netscape.html'>Unix Netscape</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='srun-other.html'>Other Servlets</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 01 May 2000 08:59:13 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Reliability and Load Balancing</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="servlet.html">Servlet</a>
+<tr><td><a href="virtual-host.html">Virtual Hosts</a>
+<tr><td><a href="caching.html">Caching</a>
+<tr><td><em>Balancing</em>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Reliability and Load Balancing</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Single_Machine">Single Machine</a></li>
+                    <li><a href="#Single_Web_Server_Load_Balancing">Single Web Server Load Balancing</a></li>
+                    <li><a href="#What_about_sessions_">What about sessions?</a></li>
+                    <li><a href="#Multiple_Web_Servers">Multiple Web Servers</a></li>
+                    <li><a href="#Multiple_Web_Servers_Single_JVM">Multiple Web Servers, Single JVM</a></li>
+                    <li><a href="#When_everything_fails">When everything fails</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<p>Sites can increase reliability using the web server to distribute the
+load to more than one JVM.  If something happens to the first JVM, Resin
+will send the request to the backup without the browser even being
+aware of the redirection.
+
+<a name="Single_Machine"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Single Machine</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The cheapest backup strategy just uses a single machine for the web
+server and two JVMs.  One JVM is designated as primary and the other
+is a backup.  If the first fails for some reason, the second will take
+over.  Because the backup is normally not used, it doesn't really take
+up much system resources.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server><br>
+<br>
+&nbsp;&nbsp;&lt;srun&nbsp;host='localhost'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun-backup&nbsp;host='localhost'&nbsp;port='6803'/><br>
+<br>
+&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;<br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>You will, of course, start the two srun processes separately.
+Here's how on unix:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;srun.sh&nbsp;-pid&nbsp;srun1.pid&nbsp;start&nbsp;-srun&nbsp;1<br>
+unix>&nbsp;srun.sh&nbsp;-pid&nbsp;srun2.pid&nbsp;start&nbsp;-srun&nbsp;2<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+          <span class="meta">-pid srun1.pid</span> selects names a pid file so <span class="meta">srun.sh -pid srun1.pid stop</span> can tell which srun to stop.  <span class="meta">-srun</span> select which srun to
+start.  Alternately, you can specify the port directly like:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;srun.sh&nbsp;-pid&nbsp;srun1.pid&nbsp;start&nbsp;-srun-port&nbsp;6802<br>
+unix>&nbsp;srun.sh&nbsp;-pid&nbsp;srun2.pid&nbsp;start&nbsp;-srun-port&nbsp;6803<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>To make sure that your web server understands the configuration,
+look at <span class="meta">http://host/caucho-status</span>.  <span class="meta">caucho-status</span> will
+show the current state of all the JVMs.
+
+
+
+<a name="Single_Web_Server_Load_Balancing"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Single Web Server Load Balancing</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>Once you start using multiple servers, you can start distributing
+the load between a single web server and multiple JVMs.
+This is a cheap alternative to a router-based load balancer.  Also, by
+using Resin's load balancing, you can make sure that sessions stay on
+the same machine.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server><br>
+<br>
+&nbsp;&nbsp;&lt;srun&nbsp;host='host1'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun&nbsp;host='host2'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun&nbsp;host='host3'&nbsp;port='6802'/><br>
+<br>
+&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;<br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Each host will have an identical configuration.
+
+
+
+<a name="What_about_sessions_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>What about sessions?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>A session needs to stay on the same JVM that started it.
+Otherwise, each JVM would only see every second or third request and
+get confused.
+
+<p>To make sure that sessions stay on the same JVM, Resin encodes the
+cookie with the host number.  In the previous example, the hosts would
+generate cookies like:
+
+<p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                <td>host1</td>
+                <td>
+                  <span class="meta">aaa</span>xxx
+</td>
+              </tr>
+              <tr>
+                <td>host2</td>
+                <td>
+                  <span class="meta">baa</span>xxx
+</td>
+              </tr>
+              <tr>
+                <td>host3</td>
+                <td>
+                  <span class="meta">caa</span>xxx
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>On the web server, mod_caucho will decode the cookie and send it
+to the appropriate host.  So <span class="meta">baaX8Zwoo</span> would go to host2.
+
+<p>In the infrequent case that host2 fails, Resin will send the
+request to host3.  The user will lose the session but that's a minor
+problem compared to showing a connection failure error.
+
+
+
+<a name="Multiple_Web_Servers"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Multiple Web Servers</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Many larger sites like to use multiple web servers with a JVM and a
+web server on each machine.  A router will distribute the load between
+the machines.
+
+<div class="callout">A central database handles session state</div>
+<p>In this configuration, the site needs to take control of its own
+sessions.  Because the router will distribute the load randomly, any
+persistent session state needs to be handled by a centralized server
+like a database.
+
+<p>Even in this configuration, you can use Resin's load balancing to
+increase reliability.  Each web server should choose its own JVM
+first, but use another machine as a backup.
+
+<p>In this case, you can use the trick that <span class="meta">localhost</span> refers
+to the preferred host.  The configuration would look like:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server><br>
+<br>
+&nbsp;&nbsp;&lt;srun&nbsp;host='localhost'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun-backup&nbsp;host='host1'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun-backup&nbsp;host='host2'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun-backup&nbsp;host='host3'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;<br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Alternately, if you're using Apache, you could configure the sruns
+in the httpd.conf.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">host1 httpd.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">CauchoConfigFile&nbsp;/home/www/resin/conf/resin.conf<br>
+CauchoHost&nbsp;host1&nbsp;6802<br>
+CauchoBackup&nbsp;host2&nbsp;6802<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">host2 httpd.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">CauchoConfigFile&nbsp;/home/www/resin/conf/resin.conf<br>
+CauchoBackup&nbsp;host1&nbsp;6802<br>
+CauchoHost&nbsp;host2&nbsp;6802<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>I've made the order consistent so sessions will always go to the
+correct machine.  <span class="meta">baaXXX</span> will always go to host2.  Normally, of
+course, sites using this configuration will handle their own cookies.
+
+
+
+<a name="Multiple_Web_Servers_Single_JVM"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Multiple Web Servers, Single JVM</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>Multiple web servers can use the same JVM.  For example, a fast
+plain webserver and an SSL web server may only need a single JVM.
+(Although a backup would be good.)  Since the JVM doesn't care where
+the request comes from, it can treat each request identically.
+
+<p>This simplifies SSL development.  A servlet just needs to check
+the <span class="meta">request.isSecure()</span> method to see if the request is SSL or
+not.  Other than that, all requests are handled identically.
+
+
+
+<a name="When_everything_fails"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>When everything fails</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>By default, if <span class="meta">mod_caucho</span> can't connect to any of the JVMs,
+it will return a basic "can't connect" page to the user.  Sites which
+want a more professional response can redirect the user to an error
+page.
+
+<p>In the resin.conf, you'll use:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server><br>
+&nbsp;&nbsp;&lt;error-page&nbsp;exception='connection'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;location='/error.html'/><br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The error page must be an absolute path because it could be called
+from any url.  Of course, it can't refer to a servlet or to a JSP file.
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='caching.html'>Caching</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='jsp.html'>JSP</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Tue, 30 May 2000 15:49:14 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

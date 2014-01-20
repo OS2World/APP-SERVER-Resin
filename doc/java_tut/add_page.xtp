@@ -1,0 +1,70 @@
+<title browser-title='Adding a page : Resin Tutorial'>Adding a JSP page</title>
+
+<p/>The sample page you'll be creating just adds 2&nbsp;+&nbsp;2.
+
+<p>Resin's web server stores its pages in a directory named doc.  On
+this machine it's
+<ct:var><jsp:expression>
+   application.getRealPath("/")
+</jsp:expression></ct:var>
+
+<p>Create the text file <ct:var>doc/test/add.jsp</ct:var>
+(<jsp:expression>
+  application.getRealPath("test/add.jsp")
+</jsp:expression>) with your favorite text editor: notepad, emacs, vi,
+or whatever.
+It should contain the following text:
+
+<ct:example title='add.jsp'>
+&lt;%@ page language='java' %&gt;
+
+2 + 2 = &lt;%= 2 + 2 %&gt;
+</ct:example>
+
+<p>To see Resin in action, you need to look at the page in the
+browser.  The URL is
+http://<jsp:expression>
+request.getServerName() + ":" + request.getServerPort()
+</jsp:expression>/test/add.jsp
+
+<p/>If everything works, you should see the following page:
+
+<ct:box width='80%' class=screenshot>
+2 + 2 = 4
+</ct:box>
+
+<ct:subsection title='An explanation'>
+
+The web server uses the '.jsp' extension to make 'add.jsp' an active
+page.  For HTML pages and GIF files, the web server just copies the
+file from your computer to the browser.  That's why looking at
+the file index.html in your browser looks the same as looking at 
+http://localhost:8080/index.html.
+
+<p>By default, Resin copies text to the browser.  For example, Resin
+copied the '2 + 2 = ' to the browser.  In fact, if you wrote a JSP
+file with no special tags, Resin would copy it entirely to the
+browser; it would be equivalent to an '.html' file.  Resin is smart
+enough to see that the page is static, so it can avoid working hard.
+
+<p>The special tags '&lt;%' and '%&gt;' tell Resin to do something
+active, something script related.   You will only need to learn a few
+of these special tags:
+
+<ct:deftable>
+<tr><th>Tag<th>Meaning
+<tr><td>&lt;%@ ... %&gt;<td>Directive
+<tr><td>&lt;%= ... %&gt;<td>Java expression
+<tr><td>&lt;% ... %&gt;<td>Java function
+<tr><td>&lt;%! ... %&gt;<td>Java declaration
+</ct:deftable>
+
+<p>In the add.jsp example, the directive 
+<eg>&lt%@&nbsp; page language=java&nbsp;%&gt;</eg> told Resin that the
+scripting language should be Java.
+
+<p>The expression tags, e.g. <eg>&lt;%= 2 + 2 %&gt;</eg>, tell Resin
+to evaluate the text as a Java expression and print the result
+to the browser.  In this case, 4.
+
+</ct:subsection>

@@ -1,0 +1,686 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Servlet Request</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="corelib.html">Core Library</a>
+<tr><td><a href="filelib.html">File Library</a>
+<tr><td><a href="servletlib.html">Servlet Library</a>
+<tr><td><a href="dblib.html">Database Library</a>
+<tr><td><a href="xmllib.html">XML Library</a>
+<tr><td><hr>
+<tr><td><a href="pagecontext.html">PageContext</a>
+<tr><td><em>Request</em>
+<tr><td><a href="response.html">Response</a>
+<tr><td><a href="session.html">Session</a>
+<tr><td><a href="application.html">Application</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Servlet Request</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>Resin <a href="wrap.html">reflects</a> the servlet request object
+directly from the servlet interface, so all the functions listed in
+the servlet javadoc are available.
+
+<p>The only difference in the interface is the <code>form</code>
+parameter.</p>
+
+<p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Request</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">serverName</a></td>
+              <td>
+Returns the name of the requested server, i.e. the host portion of the
+requesting url.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">serverPort</a></td>
+              <td>
+Returns the port for the requested server.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">remoteHost</a></td>
+              <td>
+Returns the client's machine name.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">remoteAddr</a></td>
+              <td>
+Returns the client's IP address name.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">method</a></td>
+              <td>
+Returns the http method, for example 'GET' or 'POST'.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">scheme</a></td>
+              <td>
+Returns the url scheme, for example 'http' or 'https'.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">requestURI</a></td>
+              <td>
+Returns the path of the URL preceeding any query string.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">servletPath</a></td>
+              <td>
+Returns the url path referring to the jsp script.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">pathInfo</a></td>
+              <td>
+Returns the url's optional path information following the servletPath.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">pathTranslated</a></td>
+              <td>
+Returns the url's optional path information following the jsp
+script name, translated to a real path on the server.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">queryString</a></td>
+              <td>
+Returns any query string in the url.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">protocol</a></td>
+              <td>
+Returns the protocol, for example 'HTTP/1.1'.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">header[name]</a></td>
+              <td>Returns the value of the named http header as a string.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">intHeader[name]</a></td>
+              <td>
+Returns the value of the named http header as a number.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">dateHeader[name]</a></td>
+              <td>
+Returns the value of the named http header interpreted as a date, as a
+long.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">authType</a></td>
+              <td>
+Returns the authentication type.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">remoteUser</a></td>
+              <td>
+Returns the remote user, retrieved from the authentication info.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">cookies</a></td>
+              <td>
+Returns the array of cookies for the request.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getRequestedSessionId">getRequestedSessionId</a>()</td>
+              <td>
+Returns the session id from the request.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#isRequestedSessionIdFromCookie">isRequestedSessionIdFromCookie</a>()</td>
+              <td>
+Returns true if the server found the session id from a cookie.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#isRequestedSessionIdFromUrl">isRequestedSessionIdFromUrl</a>()</td>
+              <td>
+Returns true if the server grabbed session id from the url.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#isRequestedSessionIdValid">isRequestedSessionIdValid</a>()</td>
+              <td>
+Returns true if the session id is valid.  If not, then a call to
+<code>getSession</code> would return null.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getSession">getSession</a>(create)</td>
+              <td>Returns the current session object.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">attribute[name]</a></td>
+              <td>
+Returns server-specific attributes.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">contentType</a></td>
+              <td>
+Returns the mime-type of any POST data.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">contentLength</a></td>
+              <td>
+Returns the length of any POST data, -1 if there is no data.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">characterEncoding</a></td>
+              <td>
+Returns the encoding scheme for any POST data.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">inputStream</a></td>
+              <td>
+Returns a java.io.InputStream for reading the POST data.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">reader</a></td>
+              <td>
+Returns a java.io.Reader for reading the POST data.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">form[name]</a></td>
+              <td>Retrieves data from the query string or the form.</td>
+            </tr>
+          </table>
+
+<a name="Request"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Request</b>
+                </font>
+              </td><td align=right>Resin 1.0</td>
+</tr>
+          </table>
+          <p>
+
+<a name="serverName"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">serverName</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the name of the requested server, i.e. the host portion of the
+requesting url.
+</div>
+
+<a name="serverPort"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">serverPort</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the port for the requested server.
+</div>
+
+<a name="remoteHost"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">remoteHost</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the client's machine name.
+</div>
+
+<a name="remoteAddr"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">remoteAddr</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the client's IP address name.
+</div>
+
+<a name="method"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">method</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the http method, for example 'GET' or 'POST'.
+</div>
+
+<a name="scheme"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">scheme</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the url scheme, for example 'http' or 'https'.
+</div>
+
+<a name="requestURI"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">requestURI</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the path of the URL preceeding any query string.
+</div>
+
+<a name="servletPath"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">servletPath</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the url path referring to the jsp script.
+</div>
+
+<a name="pathInfo"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">pathInfo</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the url's optional path information following the servletPath.
+</div>
+
+<a name="pathTranslated"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">pathTranslated</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the url's optional path information following the jsp
+script name, translated to a real path on the server.
+</div>
+
+<a name="queryString"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">queryString</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns any query string in the url.
+</div>
+
+<a name="protocol"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">protocol</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the protocol, for example 'HTTP/1.1'.
+</div>
+
+<a name="header_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">header[name]</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the value of the named http header as a string.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+for&nbsp;(name&nbsp;in&nbsp;Request.header)&nbsp;{<br>
+&nbsp;&nbsp;Response.printf("%-20s&nbsp;%s\n",&nbsp;name,&nbsp;Request.header[name]);<br>
+}<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+accept-charset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iso-8859-1,*,utf-8<br>
+pragma&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-cache<br>
+accept&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image/gif,&nbsp;image/jpeg,&nbsp;image/png,&nbsp;*/*<br>
+accept-language&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;en<br>
+user-agent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mozilla/4.5b1&nbsp;[en]&nbsp;(X11;&nbsp;I;&nbsp;Linux&nbsp;2.0.29&nbsp;i686)<br>
+host&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;localhost:8080<br>
+connection&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keep-Alive<br>
+accept-encoding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gzip<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="intHeader_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">intHeader[name]</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the value of the named http header as a number.
+</div>
+
+<a name="dateHeader_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">dateHeader[name]</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the value of the named http header interpreted as a date, as a
+long.
+</div>
+
+<a name="authType"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">authType</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the authentication type.
+</div>
+
+<a name="remoteUser"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">remoteUser</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the remote user, retrieved from the authentication info.
+</div>
+
+<a name="cookies"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">cookies</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the array of cookies for the request.
+</div>
+
+<a name="getRequestedSessionId_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getRequestedSessionId()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the session id from the request.
+</div>
+
+<a name="isRequestedSessionIdFromCookie_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">isRequestedSessionIdFromCookie()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns true if the server found the session id from a cookie.
+</div>
+
+<a name="isRequestedSessionIdFromUrl_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">isRequestedSessionIdFromUrl()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns true if the server grabbed session id from the url.
+</div>
+
+<a name="isRequestedSessionIdValid_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">isRequestedSessionIdValid()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns true if the session id is valid.  If not, then a call to
+<code>getSession</code> would return null.
+</div>
+
+<a name="getSession_create_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getSession(create)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the current session object.
+
+<p>If there is no session object and create is true,
+<code>getSession</code> will create a new one.</p>
+
+<p>
+              <b>Note:</b> This must be called before writing any output.</p>
+</div>
+
+<a name="attribute_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">attribute[name]</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns server-specific attributes.
+</div>
+
+<a name="contentType"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">contentType</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the mime-type of any POST data.
+</div>
+
+<a name="contentLength"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">contentLength</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the length of any POST data, -1 if there is no data.
+</div>
+
+<a name="characterEncoding"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">characterEncoding</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the encoding scheme for any POST data.
+</div>
+
+<a name="inputStream"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">inputStream</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a java.io.InputStream for reading the POST data.
+</div>
+
+<a name="reader"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">reader</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a java.io.Reader for reading the POST data.
+</div>
+
+<a name="form_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">form[name]</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Retrieves data from the query string or the form.
+This is a wrapper around the Servlet <code>getParameterValues</code> call.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">/test.jsp?Company=MarxBros&amp;Employees=Groucho+Harpo+Chico</font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+for&nbsp;(name&nbsp;in&nbsp;request.form)&nbsp;{<br>
+&nbsp;&nbsp;out.writeln(name&nbsp;+&nbsp;":&nbsp;"&nbsp;+&nbsp;Request.form[name].join(':'));<br>
+}<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Company:&nbsp;MarxBros<br>
+Employees:&nbsp;Groucho:Harpo:Chico<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='pagecontext.html'>PageContext</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='response.html'>Response</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 03 Apr 2000 11:20:13 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Changes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr>
+          </table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Changes</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br><a name="js13"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>JavaScript 1.3 changes from EcmaScript</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Resin 1.0 follows most of the additions Netscape's JavaScript 1.3 makes
+to EcmaScript.  It does not add the changes to the function
+<code>arguments</code> variable.
+
+<ul>
+<li>Literals</li>
+<ul>
+    <li>Added <a href="regexp.html">regular expression</a> literals.</li>
+</ul>
+<li>Expressions</li>
+<ul>   
+    <li>Added <a href="ops.html#seq">===</a> and <a href="ops.html#sne">!==</a>, the strict equality operators.</li>
+</ul>
+<li>Statements</li>
+<ul>   
+    <li>Added <a href="statements.html#do">do ... while</a>.</li>
+    <li>Added <a href="statements.html#label">labeled statements</a>.</li>
+    <li>Added <a href="statements.html#switch">switch</a>.</li>
+</ul>
+<li>Object Object</li>
+<ul>   
+    <li>Added <a href="objobj.html#toSource">toSource</a>.</li>
+    <li>Added <a href="objobj.html#unwatch">unwatch</a>.</li>
+    <li>Added <a href="objobj.html#watch">watch</a>.</li>
+</ul>
+<li>Array Object</li>
+<ul>   
+    <li>Added <a href="arrayobj.html#concat">concat</a>.</li>
+    <li>Added <a href="arrayobj.html#pop">pop</a>.</li>
+    <li>Added <a href="arrayobj.html#push">push</a>.</li>
+    <li>Added <a href="arrayobj.html#shift">shift</a>.</li>
+    <li>Added <a href="arrayobj.html#unshift">unshift</a>.</li>
+    <li>Added <a href="arrayobj.html#slice">slice</a>.</li>
+    <li>Added <a href="arrayobj.html#splice">splice</a>.</li>
+</ul>
+<li>Function Object</li>
+<ul>   
+    <li>Added <a href="funobj.html#apply">apply</a>.</li>
+    <li>Added <a href="funobj.html#call">call</a>.</li>
+</ul>
+<li>String Object</li>
+<ul>   
+    <li>Added <a href="stringobj.html#concat">concat</a>.</li>
+    <li>Added <a href="stringobj.html#match">match</a>.</li>
+    <li>Added <a href="stringobj.html#search">search</a>.</li>
+    <li>Added <a href="stringobj.html#slice">slice</a>.</li>
+    <li>Added <a href="stringobj.html#substr">substr</a>.</li>
+</ul>
+<li>Added <a href="regexpobj.html">RegExp Object</a></li>
+<li>Added <a href="wrap.html">Packages Object</a></li>
+</ul>
+ 
+
+
+<a name="resin10"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Resin 1.0 changes from JavaScript 1.3</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The Resin changes from JavaScript 1.3 fall under the following categories.
+<ol>
+<li>Enhancements allowing scripts to more clearly express 
+    their intensions.</li>
+<li>Enhancements allowing scripts robustly handle exceptions and execute in
+    a threaded environment.</li>
+<li>Library changes following Java APIs when they conflict with 
+    JavaScript.</li>
+</ol>
+
+Resin will faithfully execute scripts restricting themselves to EcmaScript.
+
+<ul>
+<li>Literals</li>
+<ul>
+              <li>Added <a href="literals.html#interpulate">interpulated strings</a></li>
+    <li>Added <a href="literals.html#multiline">multiline strings</a></li>
+    <li><a href="regexp.html">regular expressions</a> support Perl5 syntax.</li>
+</ul>
+<li>Statements</li>
+<ul>
+              <li>Added <a href="statements.html#class">class</a></li>
+    <li>Added <a href="statements.html#catch">catch</a></li>
+    <li>Added <a href="statements.html#finally">finally</a></li>
+    <li>Added <a href="statements.html#throw">throw</a></li>
+    <li>Added <a href="statements.html#synchronize">synchronize</a></li>
+    <li>Added <a href="statements.html#import">import</a></li>
+</ul>
+<li>Expressions</li>
+<ul>
+              <li>`<code>if (a = 3)</code>' is no longer allowed.  Assigments used as 
+        truth values must have an extra pair of parentheses.</li>
+    <li>
+                <code>fun\n(2, 3, 4)</code> automatically inserts a semicolon at
+        the newline.</li>
+    <li><a href="globalobj.html#eval">eval</a> is a keyword.  The only 
+        practical difference is that scripts cannot assign <code>eval</code> 
+        to a variable.</li>
+    <li><a href="functions.html#arguments">arguments</a> no longer has the
+        <code>caller</code> property.</li>
+</ul>
+<li>Libraries</li>
+<ul>
+              <li>The <a href="file.html">file</a> and <a href="stream.html">stream</a> 
+        model is completely different from JavaScript 1.3.</li>
+    <li>The <a href="dbpool.html">database</a> model fullows JDBC, differing from
+        JavaScript 1.3</li>
+    <li>The session model fullows JSDK, differing from JavaScript 1.3</li>
+</ul>
+</ul>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:48 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

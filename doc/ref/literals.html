@@ -1,0 +1,816 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Literals</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="sourcetext.html">Source Text</a>
+<tr><td><em>Literals</em>
+<tr><td><a href="regexp.html">Regexp</a>
+<tr><td><a href="ops.html">Operators</a>
+<tr><td><a href="objects.html">Objects</a>
+<tr><td><a href="functions.html">Functions</a>
+<tr><td><a href="statements.html">Statements</a>
+<tr><td><a href="wrap.html">Java Wrapping</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Literals</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Literals</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">null</a></td>
+              <td>Returns the <code>null</code> value.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">undefined</a></td>
+              <td>Returns the <code>undefined</code> value.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">true</a></td>
+              <td>Returns the boolean <code>true</code> value.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">false</a></td>
+              <td>Returns the boolean <code>false</code> value.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#fp">n[.m][e[+-]dd]</a></td>
+              <td>Returns a decimal floating point number.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">0xhhh</a></td>
+              <td>Returns a hexidecimal number.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">0ooo</a></td>
+              <td>Returns an octal integer.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#squote">'string'</a></td>
+              <td>Returns a string literal.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#string">"string"</a></td>
+              <td>Returns a string literal</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#interp_str">@"interpolated string"</a></td>
+              <td>Returns a string created by interpolating strings and
+variables.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#multiline">@&lt;&lt;END</a></td>
+              <td>Returns a multiline interpolated string terminated by
+<span class="meta">END</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#obj">{id_1:expr_1, ..., id_n:expr_n}</a></td>
+              <td>Returns a new object with assigned properties.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#array">[expr_1, ..., expr_n]</a></td>
+              <td>Returns a new array with assigned values</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#regexp">/regexp/[i][g][m][x]</a></td>
+              <td>Returns a regular expression literal.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#function">function</a>(args)</td>
+              <td>Returns a function closure.</td>
+            </tr>
+          </table>
+
+<a name="literal"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Literals</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="null"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">null</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the <code>null</code> value.  <code>null</code> is typically
+used to denote an object variable with no value.  However, a variable
+which has never been assigned will have the value <code>undefined</code>.
+
+<p>When converted to a number, <code>null</code> returns <code>0</code>.  When
+converted to a string, <code>null</code> returns <code>"null"</code>.
+
+<p>
+            <code>null</code> has no properties and cannot be converted to an
+object.  When a script tries to get a property of <code>null</code>,
+e.g. <code>null.foo</code>, Resin will throw an exception.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">list&nbsp;=&nbsp;{&nbsp;first:1,&nbsp;rest:null&nbsp;}<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="undefined"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">undefined</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the <code>undefined</code> value.  Unassigned variables
+contain the <code>undefined</code> value and unassigned properties also
+contain the <code>undefined</code> value.
+
+<p>When converted to a number, <code>undefined</code> returns <code>0</code>.  When
+converted to a string, <code>undefined</code> returns <code>"undefined"</code>.
+
+<p>
+            <code>undefined</code> has no properties and cannot be converted to an
+object.  When a script tries to get a property of <code>undefined</code>,
+e.g. <code>undefined.foo</code>, Resin will throw an exception.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">var&nbsp;a<br>
+a<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result"><br>
+undefined<br>
+</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;new&nbsp;Object()<br>
+a.foo<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result"><br>
+undefined<br>
+</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">function&nbsp;foo(a)&nbsp;{&nbsp;return&nbsp;a&nbsp;}<br>
+foo()<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result"><br>
+undefined<br>
+</td></tr>
+</table>
+            </center>
+
+</div>
+
+<a name="true"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">true</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the boolean <code>true</code> value.  
+
+<p>When converted to a number, <code>true</code> returns <code>1</code>.  When
+converted to a string, <code>true</code> returns <code>"true"</code>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">""&nbsp;+&nbsp;true</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">true</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">true&nbsp;+&nbsp;true</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">2</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">Boolean.prototype.a&nbsp;=&nbsp;1<br>
+true.a<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result"><br>
+1<br>
+</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="false"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">false</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the boolean <code>false</code> value.
+
+<p>When converted to a number, <code>false</code> returns <code>0</code>.  When
+converted to a string, <code>false</code> returns <code>"false"</code>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">""&nbsp;+&nbsp;false</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">false</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">false&nbsp;+&nbsp;false</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">Boolean.prototype.a&nbsp;=&nbsp;1<br>
+false.a<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result"><br>
+1<br>
+</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="fp"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">n[.m][e[+-]dd]</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a decimal floating point number.  The precision of 
+the number is 64 bits, the same as Java's double.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">0</td>
+                </tr>
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">.1</td>
+                </tr>
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">1e10</td>
+                </tr>
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">.1e10</td>
+                </tr>
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">10.01e10</td>
+                </tr>
+              </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">bad number</font>
+                </caption>
+                <tr>
+                  <td color="red" class="badexample">1.<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="0xhhh"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">0xhhh</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a hexidecimal number.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">0xf</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">15</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">0xA0</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">160</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="0ooo"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">0ooo</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns an octal integer.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">077</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">63</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">010</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">8</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="squote"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">'string'</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a string literal.  Strings may contain any
+character except the newline characters.  Non-printable characters are
+included in the string by escaping the character as in the following table.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+                <caption>
+                  <font size="+1">Character Escapes</font>
+                </caption>
+<tr>
+                  <th>Escape</th>
+                  <th>Meaning</th>
+                </tr>
+<tr>
+                  <td>\b</td>
+                  <td>backspace, 0x08</td>
+                </tr>
+<tr>
+                  <td>\e</td>
+                  <td>escape, 0x1b</td>
+                </tr>
+<tr>
+                  <td>\f</td>
+                  <td>form-feed, 0x0c</td>
+                </tr>
+<tr>
+                  <td>\n</td>
+                  <td>line-feed, 0x0a</td>
+                </tr>
+<tr>
+                  <td>\r</td>
+                  <td>carriage-return, 0x0d</td>
+                </tr>
+<tr>
+                  <td>\t</td>
+                  <td>tab, 0x09</td>
+                </tr>
+<tr>
+                  <td>\v</td>
+                  <td>vertical feed, 0xc</td>
+                </tr>
+<tr>
+                  <td>\c<span class="meta">A</span>
+                  </td>
+                  <td>Control-<span class="meta">A</span>
+                  </td>
+                </tr>
+<tr>
+                  <td>\o<span class="meta">ooo</span>
+                  </td>
+                  <td>Octal escape</td>
+                </tr>
+<tr>
+                  <td>\x<span class="meta">xx</span>
+                  </td>
+                  <td>Hex escape</td>
+                </tr>
+<tr>
+                  <td>\u<span class="meta">xxxx</span>
+                  </td>
+                  <td>Unicode escape</td>
+                </tr>
+<tr>
+                  <td>\<span class="meta">A</span>
+                  </td>
+                  <td>The character <span class="meta">A</span>
+                  </td>
+                </tr>
+</table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Example string literals</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">'"'</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">"</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"'"</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">'</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">'\''</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">'</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">'first\nsecond'<br>
+<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">first<br>
+second<br>
+</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">'\\\A'</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">\A</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">'\x4012'</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">@12</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">'\uaa55'.charCodeAt(0)</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0xaa55</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">'$a'</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">$a</td></tr>
+</table>
+            </center>
+
+</div>
+
+<a name="string"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">"string"</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a string literal  String literals delimited by
+'<span class="meta">string</span>' and "<span class="meta">string</span>" are equivalent.  The script
+writer can choose either to minimize the number of escapes.
+
+</div>
+
+<a name="interp_str"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">@"interpolated string"</h3>
+              </td><td align=right><h3>Resin 1.0</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Returns a string created by interpolating strings and
+variables.  The character '$' indicates that the value of the
+following identifier should be inserted into the string.  
+Interpolated strings let the script writer create strings more clearly
+than the standard addition operator.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Equivalent Strings</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;3;&nbsp;b&nbsp;=&nbsp;4;&nbsp;c&nbsp;=&nbsp;5;<br>
+@"$a*$a&nbsp;+&nbsp;$b*$b&nbsp;=&nbsp;$c*$c"<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result"><br>
+3*3&nbsp;+&nbsp;4*4&nbsp;=&nbsp;5*5<br>
+</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;3;&nbsp;b&nbsp;=&nbsp;4;&nbsp;c&nbsp;=&nbsp;5;<br>
+$a&nbsp;+&nbsp;'*'&nbsp;+&nbsp;$a&nbsp;+&nbsp;'&nbsp;+&nbsp;'&nbsp;+&nbsp;<br>
+&nbsp;&nbsp;$b&nbsp;+&nbsp;'*'&nbsp;+&nbsp;$b&nbsp;+&nbsp;'&nbsp;=&nbsp;'&nbsp;+&nbsp;<br>
+&nbsp;&nbsp;$c&nbsp;+&nbsp;'*'&nbsp;+&nbsp;$c<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result"><br>
+<br>
+<br>
+3*3&nbsp;+&nbsp;4*4&nbsp;=&nbsp;5*5<br>
+</td></tr>
+</table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Example interpolation</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">sum&nbsp;=&nbsp;2&nbsp;+&nbsp;2;&nbsp;@"2&nbsp;+&nbsp;2&nbsp;=&nbsp;$sum"</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">2&nbsp;+&nbsp;2&nbsp;=&nbsp;4</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;[1,2,3]<br>
+@"$(a[0])&nbsp;$(a[1])&nbsp;$(a[2])"<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">1&nbsp;2&nbsp;3</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;[1,2,3]<br>
+@"$a[0]\n$a[1]"<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">[object&nbsp;Object][0]<br>
+[object&nbsp;Object][1]<br>
+</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;1;&nbsp;@"\$a"</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">$a</td></tr>
+</table>
+            </center>
+
+</div>
+
+<a name="multiline"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">@&lt;&lt;END</h3>
+              </td><td align=right><h3>Resin 1.0</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Returns a multiline interpolated string terminated by
+<span class="meta">END</span>.  
+
+<p>Because normal string literals cannot have newlines in
+them, creating long multiline strings gets messy and all the syntax
+for adding the lines together gets in the way of the string itself.
+Multiline strings eliminate extraneous syntax, allowing the script to
+clearly express the programmer's intentions.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Simple multiline string</font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;2&nbsp;<br>
+writeln(@&lt;&lt;END);<br>
+This&nbsp;is&nbsp;a&nbsp;simple&nbsp;multiline&nbsp;string.<br>
+It&nbsp;has&nbsp;$a&nbsp;lines.<br>
+END<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+This&nbsp;is&nbsp;a&nbsp;simple&nbsp;multiline&nbsp;string.<br>
+It&nbsp;has&nbsp;2&nbsp;lines.<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Adding a Database Item</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">function&nbsp;addItem(title,&nbsp;author,&nbsp;description)<br>
+{<br>
+&nbsp;&nbsp;stmt&nbsp;=&nbsp;databasePool.createStatement();<br>
+<br>
+&nbsp;&nbsp;stmt.executeUpdate(@&lt;&lt;END);<br>
+INSERT&nbsp;INTO&nbsp;CATALOG&nbsp;values&nbsp;(<br>
+&nbsp;&nbsp;'$title',&nbsp;'$author',&nbsp;'$description'<br>
+)<br>
+END<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="obj"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">{id_1:expr_1, ..., id_n:expr_n}</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a new object with assigned properties.
+
+<p>It is equivalent to the following:
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="def">o&nbsp;=&nbsp;new&nbsp;Object();<br>
+o.<span class="meta">id_1</span>&nbsp;=&nbsp;<span class="meta">expr_1</span>;<br>
+...<br>
+o.<span class="meta">id_n</span>&nbsp;=&nbsp;<span class="meta">expr_n</span>;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The Object <a href="objobj.html#toSource">toSource</a> call
+returns a string using the object literal format.
+
+</div>
+
+<a name="array"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">[expr_1, ..., expr_n]</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a new array with assigned values
+
+<p>It is equivalent to the following:
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="def">new&nbsp;Array(<span class="meta">expr_1</span>,&nbsp;...,&nbsp;<span class="meta">expr_n</span>)<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The Array <a href="objobj.html#toSource">toSource</a> call
+returns a string using the array literal format.
+
+</div>
+
+<a name="regexp"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">/regexp/[i][g][m][x]</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a regular expression literal. 
+See <a href="regexp.html">regexp</a> for a complete description of
+regular expression literals.
+</div>
+
+<a name="closure"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">function(args) { ... }</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a function closure. 
+See <a href="functions.html">function</a> for a complete description of
+functions and closures.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="def">function&nbsp;[<span class="meta">name</span>]&nbsp;(<span class="meta">arg_1</span>,&nbsp;...,&nbsp;<span class="meta">arg_n</span>)&nbsp;{<br>
+&nbsp;&nbsp;<span class="meta">statement_list</span><br>
+}<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Sort with comparison function</font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;[{a:19},&nbsp;{a:1},&nbsp;{a:13}]<br>
+a.sort(function&nbsp;(a,&nbsp;b)&nbsp;{&nbsp;return&nbsp;a.a&nbsp;&lt;&nbsp;b.a&nbsp;?&nbsp;-1&nbsp;:&nbsp;1&nbsp;}).toSource()<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+[{a:1},&nbsp;{a:13},&nbsp;{a:19}]<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Regexp replace using replace function</font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+"abcdefa".replace(/[ac]/g,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;(a)&nbsp;{&nbsp;return&nbsp;a.charCodeAt(0)&nbsp;})<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+97b99def97<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='sourcetext.html'>Source Text</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='regexp.html'>Regexp</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:48 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

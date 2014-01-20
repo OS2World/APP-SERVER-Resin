@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>
+JSP tag libraries with XSL</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="xtp-intro.html">XTP intro</a>
+<tr><td><em>XTP to JSP</em>
+<tr><td><a href="xpath.html">XPath</a>
+<tr><td><a href="xpath-fun.html">XPath Fun</a>
+<tr><td><a href="xsl.html">XSL</a>
+<tr><td><a href="xslt-lite.html">XSL lite</a>
+<tr><td><a href="xslt-lite-eg.html">XSL lite examples</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;
+JSP tag libraries with XSL</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+
+XML Template Pages encourages web sites to create JSP tag libraries.
+By putting the JSP creation in stylesheets, you can separate the
+programming from the web pages.  The XTP pages can be simple XML or
+HTML documents and simply add the custom tags as necessary.
+
+<p>The examples in this section use the full, verbose, XSL and JSP
+syntax.  For those put off by the verbosity, the examples are
+rewritten in <a href="xslt-lite-eg.html">XSLT-lite examples</a>.
+
+<center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#mixing">Creating JSP from XTP</a></li>
+                    <li><a href="#flow">Creating JSP flow control</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<a name="mixing"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Creating JSP from XTP</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>Resin creates a JSP file from an XTP file.  XTP pages can
+separate the content (in XML) from the scripting (in XSL).  The XSL
+stylesheets now become a palette of JSP actions you can use just by
+adding tags.
+
+</p>
+          <ol>
+<li>Parse XTP file as HTML
+</li>
+            <li>Find and parse XSL stylesheet
+</li>
+            <li>Applying the stylesheet to the XTP, creating a JSP file
+</li>
+            <li>Execute the JSP file
+</li>
+          </ol>
+
+<p>A trivial example is a named counter.  If the counter has an 'id'
+attribute, we'll use it at the value of the application variable.
+
+</p>
+          <p>XTP pages can use the counter just by adding the tag:</p>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">counter.xtp</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">
+                  <span class="eg-em">A&nbsp;counter&nbsp;example:&nbsp;</span>&lt;ct:counter&nbsp;id='test'/&gt;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Here the patterns to do it.  For efficiency, we've added the 
+<code>cache</code> directive.  The cache directive tells XTP to execute the
+stylesheet only once and cache the generated JSP file.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">default.xsl</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;xtp:directive.cache/&gt;<br>
+<br>
+&lt;xsl:template&nbsp;match='counter[@id]'&gt;<br>
+&nbsp;&nbsp;<span class="eg-em">&lt;jsp:expression&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:text&gt;<span class="eg-em">application.attribute["</span>&lt;/xsl:text><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:value-of&nbsp;select='@id'/><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:text><span class="eg-em">"]</span>&lt;xsl:text><br>
+&nbsp;&nbsp;<span class="eg-em">&lt;/jsp:expression&gt;</span><br>
+&lt;/xsl:template&gt;<br>
+<br>
+&lt;xsl:template&nbsp;match='counter'&gt;<br>
+&nbsp;&nbsp;<span class="eg-em">&lt;jsp:expression&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="eg-em">application.attribute.counter++</span><br>
+&nbsp;&nbsp;<span class="eg-em">&lt;/jsp:expression&gt;</span><br>
+&lt;/xsl:template&gt;<br>
+<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</p>
+          <p>The following JSP file is the result.  Resin will
+execute the generated JSP file to process HTTP requests.  Because
+default.xsl was marked as cached, on following requests Resin will
+merely reexecute 'gen438.jsp'.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">gen438.jsp</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffccdd" class="result">A&nbsp;counter&nbsp;example:&nbsp;&lt;jsp:expression&gt;<br>
+&nbsp;&nbsp;application.attribute["test"]++&nbsp;<br>
+&lt;jsp:expression&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</p>
+
+<a name="flow"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Creating JSP flow control</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+XTP can also generate JSP control.  Many programmers like using tags
+for programming, like Cold Fusion.  Here's how to create a basic set
+of programming tags.
+
+<ul>
+<li>ct:get prints the value of a variable
+</li>
+            <li>ct:if generates an if statement
+</li>
+            <li>ct:iter loops
+</li>
+          </ul>
+
+An example use might print the HTTP headers.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;ct:iter&nbsp;expr='request.header'/&gt;<br>
+&nbsp;&nbsp;&lt;ct:get&nbsp;expr='i'/&gt;&nbsp;:&nbsp;&lt;ct:get&nbsp;expr='request.header[i]'/&gt;<br>
+&lt;/ct:iter&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Accept&nbsp;:&nbsp;image/gif,&nbsp;image/png<br>
+User-Agent&nbsp;:&nbsp;Mozilla/4.5<br>
+Accept-Language&nbsp;:&nbsp;en<br>
+Host&nbsp;:&nbsp;www.caucho.com<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+Here is the stylesheet:
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">definition of ct:get</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;xsl:template&nbsp;match='ct:get'><br>
+&nbsp;&nbsp;<span class="eg-em">&lt;jsp:expression></span>&lt;xsl:value-of&nbsp;select='@expr'/><span class="eg-em">&lt;/jsp:expression></span><br>
+&lt;/xsl:template><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">definition of ct:if</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;xsl:template&nbsp;match='ct:if'><br>
+&nbsp;&nbsp;<span class="eg-em">&lt;jsp:scriptlet><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span>&lt;xsl:value-of&nbsp;select='@expr'/><span class="eg-em">)&nbsp;{<br>
+&nbsp;&nbsp;&lt;/jsp:scriptlet></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:apply-templates/><br>
+&nbsp;&nbsp;<span class="eg-em">&lt;jsp:scriptlet>}&lt;/jsp:scriptlet></span><br>
+&lt;/xsl:template><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">definition of ct:iter</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;xsl:template&nbsp;match='ct:iter'><br>
+&nbsp;&nbsp;<span class="eg-em">&lt;jsp:scriptlet><br>
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(var&nbsp;i&nbsp;in&nbsp;</span>&lt;xsl:value-of&nbsp;select='@expr'/><span class="eg-em">)&nbsp;{<br>
+&nbsp;&nbsp;&lt;/jsp:scriptlet></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:apply-templates/><br>
+&nbsp;&nbsp;<span class="eg-em">&lt;jsp:scriptlet>}&lt;/jsp:scriptlet></span><br>
+&lt;/xsl:template><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='xtp-intro.html'>XTP intro</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='xpath.html'>XPath</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:49 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

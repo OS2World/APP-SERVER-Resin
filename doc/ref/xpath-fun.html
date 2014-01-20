@@ -1,0 +1,607 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>XPath Functions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="xtp-intro.html">XTP intro</a>
+<tr><td><a href="xtp-jsp.html">XTP to JSP</a>
+<tr><td><a href="xpath.html">XPath</a>
+<tr><td><em>XPath Fun</em>
+<tr><td><a href="xsl.html">XSL</a>
+<tr><td><a href="xslt-lite.html">XSL lite</a>
+<tr><td><a href="xslt-lite-eg.html">XSL lite examples</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;XPath Functions</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Node Set Functions</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#last">last</a>()</td>
+              <td>Returns the number of nodes matching the axis</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#count">count</a>(node-set)</td>
+              <td>Returns the number of nodes matching the <span class="meta">node-set</span> pattern.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#local_part">local-part</a>(node)</td>
+              <td>Returns the local part of the node's name.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#namespace">namespace</a>(node)</td>
+              <td>Returns the namespace URL the node's name.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#name">name</a>(node)</td>
+              <td>Returns the node's name.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#id">id</a>(idref)</td>
+              <td>Returns the node with the 'ID' attribute equals to idref.</td>
+            </tr>
+          </table>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>String Functions</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#string">string</a>(obj)</td>
+              <td>Converts the object to a string.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#concat">concat</a>(s1, s2, ...)</td>
+              <td>Concatenates strings.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#starts_with">starts-with</a>(string, head)</td>
+              <td>True if <span class="meta">string</span> starts with <span class="meta">head</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#contains">contains</a>(string, substring)</td>
+              <td>True if <span class="meta">string</span> contains <span class="meta">substring</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#substring_before">substring-before</a>(string, substring)</td>
+              <td>Returns the substring of <span class="meta">string</span> before matching
+<span class="meta">substring</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#substring_after">substring-after</a>(string, substring)</td>
+              <td>Returns the substring of <span class="meta">string</span> after the matching
+<span class="meta">substring</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#string_length">string-length</a>(string)</td>
+              <td>Returns the string length of <span class="meta">string</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#normalize_space">normalize-space</a>(string)</td>
+              <td>Normalizes whitespace.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#translate">translate</a>(string, from, to)</td>
+              <td>Converts characters in a string, like the 'tr' command.</td>
+            </tr>
+          </table>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Boolean Functions</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#boolean">boolean</a>(obj)</td>
+              <td>Converts <span class="meta">obj</span> into a boolean</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#true">true</a>()</td>
+              <td>Returns true.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#false">false</a>()</td>
+              <td>Returns false.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#lang">lang</a>(language)</td>
+              <td>Returns true if the context node has an xml:lang of <span class="meta">language</span>.</td>
+            </tr>
+          </table>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Number Functions</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#number">number</a>(obj)</td>
+              <td>Converts <span class="meta">obj</span> to a number (Java double)</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#sum">sum</a>(node-set)</td>
+              <td>Converts the node values of <span class="meta">node-set</span> to numbers and adds
+them.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#floor">floor</a>(number)</td>
+              <td>Returns the closest integer below <span class="meta">number</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#ceiling">ceiling</a>(number)</td>
+              <td>Returns the closest integer above <span class="meta">number</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#round">round</a>(number)</td>
+              <td>Rounds <span class="meta">number</span> to the nearest integer.</td>
+            </tr>
+          </table>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Resin Extensions</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#if">if</a>(test,a,b)</td>
+              <td>Conditionally selects the value of <span class="meta">a</span> or <span class="meta">b</span>.</td>
+            </tr>
+          </table>
+
+<a name="node_set"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Node Set Functions</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="last"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">last()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the number of nodes matching the axis
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">chapter/verse[last()]</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">The&nbsp;last&nbsp;verse&nbsp;in&nbsp;each&nbsp;chapter.</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">ancestor::node()[last()]</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">The&nbsp;furthest&nbsp;ancestor&nbsp;from&nbsp;the&nbsp;current&nbsp;node.</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="count"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">count(node-set)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the number of nodes matching the <span class="meta">node-set</span> pattern.
+</div>
+
+<a name="local_part"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">local-part(node)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the local part of the node's name.
+In other words, the node name stripped of the namespace prefix.
+</div>
+
+<a name="namespace"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">namespace(node)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the namespace URL the node's name.
+</div>
+
+<a name="name"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">name(node)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the node's name.
+</div>
+
+<a name="id"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">id(idref)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the node with the 'ID' attribute equals to idref.
+The ID attribute is assigned in the DTD.  The actual attribute name
+may, of course, vary.
+</div>
+
+
+
+<a name="string_fun"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>String Functions</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="string"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">string(obj)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Converts the object to a string.
+</div>
+
+<a name="concat"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">concat(s1, s2, ...)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Concatenates strings.
+</div>
+
+<a name="starts_with"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">starts-with(string, head)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+True if <span class="meta">string</span> starts with <span class="meta">head</span>.
+</div>
+
+<a name="contains"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">contains(string, substring)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+True if <span class="meta">string</span> contains <span class="meta">substring</span>.
+</div>
+
+<a name="substring_before"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">substring-before(string, substring)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the substring of <span class="meta">string</span> before matching
+<span class="meta">substring</span>.
+</div>
+
+<a name="substring_after"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">substring-after(string, substring)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the substring of <span class="meta">string</span> after the matching
+<span class="meta">substring</span>.
+</div>
+
+<a name="string_length"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">string-length(string)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the string length of <span class="meta">string</span>.
+</div>
+
+<a name="normalize_space"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">normalize-space(string)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Normalizes whitespace.  Consecutive whitespace is converted
+into a single space.  Leading and trailing whitespace is trimmed.
+</div>
+
+<a name="translate"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">translate(string, from, to)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Converts characters in a string, like the 'tr' command.
+</div>
+
+
+<a name="boolean_fun"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Boolean Functions</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+<a name="boolean"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">boolean(obj)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Converts <span class="meta">obj</span> into a boolean
+</div>
+
+<a name="true"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">true()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns true.
+</div>
+
+<a name="false"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">false()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns false.
+</div>
+
+<a name="lang"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">lang(language)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns true if the context node has an xml:lang of <span class="meta">language</span>.
+</div>
+
+
+
+<a name="number"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Number Functions</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="number"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">number(obj)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Converts <span class="meta">obj</span> to a number (Java double)
+</div>
+
+<a name="sum"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">sum(node-set)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Converts the node values of <span class="meta">node-set</span> to numbers and adds
+them.
+</div>
+
+<a name="floor"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">floor(number)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the closest integer below <span class="meta">number</span>.
+</div>
+
+<a name="ceil"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">ceiling(number)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the closest integer above <span class="meta">number</span>.
+</div>
+
+<a name="round"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">round(number)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Rounds <span class="meta">number</span> to the nearest integer.
+</div>
+
+
+
+<a name="extension"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Resin Extensions</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="if"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">if(test,a,b)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Conditionally selects the value of <span class="meta">a</span> or <span class="meta">b</span>.
+If <span class="meta">test</span> evaluates to true, return the value of <span class="meta">a</span>.
+Otherwise, return the value of <span class="meta">b</span>.
+</div>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='xpath.html'>XPath</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='xsl.html'>XSL</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Wed, 05 Jul 2000 11:05:25 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

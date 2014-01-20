@@ -1,0 +1,510 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>The String Object</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="corelib.html">Core Library</a>
+<tr><td><a href="filelib.html">File Library</a>
+<tr><td><a href="servletlib.html">Servlet Library</a>
+<tr><td><a href="dblib.html">Database Library</a>
+<tr><td><a href="xmllib.html">XML Library</a>
+<tr><td><hr>
+<tr><td><a href="globalobj.html">Global</a>
+<tr><td><a href="objobj.html">Object</a>
+<tr><td><a href="arrayobj.html">Array</a>
+<tr><td><a href="booleanobj.html">Boolean</a>
+<tr><td><a href="dateobj.html">Date</a>
+<tr><td><a href="funobj.html">Function</a>
+<tr><td><a href="mathobj.html">Math</a>
+<tr><td><a href="numberobj.html">Number</a>
+<tr><td><a href="regexpobj.html">Regexp</a>
+<tr><td><em>String</em>
+<tr><td><hr>
+<tr><td><a href="printf.html">Printf</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;The String Object</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>String Constructor</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#String">String</a>(arg)</td>
+              <td>Converts <span class="meta">arg</span> to a string.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#String">String</a>(arg)</td>
+              <td>Creates a string object with value <span class="meta">arg</span> converted to a 
+string.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#String_fromCharCode">String.fromCharCode</a>(c1, ..., cn)</td>
+              <td>
+Creates a new string based on the numeric values given as arguments.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#String_printf">String.printf</a>(fmt [, ...])</td>
+              <td>Creates a new string formatted as the C
+printf call.</td>
+            </tr>
+          </table>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>String Instance</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#charAt">charAt</a>([index])</td>
+              <td>
+Returns a string representing the character at <code>index</code>.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#charCodeAt">charCodeAt</a>([index])</td>
+              <td>
+Returns the character code at the given index.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#concat">concat</a>(string)</td>
+              <td>
+Creates a new string concatenating the two strings. 
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#indexOf">indexOf</a>(match [, index])</td>
+              <td>
+Returns the first index of <code>match</code> in the string.  The
+search starts at <code>index</code> if given.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#lastIndexOf">lastIndexOf</a>(match [, index])</td>
+              <td>
+Returns the last index of <code>match</code> in the string.  The
+search starts  at <code>index</code> if given.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#match">match</a>(regexp)</td>
+              <td>Matches against a regular expression.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#replace">replace</a>(regexp, replacement)</td>
+              <td>Replaces matching substrings with <code>replacement</code>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#search">search</a>(regexp)</td>
+              <td>
+Returns the index of the next regular expression match.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#slice">slice</a>(begin [, end])</td>
+              <td>
+                <code>slice</code> returns the substring from <code>begin</code> to
+<code>end</code>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#split">split</a>([separator [, limit]])</td>
+              <td>
+Splits the string based on the separator.  The separator can be a
+string or a regular expression.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#substr">substr</a>(begin [, length])</td>
+              <td>Returns the substring from <span class="meta">begin</span> with
+the given <span class="meta">length</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#substring">substring</a>(indexA [, indexB])</td>
+              <td>Returns the substring from <span class="meta">indexA</span> to
+<span class="meta">indexB</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#toLowerCase">toLowerCase</a>()</td>
+              <td>
+Returns a new string converting all characters to their lowercase
+equivalent.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#toUpperCase">toUpperCase</a>()</td>
+              <td>
+Returns a new string converting all characters to their uppercase
+equivalent.
+</td>
+            </tr>
+          </table>
+
+<a name="constructor"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>String Constructor</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="String_arg_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">String(arg)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Converts <span class="meta">arg</span> to a string.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+String(true).toSource()&nbsp;+&nbsp;"&nbsp;"&nbsp;+&nbsp;typeof&nbsp;String(true)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+"true"&nbsp;string<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="String_arg_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">String(arg)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a string object with value <span class="meta">arg</span> converted to a 
+string.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+new&nbsp;String(true).toSource()&nbsp;+&nbsp;"&nbsp;"&nbsp;+&nbsp;typeof&nbsp;new&nbsp;String(true)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+new&nbsp;String("true")&nbsp;object<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="String_fromCharCode_c1_cn_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">String.fromCharCode(c1, ..., cn)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new string based on the numeric values given as arguments.
+</div>
+
+<a name="printf"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">String.printf(fmt [, ...])</h3>
+              </td><td align=right><h3>Resin 1.0</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Creates a new string formatted as the C
+printf call.  See <a href="printf.html">printf formatting</a> for
+details.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">String.printf("%.4x")</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">'0cab'</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">String.printf("%.2d")</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">'01'</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">String.printf("%05.2f%%")</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">'01.65%'</td></tr>
+</table>
+            </center>
+
+</div>
+
+
+
+<a name="String_Instance"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>String Instance</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="charAt_index_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">charAt([index])</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a string representing the character at <code>index</code>.
+</div>
+
+<a name="charCodeAt_index_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">charCodeAt([index])</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the character code at the given index.
+</div>
+
+<a name="concat_string_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">concat(string)</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Creates a new string concatenating the two strings. 
+</div>
+
+<a name="indexOf_match_index_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">indexOf(match [, index])</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the first index of <code>match</code> in the string.  The
+search starts at <code>index</code> if given.
+</div>
+
+<a name="lastIndexOf_match_index_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">lastIndexOf(match [, index])</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the last index of <code>match</code> in the string.  The
+search starts  at <code>index</code> if given.
+</div>
+
+<a name="match_regexp_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">match(regexp)</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Matches against a regular expression.  If
+<code>regexp</code> has the global flag set, <code>match</code>
+returns an array of all the matches in the string.  If the global flag
+is clear, <code>match</code> returns an array of the match and the
+submatches.
+
+<p>
+              <code>match</code> always sets the regular expression values like
+<a href="regexp.html#exec">exec</a>.</p>
+</div>
+
+<a name="replace_regexp_replacement_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">replace(regexp, replacement)</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Replaces matching substrings with <code>replacement</code>.
+If <code>replacement</code> is a function, the function generates the
+replacement string.  The function's arguments are the matched
+subexpressions.
+</div>
+
+<a name="search_regexp_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">search(regexp)</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Returns the index of the next regular expression match.
+</div>
+
+<a name="slice_begin_end_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">slice(begin [, end])</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+<code>slice</code> returns the substring from <code>begin</code> to
+<code>end</code>.  Negative indices count from the end of the string.
+</div>
+
+<a name="split_separator_limit_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">split([separator [, limit]])</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Splits the string based on the separator.  The separator can be a
+string or a regular expression.
+</div>
+
+<a name="substr_begin_length_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">substr(begin [, length])</h3>
+              </td><td align=right><h3>JavaScript 1.2</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Returns the substring from <span class="meta">begin</span> with
+the given <span class="meta">length</span>.  If <span class="meta">begin</span> is negative, it
+counts from the end of the string.
+</div>
+
+<a name="substring_indexA_indexB_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">substring(indexA [, indexB])</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the substring from <span class="meta">indexA</span> to
+<span class="meta">indexB</span>.  If either index is negative, it is treated as 0.
+If <span class="meta">indexB</span> is less than <span class="meta">indexA</span> they are swapped.
+</div>
+
+<a name="toLowerCase_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">toLowerCase()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a new string converting all characters to their lowercase
+equivalent.
+</div>
+
+<a name="toUpperCase_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">toUpperCase()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a new string converting all characters to their uppercase
+equivalent.
+</div>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='regexpobj.html'>Regexp</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='printf.html'>Printf</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:49 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

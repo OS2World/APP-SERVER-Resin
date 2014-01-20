@@ -1,0 +1,827 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>The Date Object</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="corelib.html">Core Library</a>
+<tr><td><a href="filelib.html">File Library</a>
+<tr><td><a href="servletlib.html">Servlet Library</a>
+<tr><td><a href="dblib.html">Database Library</a>
+<tr><td><a href="xmllib.html">XML Library</a>
+<tr><td><hr>
+<tr><td><a href="globalobj.html">Global</a>
+<tr><td><a href="objobj.html">Object</a>
+<tr><td><a href="arrayobj.html">Array</a>
+<tr><td><a href="booleanobj.html">Boolean</a>
+<tr><td><em>Date</em>
+<tr><td><a href="funobj.html">Function</a>
+<tr><td><a href="mathobj.html">Math</a>
+<tr><td><a href="numberobj.html">Number</a>
+<tr><td><a href="regexpobj.html">Regexp</a>
+<tr><td><a href="stringobj.html">String</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;The Date Object</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Date Constructor</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#Date">Date</a>()</td>
+              <td>
+Returns a new date object for the current time.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#Date">Date</a>(ms)</td>
+              <td>
+Returns a new date object for the represented by the number in
+milliseconds from the epoch, January 1, 1970 12:00 GMT.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#Date">Date</a>(year, month, day, hour, minute, second, ms)</td>
+              <td>
+Returns a new date object with the given time in the current time
+zone.  Missing parameters are set to 0, so <code>Date(1999, 12)</code> will
+be midnight December 1.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#Date_UTC">Date.UTC</a>()</td>
+              <td>
+Returns the current time in milliseconds from the epoch GMT as a number.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#Date_UTC">Date.UTC</a>(ms)</td>
+              <td>
+Returns <span class="meta">ms</span>.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#Date_UTC">Date.UTC</a>(year, month, day, hour, minute, second, ms)</td>
+              <td>
+The time in milliseconds from the epoch for the given time in GMT.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#Date_parseDate">Date.parseDate</a>(date)</td>
+              <td>
+Parses the date given as a string and returns the time in milliseconds.
+</td>
+            </tr>
+          </table>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Date Instance</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getTime">getTime</a>()</td>
+              <td>
+Returns the time in milliseconds GMT from the epoch.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#toUTCString">toUTCString</a>()</td>
+              <td>
+Returns a string representation of the date.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#toLocaleString">toLocaleString</a>()</td>
+              <td>
+Returns a locale-specific string representation of the date.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getYear">getYear</a>()</td>
+              <td>
+Returns the 4-digit year in the local time zone.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getUTCYear">getUTCYear</a>()</td>
+              <td>
+Returns the 4-digit year GMT.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getMonth">getMonth</a>()</td>
+              <td>
+Returns the month in the local time zone, where 1 is January.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getUTCMonth">getUTCMonth</a>()</td>
+              <td>
+Returns the month GMT, where 1 is January.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getDay">getDay</a>()</td>
+              <td>
+Returns the day of month in the local time zone.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getUTCDay">getUTCDay</a>()</td>
+              <td>
+Returns the day of month GMT.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getHour">getHour</a>()</td>
+              <td>
+Returns the hour in the local time zone.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getUTCHour">getUTCHour</a>()</td>
+              <td>
+Returns the hour GMT.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getMinute">getMinute</a>()</td>
+              <td>
+Returns the minutes in the local time zone.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getUTCMinute">getUTCMinute</a>()</td>
+              <td>
+Returns the minutes GMT.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getSecond">getSecond</a>()</td>
+              <td>
+Returns the seconds in the local time zone.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getUTCSecond">getUTCSecond</a>()</td>
+              <td>
+Returns the seconds GMT.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getMilliseconds">getMilliseconds</a>()</td>
+              <td>
+Returns the milliseconds in the local time zone.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getUTCMilliseconds">getUTCMilliseconds</a>()</td>
+              <td>
+Returns the milliseconds GMT.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getTimezoneOffset">getTimezoneOffset</a>()</td>
+              <td>
+Returns the timezone offset for the local time zone.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setYear">setYear</a>(year, month, day)</td>
+              <td>
+Sets the year, month, day.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setUTCYear">setUTCYear</a>(year, month, day)</td>
+              <td>
+Sets the year, month, day.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setMonth">setMonth</a>(month, day)</td>
+              <td>
+Sets the month, day.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setUTCMonth">setUTCMonth</a>(month, day)</td>
+              <td>
+Sets the month, day.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setDay">setDay</a>(day)</td>
+              <td>
+Sets the day.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setUTCDay">setUTCDay</a>(day)</td>
+              <td>
+Sets the day.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setHours">setHours</a>(hours, minutes, seconds, ms)</td>
+              <td>
+Sets the hours, minutes, seconds, and milliseconds.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setUTCHours">setUTCHours</a>(hours, minutes, seconds, ms)</td>
+              <td>
+Sets the hours, minutes, seconds, and milliseconds.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setMinutes">setMinutes</a>(minutes, seconds, ms)</td>
+              <td>
+Sets the minute, seconds, and milliseconds.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setUTCMinutes">setUTCMinutes</a>(minutes, seconds, ms)</td>
+              <td>
+Sets the minutes, seconds, and milliseconds.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setSeconds">setSeconds</a>(seconds, ms)</td>
+              <td>
+Sets the seconds and milliseconds.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setUTCSeconds">setUTCSeconds</a>(seconds, ms)</td>
+              <td>
+Sets the seconds and milliseconds.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setMilliseconds">setMilliseconds</a>(ms)</td>
+              <td>
+Sets the milliseconds.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setUTCMilliseconds">setUTCMilliseconds</a>(ms)</td>
+              <td>
+Sets the milliseconds.
+</td>
+            </tr>
+          </table>
+
+<a name="constructor"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Date Constructor</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="Date_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Date()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a new date object for the current time.
+</div>
+
+<a name="Date_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Date(ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a new date object for the represented by the number in
+milliseconds from the epoch, January 1, 1970 12:00 GMT.
+</div>
+
+<a name="Date_year_month_day_hour_minute_second_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Date(year, month, day, hour, minute, second, ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a new date object with the given time in the current time
+zone.  Missing parameters are set to 0, so <code>Date(1999, 12)</code> will
+be midnight December 1.
+</div>
+
+<a name="Date_UTC_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Date.UTC()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the current time in milliseconds from the epoch GMT as a number.
+</div>
+
+<a name="Date_UTC_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Date.UTC(ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns <span class="meta">ms</span>.
+</div>
+
+<a name="Date_UTC_year_month_day_hour_minute_second_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Date.UTC(year, month, day, hour, minute, second, ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+The time in milliseconds from the epoch for the given time in GMT.
+</div>
+
+<a name="Date_parseDate_date_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Date.parseDate(date)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Parses the date given as a string and returns the time in milliseconds.
+</div>
+
+
+<a name="Date_Instance"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Date Instance</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="getTime_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getTime()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the time in milliseconds GMT from the epoch.
+</div>
+
+<a name="toUTCString_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">toUTCString()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a string representation of the date.
+</div>
+
+<a name="toLocaleString_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">toLocaleString()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a locale-specific string representation of the date.
+</div>
+
+<a name="getYear_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getYear()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the 4-digit year in the local time zone.
+</div>
+
+<a name="getUTCYear_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getUTCYear()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the 4-digit year GMT.
+</div>
+
+<a name="getMonth_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getMonth()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the month in the local time zone, where 1 is January.
+</div>
+
+<a name="getUTCMonth_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getUTCMonth()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the month GMT, where 1 is January.
+</div>
+
+<a name="getDay_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getDay()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the day of month in the local time zone.
+</div>
+
+<a name="getUTCDay_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getUTCDay()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the day of month GMT.
+</div>
+
+<a name="getHour_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getHour()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the hour in the local time zone.
+</div>
+
+<a name="getUTCHour_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getUTCHour()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the hour GMT.
+</div>
+
+<a name="getMinute_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getMinute()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the minutes in the local time zone.
+</div>
+
+<a name="getUTCMinute_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getUTCMinute()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the minutes GMT.
+</div>
+
+<a name="getSecond_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getSecond()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the seconds in the local time zone.
+</div>
+
+<a name="getUTCSecond_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getUTCSecond()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the seconds GMT.
+</div>
+
+<a name="getMilliseconds_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getMilliseconds()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the milliseconds in the local time zone.
+</div>
+
+<a name="getUTCMilliseconds_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getUTCMilliseconds()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the milliseconds GMT.
+</div>
+
+<a name="getTimezoneOffset_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getTimezoneOffset()</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the timezone offset for the local time zone.
+</div>
+
+<a name="setYear_year_month_day_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setYear(year, month, day)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the year, month, day.
+</div>
+
+<a name="setUTCYear_year_month_day_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setUTCYear(year, month, day)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the year, month, day.
+</div>
+
+<a name="setMonth_month_day_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setMonth(month, day)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the month, day.
+</div>
+
+<a name="setUTCMonth_month_day_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setUTCMonth(month, day)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the month, day.
+</div>
+
+<a name="setDay_day_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setDay(day)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the day.
+</div>
+
+<a name="setUTCDay_day_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setUTCDay(day)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the day.
+</div>
+
+<a name="setHours_hours_minutes_seconds_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setHours(hours, minutes, seconds, ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the hours, minutes, seconds, and milliseconds.
+</div>
+
+<a name="setUTCHours_hours_minutes_seconds_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setUTCHours(hours, minutes, seconds, ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the hours, minutes, seconds, and milliseconds.
+</div>
+
+<a name="setMinutes_minutes_seconds_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setMinutes(minutes, seconds, ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the minute, seconds, and milliseconds.
+</div>
+
+<a name="setUTCMinutes_minutes_seconds_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setUTCMinutes(minutes, seconds, ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the minutes, seconds, and milliseconds.
+</div>
+
+<a name="setSeconds_seconds_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setSeconds(seconds, ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the seconds and milliseconds.
+</div>
+
+<a name="setUTCSeconds_seconds_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setUTCSeconds(seconds, ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the seconds and milliseconds.
+</div>
+
+<a name="setMilliseconds_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setMilliseconds(ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the milliseconds.
+</div>
+
+<a name="setUTCMilliseconds_ms_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">setUTCMilliseconds(ms)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the milliseconds.
+</div>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='booleanobj.html'>Boolean</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='funobj.html'>Function</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:48 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

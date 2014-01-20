@@ -1,0 +1,18 @@
+<?xml-stylesheet href='basic.xsl'?>
+
+<title>XSL basic</title>
+<body bgcolor=white>
+<h1>Basic Rewriting</h1>
+
+<p>
+<a href='../view_source.jsp?xsl/basic.xtp'>This example</a> just
+shows adding a simple custom tag to a mostly-JSP example.  
+<a href='../view_source.jsp?xsl/WEB-INF/xsl/basic.xsl'>The stylesheet</a> is also
+very simple.  It just rewrites the &lt;a> tag.
+
+<p>The XTP source can have JSP, like 2 + 2 = <%= 2 + 2 %>
+
+<p>The only special tag is &lt;a href>, which automatically rewrites the
+&lt;a href=foo/> to &lt;a href='&lt;%= response.encodeURL("foo") %>'>
+
+</body>

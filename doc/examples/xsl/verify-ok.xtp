@@ -1,0 +1,10 @@
+<?xml-stylesheet href='verify.xsl'?>
+<top>
+  <chapter title='The First Chapter'>
+    <verse title='verse 1'>
+This verse is my favorite verse.
+    </verse>
+  </chapter>
+  <chapter title='The Second Chapter'>
+  </chapter>
+</top>

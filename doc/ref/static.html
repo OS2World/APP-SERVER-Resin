@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>The Static Statement</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr>
+          </table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;The Static Statement</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <macro name="isolation"><a href="isolation.html">isolation</a></macro>
+
+<p>JSP files and the files they import execute in isolation from all
+other requests to the same files.  In addition, their statements
+are reevaluated for each request.  The static statement lets the
+developer execute a statement only once or to share information
+between requests</p>
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">static&nbsp;<span class="meta">statement</span>;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<span class="meta">statement</span> is executed as soon as the file is parsed.
+During subsequent requests, the statement is not reevaluated.
+
+<p>Requests are still <a href="isolation.html">isolated</a> from
+each other.  All JavaScript objects created or modified in a
+<code>static</code> statement are copied for each request.  Since
+<a href="wrap.html">wrapped</a> Java objects are not copied,
+developers can use <code>static</code> statements in combination with
+<a href="wrap.html">wrapped</a> Java objects to create application
+objects.</p>
+
+<p>In general, Java used as application objects will need <a href="synchronization.html">synchronization</a> to keep the state
+consistent between request threads</p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%<br>
+static&nbsp;{<br>
+&nbsp;&nbsp;application&nbsp;=&nbsp;new&nbsp;caucho.vfs.MemoryFilesystem();<br>
+&nbsp;&nbsp;application.object&nbsp;=&nbsp;3;<br>
+}<br>
+<br>
+synchronize&nbsp;(application)&nbsp;{<br>
+&nbsp;&nbsp;value&nbsp;=&nbsp;application.object++;<br>
+}<br>
+<br>
+%&gt;<br>
+<br>
+&lt;h1&gt;You&nbsp;are&nbsp;visitor&nbsp;&lt;%=&nbsp;value&nbsp;%&gt;&nbsp;&lt;h1&gt;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+<hr><table border=0 width='100%'><tr>
+<td>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:49 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

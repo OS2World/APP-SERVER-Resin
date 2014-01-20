@@ -1,0 +1,14 @@
+<?xml-stylesheet href='file.xsl'?>
+
+<title>XSL Fortune</title>
+
+<box>
+<fortune/>
+</box>
+
+<box color='#ffeecc'>
+<fortune/>
+</box>
+
+<p>This <a href='../view_source.jsp?xsl/file.xtp'>fortune</a> uses tags defined in <a
+href='../view_source.jsp?xsl/WEB-INF/xsl/file.xsl'>file.xsl</a> 

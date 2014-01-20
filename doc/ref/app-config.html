@@ -1,0 +1,1389 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Web Application Configuration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="resin-config.html">Resin Config</a>
+<tr><td><a href="http-config.html">HTTP Config</a>
+<tr><td><em>App Config</em>
+<tr><td><a href="servlet-config.html">Servlet Config</a>
+<tr><td><a href="auth-config.html">Login Config</a>
+<tr><td><a href="taglib.html">Taglib Config</a>
+<tr><td><a href="config-sum.html">Summary</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Web Application Configuration</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+
+HTTP configuration follows the Servlet 2.2 deployment descriptors.
+The nesting order is important, but order is generally not important.
+In the sections that follow, the section
+header tells where the attribute belongs.  For example, an attribute in
+<span class="meta">caucho.com/http-server/host</span> belongs in a <span class="meta">host</span> element which
+belongs in an <span class="meta">http-server</span> element which belongs in the
+<span class="meta">caucho.com</span> element.
+
+<p>The application configuration can be placed in <span class="meta">WEB-INF/web.xml</span>
+If <span class="meta">web.xml</span> exists, Resin will use it to configure the application.
+
+<p><a href="servlet-config.html">Servlet</a> configuration interacts with the
+application configuration.  In particular, <span class="meta">servlet-mapping</span> tells Resin
+how to map urls to servlets.
+
+<p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>web-app</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#app_dir">app-dir</a></td>
+              <td>Specifies the directory of the application.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">servlet-mapping</a></td>
+              <td>Maps url patterns to servlets.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#servlet">servlet</a></td>
+              <td>Defines a servlet alias for later mapping.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#classpath">classpath</a></td>
+              <td>Adds to the application-specific classpath.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#mime_mapping">mime-mapping</a></td>
+              <td>Maps url patterns to mime-types.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#class_update_interval">class-update-interval</a></td>
+              <td>Interval in seconds between checking for servlet updates.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#character_encoding">character-encoding</a></td>
+              <td>Specifies the default character encoding for form parameters.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#path_mapping">path-mapping</a></td>
+              <td>Maps url patterns to real paths.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#filter_mapping">filter-mapping</a></td>
+              <td>Defines a Servlet filter to transform the output of another
+servlet based on mime-type.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#cache_mapping">cache-mapping</a></td>
+              <td>Specifies <span class="meta">Expires</span> times for cacheable pages.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#url_pattern">url-pattern</a></td>
+              <td>Matches a set of URLs for servlet-mapping.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#context_param">context-param</a></td>
+              <td>Initializes application variables.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#session_config">session-config</a></td>
+              <td>Contains session configuration parameters</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#session_timeout">session-timeout</a></td>
+              <td>Sets the session timeout in minutes.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#session_max">session-max</a></td>
+              <td>Sets the maximum number of active sessions.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#welcome_file_list">welcome-file-list</a></td>
+              <td>Sets the files to use as index.jsp pages</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#error_page">error-page</a></td>
+              <td>A page to display if the current request fails.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">login-config</a></td>
+              <td>Configures user authentication.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#directory_servlet">directory-servlet</a></td>
+              <td>Specifies the servlet to use to display directories.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#taglib">taglib</a></td>
+              <td>Configures a JSP 1.1 tag library.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#temp_dir">temp-dir</a></td>
+              <td>Application temp directory</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#jsp">jsp</a></td>
+              <td>JSP configuration</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">db-pool</a></td>
+              <td>Database pooling configuration.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">browser-mapping</a></td>
+              <td>Browser-specific configuration.</td>
+            </tr>
+          </table>
+
+<a name="web_app"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>web-app</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="app_dir"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">app-dir</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Specifies the directory of the application.  If
+unspecified, the application will have the same path as the id.  When
+the <span class="meta">web-app</span> is specified with a <span class="meta">url-regexp</span>,
+<span class="meta">app-dir</span> can use replacement variables (<span class="meta">$2</span>).
+
+<p>When specified by <span class="meta">id</span>, the application will be initialized
+on server start.  When specified by <span class="meta">url-regexp</span>, the application will
+be initialized at the first request.  This means that <span class="meta">load-on-startup</span>
+servlets may start later than expected for <span class="meta">url-regexp</span> applications.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>id</td>
+                  <td>The url prefix selecting this application.
+</td>
+                </tr>
+                <tr>
+                  <td>url-regexp</td>
+                  <td>A regexp to select this application.
+</td>
+                </tr>
+                <tr>
+                  <td>app-dir</td>
+                  <td>The root document directory for the application (can use
+regexp replacement variables.)
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The following example creates a web-app for /apache
+using the Apache htdocs directory to serve pages.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&lt;http-server&gt;<br>
+&nbsp;&nbsp;&lt;web-app&nbsp;id='/apache'&nbsp;app-dir='/usr/local/apache/htdocs'&gt;<br>
+<br>
+&nbsp;...<br>
+<br>
+&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The following example sets the root application to the IIS
+root directory.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&lt;http-server&nbsp;app-dir='c:\inetpub\wwwroot'&gt;<br>
+<br>
+&nbsp;...<br>
+<br>
+&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>In the following, each user gets her own independent
+application using ~user.  (Note, since mod_caucho and IIS don't understand
+regexps, so you may need to manually configure the web server.)
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&lt;http-server><br>
+<br>
+&lt;web-app&nbsp;url-regexp='/~([^/]*)'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app-dir='/home/$1/public_html'><br>
+<br>
+&nbsp;...<br>
+<br>
+&lt;/web-app><br>
+<br>
+&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="servlet_mapping"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">servlet-mapping</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Maps url patterns to servlets.  <code>servlet-mapping</code> has two
+children, <a href="#url-pattern">url-pattern</a> and <code>servlet-name</code>.
+<a href="#url-pattern">url-pattern</a>
+selects the urls which should execute the servlet.
+
+<p>
+            <code>servlet-name</code> can either specify a servlet class directly or it
+can specify a servlet alias defined by <code>servlet</code>.
+
+<p>The special <code>servlet-name</code> <em>invoker</em> is used to dispatch
+servlets by class name.  For example, /servlets/test.HelloServlet.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td><a href="#url-pattern">url-pattern</a></td>
+                  <td>A pattern matching the url:
+<span class="meta">/foo/*</span>, <span class="meta">/foo</span>, or <span class="meta">*.foo</span>
+</td>
+                </tr>
+                <tr>
+                  <td>url-regexp</td>
+                  <td>A regular expression matching the url
+</td>
+                </tr>
+                <tr>
+                  <td>servlet-name</td>
+                  <td>The servlet name (can use replacement vars
+like <span class="meta">$1</span>)
+</td>
+                </tr>
+                <tr>
+                  <td>path-info</td>
+                  <td>Path info rewriting string (can use replacement
+vars like <span class="meta">$1</span>)
+</td>
+                </tr>
+                <tr>
+                  <td>servlet-class</td>
+                  <td>The servlet's class (defaults to servlet-name)
+</td>
+                </tr>
+                <tr>
+                  <td>init-param</td>
+                  <td>Initialization parameters
+</td>
+                </tr>
+                <tr>
+                  <td>load-on-startup</td>
+                  <td>Initializes the servlet when the server starts.
+</td>
+                </tr>
+                <tr>
+                  <td>run-at</td>
+                  <td>Times to execute the servlet automatically
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com&gt;<br>
+&lt;web-app&nbsp;id='/'&gt;<br>
+<br>
+&lt;servlet&nbsp;servlet-name='hello'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-class='test.HelloWorld'/&gt;<br>
+<br>
+&lt;servlet-mapping&nbsp;url-pattern='/hello.html'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='hello'/&gt;<br>
+<br>
+&lt;servlet-mapping&nbsp;url-pattern='/servlet/*'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='invoker'/&gt;<br>
+<br>
+&lt;servlet-mapping&nbsp;url-pattern='*.xtp'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='com.caucho.jsp.XtpServlet'/&gt;<br>
+<br>
+&lt;/web-app><br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="servlet"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">servlet</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Defines a servlet alias for later mapping.  More details are in the
+<a href="servlet-config.html">servlet configuration</a> section.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>servlet-name</td>
+                  <td>The servlet's name (alias)
+</td>
+                </tr>
+                <tr>
+                  <td>servlet-class</td>
+                  <td>The servlet's class (defaults to servlet-name)
+</td>
+                </tr>
+                <tr>
+                  <td>init-param</td>
+                  <td>Initialization parameters
+</td>
+                </tr>
+                <tr>
+                  <td>load-on-startup</td>
+                  <td>Initializes the servlet when the server starts.
+</td>
+                </tr>
+                <tr>
+                  <td>run-at</td>
+                  <td>Times to execute the servlet automatically
+</td>
+                </tr>
+              </table>
+            </center>
+
+The following example defines a servlet alias 'hello'
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'&gt;<br>
+<br>
+&lt;servlet-mapping&nbsp;url-pattern='/hello.html'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='hello'/&gt;<br>
+<br>
+&lt;servlet&nbsp;servlet-name='hello'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-class='test.HelloWorld'&gt;<br>
+&nbsp;&nbsp;&lt;init-param&nbsp;title='Hello,&nbsp;World'/&gt;<br>
+&lt;/servlet&gt;<br>
+<br>
+&lt;servlet&nbsp;servlet-name='cron'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-class='test.DailyChores'&gt;<br>
+&nbsp;&nbsp;&lt;run-at&gt;3:00&lt;/run-at&gt;<br>
+&lt;/servlet&gt;<br>
+<br>
+&lt;/web-app&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="classpath"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">classpath</h3>
+              </td><td align=right><h3>Resin 1.1</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Adds to the application-specific classpath.  The classpath
+can also automatically compile java classes when the <span class="meta">source</span>
+attribute is specified.
+
+<br>
+            <b>Note: </b>Each <span class="meta">classpath</span> directive must only contain a single class
+directory.  In other words, you need two <span class="meta">classpaths</span> to
+specify "foo.jar:bar.jar".
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Description
+</th>
+                </tr>
+                <tr>
+                  <td>id</td>
+                  <td>Single class directory or jar
+</td>
+                </tr>
+                <tr>
+                  <td>source</td>
+                  <td>Optional java source directory
+</td>
+                </tr>
+                <tr>
+                  <td>compile</td>
+                  <td>Enable automatic compilation (true by default)
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>For example, to automatically compile classes in the
+WEB-INF/classes directory
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;classpath&nbsp;id='WEB-INF/classes'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;source='WEB-INF/classes'<br>
+	&nbsp;&nbsp;&nbsp;compile='true'/><br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>To compile classes into the WEB-INF/classes directory with the
+source in a home work directory:
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;classpath&nbsp;id='WEB-INF/classes'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;source='/home/ferg/ws/src'/><br>
+&lt;classpath&nbsp;id='/home/test/library/classes'/><br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="mime_mapping"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">mime-mapping</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Maps url patterns to mime-types.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>extension</td>
+                  <td>url extension
+</td>
+                </tr>
+                <tr>
+                  <td>mime-type</td>
+                  <td>the mime-type
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'&gt;<br>
+<br>
+&lt;mime-mapping&nbsp;extension='.foo'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mime-type='text/html'/&gt;<br>
+<br>
+&lt;/web-app><br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="class_update_interval"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">class-update-interval</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Interval in seconds between checking for servlet updates.
+For development, this can be set to 0 or to a small number to pick up
+new servlet versions quickly.  For deployment, class-update-interval
+can be large to avoid the overhead of checking for updates.
+</div>
+
+<a name="character_encoding"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">character-encoding</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Specifies the default character encoding for form parameters.
+If unspecified, the application will use the system default encoding.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'&nbsp;character-encoding='shift_jis'&gt;<br>
+<br>
+&nbsp;&nbsp;...<br>
+<br>
+&lt;/web-app><br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="path_mapping"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">path-mapping</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Maps url patterns to real paths.  If using a server like
+IIS, you may need to match the server's path aliases.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td><a href="#url-pattern">url-pattern</a></td>
+                  <td>A pattern matching the url:
+<span class="meta">/foo/*</span>, <span class="meta">/foo</span>, or <span class="meta">*.foo</span>
+</td>
+                </tr>
+                <tr>
+                  <td>url-regexp</td>
+                  <td>A regular expression matching the url
+</td>
+                </tr>
+                <tr>
+                  <td>real-path</td>
+                  <td>The prefix of the real path.  When used with url-regexp, allows substitution variables like <span class="meta">$1</span>.
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'&gt;<br>
+<br>
+&lt;path-mapping&nbsp;url-pattern='/resin/*'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;real-path='e:\resin'/&gt;<br>
+<br>
+&lt;path-mapping&nbsp;url-regexp='/~([^/]*)'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;real-path='e:\home\$1'/&gt;<br>
+<br>
+&lt;/web-app&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="filter_mapping"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">filter-mapping</h3>
+              </td><td align=right><h3>Resin 1.1</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Defines a Servlet filter to transform the output of another
+servlet based on mime-type.  By default, the content type
+<span class="meta">x-application/xsl</span> executes com.caucho.jsp.XslFilter.
+
+<p>For example, a servlet could call
+<code>setContentType("x-application/xsl")</code> to format its XML results
+using XSL.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>mime-type</td>
+                  <td>The mime-type to match
+</td>
+                </tr>
+                <tr>
+                  <td>servlet-name</td>
+                  <td>The servlet name to execute
+</td>
+                </tr>
+              </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Filter XML by an XSL processor</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;filter-mapping&nbsp;mime-type='x-application/xsl.com'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='com.caucho.jsp.XslFilter'/&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="cache_mapping"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">cache-mapping</h3>
+              </td><td align=right><h3>Resin 1.1</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Specifies <span class="meta">Expires</span> times for cacheable pages.
+Uncacheable pages, e.g. pages with sessions, are not affected.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td><a href="#url-pattern">url-pattern</a></td>
+                  <td>A pattern matching the url:
+<span class="meta">/foo/*</span>, <span class="meta">/foo</span>, or <span class="meta">*.foo</span>
+</td>
+                </tr>
+                <tr>
+                  <td>url-regexp</td>
+                  <td>A regular expression matching the url
+</td>
+                </tr>
+                <tr>
+                  <td>expires</td>
+                  <td>A time interval.
+</td>
+                </tr>
+              </table>
+            </center>
+
+The time interval defaults to seconds, but will allow other
+periods:
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>s</td>
+                  <td>seconds
+</td>
+                </tr>
+                <tr>
+                  <td>m</td>
+                  <td>minutes
+</td>
+                </tr>
+                <tr>
+                  <td>h</td>
+                  <td>hours
+</td>
+                </tr>
+                <tr>
+                  <td>d</td>
+                  <td>days
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'&gt;<br>
+<br>
+&lt;cache-mapping&nbsp;url-pattern='/*'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expires='10'/&gt;<br>
+<br>
+&lt;cache-mapping&nbsp;url-pattern='*.gif'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expires='15m'/&gt;<br>
+<br>
+&lt;/web-app&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="url_pattern"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">url-pattern</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches a set of URLs for servlet-mapping.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th width="25%">Pattern</th>
+                  <th>Description
+</th>
+                </tr>
+                <tr>
+                  <td>/foo/bar.html</td>
+                  <td>Matches exactly the /foo/bar.html URL.
+</td>
+                </tr>
+                <tr>
+                  <td>/foo/*</td>
+                  <td>Matches /foo and any children
+</td>
+                </tr>
+                <tr>
+                  <td>*.foo</td>
+                  <td>Matches any URL with a .foo extension
+</td>
+                </tr>
+                <tr>
+                  <td>/</td>
+                  <td>Replaces the default servlet.
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <span class="meta">/</span> defines a default handler and <span class="meta">/*</span> defines a prefix handler.
+<span class="meta">/*</span> will override extension handlers like <span class="meta">*.foo</span>. <span class="meta">/</span>
+will only be used if no other pattern matches.
+
+</div>
+
+<a name="context_param"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">context-param</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Initializes application variables.  <code>context-param</code>
+defines initial values for <a href="../javadoc/javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">application.getInitParameter("foo")</a>.
+
+The full servlet 2.2 syntax is supported and allows a simple shortcut
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'&gt;<br>
+<br>
+&lt;context-param&nbsp;foo='bar'/&gt;<br>
+<br>
+&lt;context-param&gt;<br>
+&nbsp;&nbsp;&lt;param-name&gt;baz&lt;/param-name&gt;<br>
+&nbsp;&nbsp;&lt;param-value&gt;value&lt;/param-value&gt;<br>
+&lt;/context-param&gt;<br>
+<br>
+&lt;/web-app><br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="session_config"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">session-config</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Contains session configuration parameters
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>session-timeout</td>
+                  <td>The session timeout in minutes
+</td>
+                </tr>
+                <tr>
+                  <td>session-max</td>
+                  <td>Maximum active sessions
+</td>
+                </tr>
+                <tr>
+                  <td>enable-cookies</td>
+                  <td>Enable cookies for sessions
+</td>
+                </tr>
+                <tr>
+                  <td>enable-url-rewriting</td>
+                  <td>Enable URL rewriting for sessions
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>By default, both <code>enable-cookies</code> and
+<code>enable-url-rewriting</code> are true. To force url rewriting, you
+would create a configuration like:
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;session-config<br>
+&nbsp;&nbsp;&nbsp;enable-cookies='false'<br>
+&nbsp;&nbsp;&nbsp;enable-url-rewriting='true'/&gt;<br>
+<br>
+&lt;/web-app&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="session_timeout"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">session-timeout</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the session timeout in minutes.  Sessions idle for
+longer than <code>session-timeout</code> are purged.
+
+<p>
+            <code>session-timeout</code> must be contained in a
+<code>session-config</code> tag.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/dir'&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;session-config&nbsp;session-timeout='120'/&gt;<br>
+<br>
+&lt;/web-app&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="session_max"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">session-max</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the maximum number of active sessions.  Sessions are
+stored in an LRU cache.  When the cache fills, the oldest sessions are
+recovered.
+
+<p>
+            <code>session-max</code> must be contained in a
+<code>session-config</code> tag.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/dir'&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;session-config&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;session-timeout&nbsp;id=120/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;session-max&nbsp;id=4096/&gt;<br>
+&nbsp;&nbsp;&lt;/session-config&gt;<br>
+<br>
+&lt;/web-app&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="welcome_file_list"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">welcome-file-list</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the files to use as index.jsp pages
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'><br>
+&nbsp;&nbsp;&lt;welcome-file-list>index.jsp,&nbsp;home.xtp&lt;/welcome-file-list><br>
+&lt;/web-app><br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="error_page"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">error-page</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+A page to display if the current request fails.  The web
+server plugins use a <a href="http-config.html#error-page">special case</a>
+of error-page to handle connection failures.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>location</td>
+                  <td>The error page to display
+</td>
+                </tr>
+                <tr>
+                  <td>exception</td>
+                  <td>Select the error page based on a Java exception
+</td>
+                </tr>
+                <tr>
+                  <td>error-code</td>
+                  <td>Select the error page based on an HTTP status code
+</td>
+                </tr>
+              </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Catching File Not Found</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;error-page&nbsp;error-code='404'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;location='/file_not_found.jsp'/&lt;><br>
+&lt;/web-app&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Catching Exceptions</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/foo'&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;error-page&nbsp;exception-type='java.lang.NullPointerException'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;location='/nullpointer.jsp'/&lt;><br>
+&lt;/web-app><br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The following is a special case for the mod_caucho or iis_srun
+plugin to redirect to another page if it can't connect to srun.
+Unlike the other two forms, this must be in http-server web-app as
+below.  It can't be in a specific web-app.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Special can't connect to srun</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server><br>
+<br>
+&lt;error-page&nbsp;exception-type='connection'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;location='/missing_file.html'/&lt;><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&lt;/http-server&gt;<br>
+&lt;/caucho.com&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="login_config"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">login-config</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Configures user authentication.  See
+<a href="auth-config.html">auth config</a> for more details.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>auth-method</td>
+                  <td>Authentication method
+</td>
+                </tr>
+                <tr>
+                  <td>form-login-config</td>
+                  <td>Configuration for form login
+</td>
+                </tr>
+                <tr>
+                  <td>authenticator</td>
+                  <td>Select authenticator class
+</td>
+                </tr>
+                <tr>
+                  <td>security-constraint</td>
+                  <td>Select the files to protect.
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="directory_servlet"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">directory-servlet</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Specifies the servlet to use to display directories.  To
+disable directory listing, set this to 'none'.
+</div>
+
+<a name="taglib"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">taglib</h3>
+              </td><td align=right><h3>Resin 1.1</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Configures a JSP 1.1 tag library.  See the <a href="taglib.html">tlb</a> configuration for details.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Description
+</th>
+                </tr>
+                <tr>
+                  <td>taglib-uri</td>
+                  <td>Matching uri for the tag library
+</td>
+                </tr>
+                <tr>
+                  <td>taglib-location</td>
+                  <td>Location for the tab library definition file.
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The location is relative to the class path. In the following example,
+MyTag.tlb should be in WEB-INF/classes/MyTag.tlb.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;taglib&nbsp;taglib-uri='/mytag/test'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;taglib-location='/MyTag.tlb'/><br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The JSP file will use the tag library as follows:
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;taglib&nbsp;prefix='x'&nbsp;uri='/mytag/test'&nbsp;%><br>
+&lt;x:mytag/><br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="temp_dir"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">temp-dir</h3>
+              </td><td align=right><h3>Resin 1.1</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Application temp directory  This is the path used in
+<span class="meta">javax.servlet.context.tempdir</span>.  It defaults to <span class="meta">WEB-INF/tmp</span>.
+</div>
+
+<a name="jsp"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">jsp</h3>
+              </td><td align=right><h3>Resin 1.1</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+JSP configuration
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>precompile</td>
+                  <td>use precompiled JSP classes if available
+</td>
+                </tr>
+                <tr>
+                  <td>session</td>
+                  <td>enable/disable sessions by default 
+</td>
+                </tr>
+                <tr>
+                  <td>static-encoding</td>
+                  <td>allow JSP to precompile character encoding
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="db_pool"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">db-pool</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Database pooling configuration.  Each web-app can configure
+its own database pool.  The driver can be in WEB-INF.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>id</td>
+                  <td>Application attribute to store the pool in.
+</td>
+                </tr>
+                <tr>
+                  <td>driver</td>
+                  <td>JDBC driver class
+</td>
+                </tr>
+                <tr>
+                  <td>url</td>
+                  <td>JDBC url for the database
+</td>
+                </tr>
+                <tr>
+                  <td>user</td>
+                  <td>Database user
+</td>
+                </tr>
+                <tr>
+                  <td>password</td>
+                  <td>Database password
+</td>
+                </tr>
+                <tr>
+                  <td>max-connections</td>
+                  <td>Maximum number of allowed connections
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>You can use the 'id' to configure several databases, then just
+refer to the key when using DBPool.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&nbsp;&nbsp;Driver&nbsp;driver&nbsp;=&nbsp;(Driver)&nbsp;application.getAttribute("my-db");<br>
+&nbsp;&nbsp;conn&nbsp;=&nbsp;driver.getConnection();<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="browser_mapping"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">browser-mapping</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Browser-specific configuration.  Used to deal with
+broken browsers.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>regexp</td>
+                  <td>Regular expression to match the User-Agent
+</td>
+                </tr>
+                <tr>
+                  <td>force10</td>
+                  <td>If set, force HTTP/1.0
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='http-config.html'>HTTP Config</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='servlet-config.html'>Servlet Config</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Tue, 25 Apr 2000 12:33:35 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

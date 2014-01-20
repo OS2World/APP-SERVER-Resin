@@ -1,0 +1,408 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>JSP Applications</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr>
+          </table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;JSP Applications</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Introduction">Introduction</a></li>
+                    <li><a href="#dir">.application directory</a><ol>
+                        <li><a href="#Scripts">Scripts</a></li>
+                        <li><a href="#Data">Data</a></li>
+                        <li><a href="#Tags">Tags</a></li>
+                      </ol>
+                    </li>
+                    <li><a href="#global">global.jsa</a><ol>
+                        <li><a href="#Event_Handlers">Event Handlers</a></li>
+                      </ol>
+                    </li>
+                    <li><a href="#session">Sessions</a></li>
+                    <li><a href="#beans">JSP Beans</a><ol>
+                        <li><a href="#Accessing_Beans">Accessing Beans</a></li>
+                      </ol>
+                    </li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<a name="Introduction"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Introduction</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+JSP groups pages into applications which share common state.  A
+bulletin board application groups pages for article reading, group
+listing, user registration, and new article posting into a single
+application.
+
+<p>Applications can keep track of user sessions, giving the users the
+illusion of a single application out of disjointed pages.
+
+<ul>
+<li>JSP organizes applications with an .application <a href="#dir">directory</a>.
+<li>The <a href="#global">global.jsa</a> file contains common
+declarations and procedures for starting and stopping sessions and
+applications.
+<li><a href="#session">Sessions</a> share state for a user's visit to
+the site.
+</ul>
+
+
+
+<a name="dir"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>.application directory</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+The .application directory organizes an application.  It defines an
+application docroot by its presense.  All files and directories in the
+docroot are part of the same application.
+
+<p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+              <caption>
+                <font size="+1">.application contents</font>
+              </caption>
+<tr>
+                <th>File/Directory</th>
+                <th>Contents</th>
+              </tr>
+<tr>
+                <td>global.jsa</td>
+                <td>control file</td>
+              </tr>
+<tr>
+                <td>scripts</td>
+                <td>common scripts</td>
+              </tr>
+<tr>
+                <td>data</td>
+                <td>file data, e.g. text and xml</td>
+              </tr>
+<tr>
+                <td>beans</td>
+                <td>Java class files for beans</td>
+              </tr>
+<tr>
+                <td>tags</td>
+                <td>Java class files for tag compilation</td>
+              </tr>
+</table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Example directory structure</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">newsgroup/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;application&nbsp;docroot<br>
+&nbsp;&nbsp;.application/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;application&nbsp;data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;global.jsa&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;global&nbsp;control<br>
+&nbsp;&nbsp;&nbsp;&nbsp;scripts/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;included&nbsp;scripts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;common.es<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;application&nbsp;storage<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;art1.xml&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;example&nbsp;article<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;art2.xml&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;another&nbsp;article<br>
+&nbsp;&nbsp;&nbsp;&nbsp;beans/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;application&nbsp;beans<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;article.class&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Java&nbsp;article&nbsp;code<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tags/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;application&nbsp;tags<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dateHandler.class&nbsp;//&nbsp;date&nbsp;tag<br>
+&nbsp;&nbsp;list.jsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;list&nbsp;articles<br>
+&nbsp;&nbsp;read.jsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;read&nbsp;an&nbsp;article<br>
+&nbsp;&nbsp;post.jsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;post&nbsp;an&nbsp;article<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<a name="Scripts"></a><h3>Scripts</h3>
+JSP applications can group common functions and classes into script
+files, organizing and simplifying the application.  The individual
+pages can then <a href="statements.html#import">import</a> the common
+scripts to use them.  JSP pages can focus on HTML presentation and the script
+libraries can concentrate on the content.
+
+<p>As described in the <a href="statements.html#import">import</a>
+documentation, Resin searches for imported scripts along a
+SCRIPTPATH.  For JSP pages, the SCRIPTPATH looks in the application
+script directory first, then in the global libraries.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">JSP SCRIPTPATH</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="def">&nbsp;&nbsp;$APPDIR/.application/scripts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:$RESIN_HOME/scripts<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+<a name="Data"></a><h3>Data</h3>
+The data subdirectory of .application can contain any data the JSP
+application needs to store.  It could contain persistent state for a
+counter, to the entire article tree for a complicated discussion
+server.
+
+<p>The <a href="file.html">File</a> object in a JSP script uses
+.application/data as its current directory.
+
+
+<a name="Tags"></a><h3>Tags</h3>
+JSP 1.0 provides an extensible tag
+architecture, allowing applications to design their own active
+tags.  The tag handlers are Java classes extending the
+<code>ChunkHandler</code> interface.  When the JSP parser encounters a new
+tag, it looks in tags for a matching class.
+
+
+
+
+<a name="global"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>global.jsa</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+The global.jsa file contains common declarations, application and
+session bean declarations, and event handlers.  Its structure
+resembles to a JSP file, except that it never creates content.
+
+<p>Session and application beans must be declared
+in a global.jsa <a href="jsp.html#usebean">jsp:usebean</a> directive.
+Only page beans may be declared in a *.jsp file.  The
+application beans will be instantiated when the first page of the
+application is accessed and will persist until the server shuts down.
+
+<p><a href="jsp.html#error">Error pages</a> global to the entire
+application may be declared in the global.jsa file.  Local error page
+declarations override the global declarations.
+
+<p>The <a href="jsp.html#language">language</a> declared in the
+global.jsa file is local to the global file.  It only declares the
+language for the <a href="jsp.html#decl">declaration</a> section and
+the event handlers.
+
+<a name="Event_Handlers"></a><h3>Event Handlers</h3>
+Applications can declare event handlers to execute when an application
+starts or stops and when a session starts and stops.  The event
+handlers can initialize state, read data from storage, and store the
+final state when the server shuts down.
+
+<p>Applications start on the first page access.  The application event
+handlers <a href="jsp.html#appOnStart">jsp:application:onStart</a> and
+<a href="jsp.html#appOnEnd">jsp:application:onEnd</a>
+can use the <a href="jsp.html#application">application</a> object.
+
+<p>Sessions start when a page accesses session state or when a
+session bean is created.  Sessions end when the server times them out,
+when the application ends, or when they are invalidated.  The session
+event handlers <a href="jsp.html#sessionOnStart">jsp:session:onStart</a> and
+<a href="jsp.html#sessionOnEnd">jsp:session:onEnd</a>
+can use the <a href="jsp.html#session">session</a> and
+<a href="jsp.html#application">application</a> objects.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Persistent Storage of Counter</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;jsp:application:onStart&gt;<br>
+&nbsp;&nbsp;var&nbsp;file&nbsp;=&nbsp;File("counter");<br>
+&nbsp;&nbsp;if&nbsp;(file.exists())&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;is&nbsp;=&nbsp;file.openRead();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;counter&nbsp;=&nbsp;new&nbsp;Number(is.readln());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;is.close();<br>
+&nbsp;&nbsp;}&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;counter&nbsp;=&nbsp;0;<br>
+<br>
+&nbsp;&nbsp;application.attributes.counter&nbsp;=&nbsp;counter;<br>
+&lt;/jsp:application:onStart&gt;<br>
+<br>
+&lt;jsp:application:onEnd&gt;<br>
+&nbsp;&nbsp;var&nbsp;os&nbsp;=&nbsp;File("counter").openWrite();<br>
+&nbsp;&nbsp;os.writeln(application.attributes.counter);<br>
+&nbsp;&nbsp;os.close();<br>
+&lt;/jsp:application:onEnd&gt;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+
+
+<a name="session"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Sessions</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+Session variables let applications keep track of the user as she moves
+through the site.  Any e-commerce site needs this capability to keep
+track of the user's purchases.
+
+<p>JSP sessions start when the page accesses the <a href="jsp.html#session">session</a> variable.  If a page never uses
+sessions, the jsp:session:onStart code will not execute and the web
+server will not send the client any cookies.
+
+<p>Sessions end when the session times out, when the session is
+invalidated, or when the application ends.
+
+<p>Resin locks the session variable before executing the page.  So
+JSP applications don't need to worry about synchronizing the session
+variable.
+
+
+<a name="beans"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>JSP Beans</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+<p>Java Beans get first class treatment in JSP 1.0.  Beans can be
+created for a page, across a session, or for the entire application.
+
+<p>The .application/beans subdirectory can contain <a href="jspapp.html#beans">application beans</a> used by <a href="jsp.html#usebean">jsp:usebean</a>.  These are simply Java
+classes implementing the bitmechanic work of an application.
+
+<p>For example, a shopping cart application may have a set of Java
+classes that perform the security necessary for credit card
+processing.  The application can put those classes in the beans
+directory and access them from the JSP page.
+
+Beans can be created with different lifetimes.
+<ul>
+<li>Application beans last the lifetime of an application.
+<li>Session beans last for a user's session.
+<li>Page beans only last for a single page.
+</ul>
+
+<a name="Accessing_Beans"></a><h3>Accessing Beans</h3>
+Each bean is defined with a <a href="jsp.html#usebean">jsp:usebean</a>
+directive.  Page beans are defined in the JSP page. Session and
+application beans are defined in the global.jsa file.
+
+<p>JSP assigns the created bean object to the JavaScript variable
+named by jsp:usebean.
+
+<p>In addition, the created beans are stored in JSP variables: page
+beans are stored in <code>request</code>, session beans are stored in
+<code>session</code>, and application beans are stored in
+<code>application</code>.  Storing the beans in the JSP variables lets
+other beans and functions retrieve the beans.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Beans in variables: test.jsp</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;jsp:usebean&nbsp;name='test'&nbsp;class='java.util.Hashtable'&gt;<br>
+<br>
+&lt%&nbsp;test.put("a",&nbsp;1);&nbsp;%&gt;<br>
+&lt%=&nbsp;test.get("a");&nbsp;%&gt;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;jsp:usebean&nbsp;name='test'&nbsp;class='java.util.Hashtable'&gt;<br>
+<br>
+&lt;%&nbsp;<br>
+&nbsp;&nbsp;var&nbsp;t&nbsp;=&nbsp;request.attributes["beans/test"]&nbsp;<br>
+&nbsp;&nbsp;t.put("a",&nbsp;1);<br>
+%&gt;<br>
+&lt%=&nbsp;test.get("a");&nbsp;%&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+1<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:48 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

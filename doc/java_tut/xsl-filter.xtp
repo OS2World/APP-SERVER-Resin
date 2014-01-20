@@ -1,0 +1,72 @@
+<title browser-title='XSL Filter : Resin Tutorial'>XSL Filter</title>
+
+<p/>XSL, the XML stylesheet language, simplifies creating a uniform
+style for a site.  XSL converts XML to HTML or XML or WAP.
+It's easy to create different output depending on the browser.  Just
+choose another stylesheet.  The example below creates HTML or XML
+results from the same JSP.
+
+<p/>The JSP page creates a simple XML file.  It tells Resin to use XSL
+filtering by setting the contentType to
+<ct:var>x-application/xsl</ct:var>.  In this case, we're selecting the
+xml.xsl stylesheet.
+
+<ct:example title='test.jsp'>
+&lt;%@ page session=false contentType='x-application/xsl' %>
+&lt;?xml-stylesheet href='xml.xsl'?>
+&lt;top>
+  &lt;title>Hello, world&lt;/title>
+  &lt;count>&lt;%= 1 + 1 %>&lt;/count>
+&lt;/top>
+</ct:example>
+
+<p/>Stylesheets belong in <ct:var>WEB-INF/xsl</ct:var>.  If no
+stylesheet is selected, Resin will use <ct:var>default.xsl</ct:var>.
+
+<p/>The xml.xsl stylesheet just copies the input to the output.  Many
+stylesheets will use this rule as a default rule.
+
+<ct:example title='xml.xsl'>
+&lt;xsl:stylesheet>
+
+&lt;xsl:template match='*|@*'>
+&lt;xsl:copy>
+&lt;xsl:apply-templates select='node()|@*'/>
+&lt;/xsl:copy>
+&lt;/xsl:template>
+
+&lt;/xsl:stylesheet>
+</ct:example>
+
+<ct:subsection title='HTML generation'>
+
+<p/>The HTML example is slightly more complicated.  When it matches a
+<ct:var>top</ct:var>, it generates the HTML header information.  The
+<ct:var>count</ct:var> tag just writes out the count.
+
+<ct:example title='html.xsl'>
+&lt;xsl:stylesheet>
+&lt;xsl:output media-type='text/html'/>
+
+&lt;xsl:template match='top'>
+&lt;html>
+&lt;head>
+&lt;title>&lt;xsl:value-of select='title'/>&lt;/title>
+&lt;/head>
+&lt;body bgcolor='white'>
+&lt;h3>&lt;xsl:value-of select='title'/>&lt;/h3>
+&lt;xsl:apply-templates/>
+&lt;/body>
+&lt;/html>
+&lt;/xsl:template>
+
+&lt;xsl:template match='count'>
+Count: &lt;xsl:apply-templates/>&lt;br/>
+&lt;/xsl:template>
+
+&lt;xsl:template match='title'/>
+
+&lt;/xsl:stylesheet>
+</ct:example>
+
+</ct:subsection>

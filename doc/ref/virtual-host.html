@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Virtual Hosting</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="servlet.html">Servlet</a>
+<tr><td><em>Virtual Hosts</em>
+<tr><td><a href="caching.html">Caching</a>
+<tr><td><a href="balance.html">Balancing</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Virtual Hosting</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#httpd_virtual_hosting">httpd virtual hosting</a></li>
+                    <li><a href="#Virtual_Hosts_with_Apache">Virtual Hosts with Apache</a></li>
+                    <li><a href="#JVM_per_Virtual_Host">JVM per Virtual Host</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<a name="httpd_virtual_hosting"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>httpd virtual hosting</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+As usual, configuring the standalone server is the easiest and best
+way of testing a virtual host configuration.
+
+<p>Virtual hosting in Resin is based on the <span class="meta">Host:</span> header in
+the HTTP request.  When a browser contacts a site, it tells the site
+the host name typed into the request.  This means that a site can
+serve several virtual hosts with the same IP address.
+
+<p>The following sample configuration defines two virtual hosts using
+different application directories.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;http-server><br>
+&nbsp;&nbsp;...<br>
+<br>
+&lt;host&nbsp;id='gryffindor.caucho.com'><br>
+&nbsp;&nbsp;&lt;app-dir>/home/www/gryffindor/docs&lt;app-dir><br>
+&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='/servlet/*'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='invoker'/><br>
+&nbsp;&nbsp;...		&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&lt;/host><br>
+<br>
+&lt;host&nbsp;id='slytherin.caucho.com'><br>
+&nbsp;&nbsp;&lt;app-dir>/home/www/slytherin/docs&lt;app-dir><br>
+&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='/servlet/*'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='invoker'/><br>
+&nbsp;&nbsp;...		&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&lt;/host><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+<a name="Virtual_Hosts_with_Apache"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Virtual Hosts with Apache</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>A more common configuration uses virtual hosts with Apache.
+Apache is better able to handle IP-based virtual hosting.  (Getting
+the IP-address from Java is embarassingly slow.)
+
+<p>The <span class="meta">ServerName</span> directive in Apache is vital to make Resin's
+virtual hosting work.  When Apache passes the request to Resin, it
+tells Resin the <span class="meta">ServerName</span>.  Without the <span class="meta">ServerName</span>,
+Resin can get very confused which host to serve.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;VirtualHost&nbsp;127.0.0.1><br>
+&nbsp;&nbsp;ServerName&nbsp;gryffindor.caucho.com<br>
+&lt;/VirtualHost><br>
+<br>
+&lt;VirtualHost&nbsp;192.168.0.1><br>
+&nbsp;&nbsp;ServerName&nbsp;slytherin.caucho.com<br>
+&lt;/VirtualHost><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="JVM_per_Virtual_Host"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>JVM per Virtual Host</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+In some ISP setups, it may make sense to assign a JVM for each
+virtual host.  In some cases, the isolation of web-apps is not
+sufficient; each user needs a separate JVM.  In this configuration,
+each JVM needs its own srun-port and possibly its own srun-host.
+
+<p>In the most straightforward configuration, each JVM gets its own
+resin.conf.  The resin.conf can use <a href="resin-config.html#resin:include">resin:include</a> to share
+common configuration.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;VirtualHost&nbsp;127.0.0.1><br>
+&nbsp;&nbsp;ServerName&nbsp;gryffindor.caucho.com<br>
+&nbsp;&nbsp;CauchoConfigFile&nbsp;/home/www/gryffindor/resin.conf<br>
+&nbsp;&nbsp;CauchoHost&nbsp;localhost&nbsp;8910<br>
+&lt;/VirtualHost><br>
+<br>
+&lt;VirtualHost&nbsp;192.168.0.1><br>
+&nbsp;&nbsp;ServerName&nbsp;slytherin.caucho.com<br>
+&nbsp;&nbsp;CauchoConfigFile&nbsp;/home/www/slytherin/resin.conf<br>
+&nbsp;&nbsp;CauchoHost&nbsp;localhost&nbsp;8911<br>
+&lt;/VirtualHost><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Here's the corresponding gryffindor resin.conf
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server><br>
+&nbsp;&nbsp;&lt;srun&nbsp;srun-host=localhost&nbsp;srun-port=8910/><br>
+<br>
+&nbsp;&nbsp;&lt;host&nbsp;id='gryffindor.caucho.com'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;resin:include&nbsp;href='common.conf'/><br>
+&nbsp;&nbsp;&lt;/host><br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>In an alternate configuration, the JVMs can share the same
+resin.conf, each with a <span class="meta">host</span> block, but each listens to a
+different port.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;VirtualHost&nbsp;127.0.0.1><br>
+&nbsp;&nbsp;ServerName&nbsp;gryffindor.caucho.com<br>
+&nbsp;&nbsp;CauchoConfigFile&nbsp;/home/www/conf/resin.conf<br>
+&nbsp;&nbsp;CauchoHost&nbsp;localhost&nbsp;8910<br>
+&lt;/VirtualHost><br>
+<br>
+&lt;VirtualHost&nbsp;192.168.0.1><br>
+&nbsp;&nbsp;ServerName&nbsp;slytherin.caucho.com<br>
+&nbsp;&nbsp;CauchoConfigFile&nbsp;/home/www/conf/resin.conf<br>
+&nbsp;&nbsp;CauchoHost&nbsp;localhost&nbsp;8911<br>
+&lt;/VirtualHost><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The resin.conf is identical to the resin.conf at the
+top of this page.
+
+<p>You'll need to start the server with <span class="meta">-port 8910</span> to give the
+server it's own port.
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='servlet.html'>Servlet</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='caching.html'>Caching</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 30 Mar 2000 19:08:41 -0800 (PST)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

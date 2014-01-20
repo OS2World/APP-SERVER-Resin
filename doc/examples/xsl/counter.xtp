@@ -1,0 +1,9 @@
+<?xml-stylesheet href='counter.xsl'?>
+
+<title>XSL Counter</title>
+
+<h1>Visitor <counter/></h1>
+
+<p><a href='../view_source.jsp?xsl/counter.xtp'>This example</a> just shows adding a custom
+tag, like a counter.  The source for the counter 
+is <a href='../view_source.jsp?xsl/WEB-INF/xsl/counter.xsl'>here</a>.

@@ -1,0 +1,1468 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Operators</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="sourcetext.html">Source Text</a>
+<tr><td><a href="literals.html">Literals</a>
+<tr><td><a href="regexp.html">Regexp</a>
+<tr><td><em>Operators</em>
+<tr><td><a href="objects.html">Objects</a>
+<tr><td><a href="functions.html">Functions</a>
+<tr><td><a href="statements.html">Statements</a>
+<tr><td><a href="wrap.html">Java Wrapping</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Operators</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Operators</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#variable">a</a></td>
+              <td>Returns the value of the variable <span class="meta">a</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#this"><code>this</code></a></td>
+              <td>Returns the value of the special variable <code>this</code>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code">(<a href="#a">a</a>)</td>
+              <td>Returns the value of expression <span class="meta">a</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#fieldref">obj.field</a></td>
+              <td>Returns the value named by the identifier <span class="meta">field</span> in 
+<span class="meta">obj</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#arrayref">obj[field_expr]</a></td>
+              <td>Returns the value named by the <span class="meta">field_expr</span> in the
+<span class="meta">obj</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#fun">fun</a>(arg_1, ..., arg_n)</td>
+              <td>Calls the function <span class="meta">fun</span> with arguments <span class="meta">arg_1</span>
+through <span class="meta">arg_n</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#new_fun">new fun</a>(arg_1, ..., arg_n)</td>
+              <td>Creates a new object and calls <span class="meta">fun</span> to initialize
+it.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#postinc">a++</a></td>
+              <td>Returns <span class="meta">a</span> then increments it.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#postdec">a--</a></td>
+              <td>Returns <span class="meta">a</span> then decrements it.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#preinc">++a</a></td>
+              <td>Increments <span class="meta">a</span> and returns the new value.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#predec">--a</a></td>
+              <td>Decrements <span class="meta">a</span> and returns the new value.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#binnot">~ a</a></td>
+              <td>Returns the binary inverse of <span class="meta">a</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#not">! a</a></td>
+              <td>Returns the boolean inverse of <span class="meta">a</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#neg">- a</a></td>
+              <td>Returns the negative of <span class="meta">a</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#pos">+ a</a></td>
+              <td>Converts <span class="meta">a</span> to a number.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#typeof">typeof a</a></td>
+              <td>Returns the type of <span class="meta">a</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#delete">delete a</a></td>
+              <td>Deletes the property <span class="meta">a</span>, returning true on success.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#delete">void a</a></td>
+              <td>Returns <code>undefined</code>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#mul">a * b</a></td>
+              <td>
+Multiplies <span class="meta">a</span> by <span class="meta">b</span>.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#div">a / b</a></td>
+              <td>
+Divides <span class="meta">a</span> by <span class="meta">b</span>.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#rem">a % b</a></td>
+              <td>
+Returns the remainder of dividing <span class="meta">a</span> by <span class="meta">b</span>.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#plus">a + b</a></td>
+              <td>Concatenate when either <span class="meta">a</span> or <span class="meta">b</span> is a string and 
+add otherwise.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#sub">a - b</a></td>
+              <td>
+Subtracts <span class="meta">b</span> from <span class="meta">a</span>.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#shr">a >> b</a></td>
+              <td>Arithmetically shifts <span class="meta">a</span> right by <span class="meta">b</span> bits.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#ushr">a >>> b</a></td>
+              <td>Logically shifts <span class="meta">a</span> right by <span class="meta">b</span> bits.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#shl">a &lt;&lt; b</a></td>
+              <td>Shifts <span class="meta">a</span> left by <span class="meta">b</span> bits.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#lr">a &lt; b</a></td>
+              <td>True if <span class="meta">a</span> is less than <span class="meta">b</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#gt">a > b</a></td>
+              <td>True if <span class="meta">a</span> is greater than <span class="meta">b</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#gt">a &lt;= b</a></td>
+              <td>True if <span class="meta">a</span> is less than or equal to <span class="meta">b</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#gt">a >= b</a></td>
+              <td>True if <span class="meta">a</span> is greater than or equal to <span class="meta">b</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#eq">a == b</a></td>
+              <td>True if <span class="meta">a</span> is equal to <span class="meta">b</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#ne">a != b</a></td>
+              <td>True if <span class="meta">a</span> is not equal to <span class="meta">b</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#seq">a === b</a></td>
+              <td>True if <span class="meta">a</span> is strictly equal to <span class="meta">b</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#sne">a !== b</a></td>
+              <td>True if <span class="meta">a</span> is not strictly equal to <span class="meta">b</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#land">a &amp; b</a></td>
+              <td>Returns the logical and of <span class="meta">a</span> and <span class="meta">b</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#lxor">a ^ b</a></td>
+              <td>Returns the logical exclusive or of <span class="meta">a</span> and <span class="meta">b</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#lor">a | b</a></td>
+              <td>Returns the logical or of <span class="meta">a</span> and <span class="meta">b</span>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#band">a &amp;&amp; b</a></td>
+              <td>Returns <span class="meta">a</span> if <code>!</code>
+                <span class="meta">a</span> is true, otherwise returns
+<span class="meta">b</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#bor">a || b</a></td>
+              <td>Returns <span class="meta">a</span> if <span class="meta">a</span> is true, otherwise returns
+<span class="meta">b</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#cond">a ? b : c</a></td>
+              <td>Returns <span class="meta">b</span> if <span class="meta">a</span> is true, otherwise returns
+<span class="meta">c</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#assign">a = b</a></td>
+              <td>Assigns <span class="meta">b</span> to <span class="meta">a</span> and returns <span class="meta">b</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#xeq">a x= b</a></td>
+              <td>Equivalent to <code>a = a <span class="meta">x</span> b</code>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#comma">a, b</a></td>
+              <td>Evaluates <span class="meta">a</span> then <span class="meta">b</span> and returns <span class="meta">b</span>
+              </td>
+            </tr>
+          </table>
+
+<a name="Operators"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Operators</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="variable"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the value of the variable <span class="meta">a</span>.  Unlike Java
+variables, Javascript variables can store any value, i.e. they are
+untyped.  So <span class="meta">a</span> can contain a number, a string, an object.
+
+<p><a href="statements.html#var">Undeclared</a> variables are global.
+<a href="statements.html#var">Declared</a> variables and function 
+<a href="functions.html">arguments</a> are local to their declaring
+function.
+
+<p>Declared but uninitialized variables have the value
+<code>undefined</code>.  It is a runtime error to get the value of an
+undeclared and uninitialized variable.  Setting an unused variable is
+allowed.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Variables are untyped</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;3<br>
+a&nbsp;=&nbsp;"a"<br>
+</td>
+                </tr>
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">var&nbsp;a&nbsp;=&nbsp;"a"<br>
+a&nbsp;=&nbsp;{1,2,3}<br>
+</td>
+                </tr>
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">if&nbsp;(true)<br>
+&nbsp;&nbsp;a&nbsp;=&nbsp;19;<br>
+else<br>
+&nbsp;&nbsp;a&nbsp;=&nbsp;[1,2,3]<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Undeclared variables are global</font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;foo()&nbsp;{&nbsp;<br>
+&nbsp;&nbsp;b&nbsp;=&nbsp;"local";&nbsp;<br>
+&nbsp;&nbsp;return&nbsp;b<br>
+}<br>
+<br>
+foo()&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;b<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+local&nbsp;local<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Function arguments are local</font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+var&nbsp;b&nbsp;=&nbsp;"global"<br>
+<br>
+function&nbsp;foo(b)&nbsp;{&nbsp;<br>
+&nbsp;&nbsp;b&nbsp;=&nbsp;"local";&nbsp;<br>
+&nbsp;&nbsp;return&nbsp;b&nbsp;<br>
+}<br>
+<br>
+foo()&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;b<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+local&nbsp;global<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Declared variables are local</font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+var&nbsp;b&nbsp;=&nbsp;"global"<br>
+<br>
+function&nbsp;foo()&nbsp;{&nbsp;<br>
+&nbsp;&nbsp;var&nbsp;b&nbsp;=&nbsp;"local";&nbsp;<br>
+&nbsp;&nbsp;return&nbsp;b&nbsp;<br>
+}<br>
+<br>
+foo()&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;b<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+local&nbsp;global<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Variable initialization</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">b</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">
+                  <span class="meta">undefined variable `b'</span>
+                </td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">var&nbsp;b;&nbsp;b</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">undefined</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">b&nbsp;=&nbsp;3;&nbsp;b</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">3</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="this"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code"><code>this</code></h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the value of the special variable <code>this</code>.
+<code>this</code> returns the value of the called object to allow method
+calls.  See <a href="functions.html#this">functions</a> for a more
+complete description.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">Basic use of <code>this</code></font>
+                </caption><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;foo()&nbsp;{&nbsp;return&nbsp;this.a&nbsp;}<br>
+<br>
+obj&nbsp;=&nbsp;{&nbsp;a&nbsp;:&nbsp;13,&nbsp;getA&nbsp;:&nbsp;foo&nbsp;}<br>
+<br>
+obj.getA()<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+13<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="group"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">(a)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the value of expression <span class="meta">a</span>.
+</div>
+
+<a name="fieldref"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">obj.field</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the value named by the identifier <span class="meta">field</span> in 
+<span class="meta">obj</span>.  Resin converts <span class="meta">obj</span> to an object, so literals
+like strings can have properties.  
+
+<p>See <a href="objects.html#access">objects</a> for a complete
+discussion of object properties.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;{a:3};&nbsp;a.a</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">3</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;{b:"foo"};&nbsp;a.b</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">foo</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;{};&nbsp;a.b&nbsp;=&nbsp;[1,2,3];&nbsp;a.b</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">1,2,3</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;{c:{a:3}};&nbsp;a.c.toSource()</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">{a:3}</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"abc".toSource()</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">"abc"</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"abc".replace(/b/,&nbsp;"B")</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">aBc</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">null.foo</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">
+                  <span class="meta">null has no properties</span>
+                </td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">var&nbsp;foo;&nbsp;foo.bar</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">
+                  <span class="meta">undefined has no properties</span>
+                </td></tr>
+</table>
+            </center>
+</div>
+
+<a name="arrayref"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">obj[field_expr]</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the value named by the <span class="meta">field_expr</span> in the
+<span class="meta">obj</span>.  <span class="meta">field_expr</span> can be any expression.  Since
+properties are named by strings, Resin converts <span class="meta">field_expr</span> to
+a string before looking up the property.
+
+<p>See <a href="objects.html#access">objects</a> for a complete
+discussion of object properties.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;{a:3};&nbsp;a["a"]</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">3</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;{2:"foo"};&nbsp;a[1&nbsp;+&nbsp;1]</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">foo</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="funcall"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">fun(arg_1, ..., arg_n)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Calls the function <span class="meta">fun</span> with arguments <span class="meta">arg_1</span>
+through <span class="meta">arg_n</span>.  See the <a href="functions.html">function</a>
+section for a more complete description.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;add(a,&nbsp;b)<br>
+{<br>
+&nbsp;&nbsp;return&nbsp;10&nbsp;*&nbsp;a&nbsp;+&nbsp;b;<br>
+}<br>
+<br>
+add(1,&nbsp;2)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+12<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="new"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">new fun(arg_1, ..., arg_n)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new object and calls <span class="meta">fun</span> to initialize
+it.  The prototype of the new object is
+<code>
+              <span class="meta">fun</span>.prototype</code>.  The function call has <code>this</code> set
+to the new object.  See the <a href="objects.html">object</a> section
+for a more complete description.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;car(color)<br>
+{<br>
+&nbsp;&nbsp;this.color&nbsp;=&nbsp;color;<br>
+}<br>
+car.prototype.wheels&nbsp;=&nbsp;4<br>
+<br>
+myCar&nbsp;=&nbsp;new&nbsp;car("red");<br>
+<br>
+myCar.wheels&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;myCar.color<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+4&nbsp;red<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="postinc"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a++</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns <span class="meta">a</span> then increments it.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;10<br>
+a++&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result"><br>
+10&nbsp;11<br>
+</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="postdec"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a--</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns <span class="meta">a</span> then decrements it.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;10<br>
+a--&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result"><br>
+10&nbsp;9<br>
+</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="preinc"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">++a</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Increments <span class="meta">a</span> and returns the new value.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;10<br>
+++a&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result"><br>
+11&nbsp;11<br>
+</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="predec"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">--a</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Decrements <span class="meta">a</span> and returns the new value.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;10<br>
+--a&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result"><br>
+9&nbsp;9<br>
+</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="binnot"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">~ a</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the binary inverse of <span class="meta">a</span>.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">~0xf105</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0xffff0efa</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">~-1</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="not"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">! a</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the boolean inverse of <span class="meta">a</span>.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">!&nbsp;true</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">false</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">!&nbsp;0</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">true</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">!&nbsp;15</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">false</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">!&nbsp;"0"</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">false</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">!&nbsp;""</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">true</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="neg"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">- a</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the negative of <span class="meta">a</span>.
+</div>
+
+<a name="pos"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">+ a</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Converts <span class="meta">a</span> to a number.
+</div>
+
+<a name="typeof"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">typeof a</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the type of <span class="meta">a</span>
+</div>
+
+<a name="delete"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">delete a</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Deletes the property <span class="meta">a</span>, returning true on success.
+</div>
+
+<a name="delete"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">void a</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns <code>undefined</code>
+</div>
+
+<a name="mul"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a * b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Multiplies <span class="meta">a</span> by <span class="meta">b</span>.
+</div>
+
+<a name="div"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a / b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Divides <span class="meta">a</span> by <span class="meta">b</span>.
+</div>
+
+<a name="rem"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a % b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the remainder of dividing <span class="meta">a</span> by <span class="meta">b</span>.
+</div>
+
+<a name="plus"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a + b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Concatenate when either <span class="meta">a</span> or <span class="meta">b</span> is a string and 
+add otherwise.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"1"&nbsp;+&nbsp;3</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">13</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">3&nbsp;+&nbsp;"1"</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">31</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">3&nbsp;+&nbsp;true</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">4</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="sub"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a - b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Subtracts <span class="meta">b</span> from <span class="meta">a</span>.
+</div>
+
+<a name="shr"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a >> b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Arithmetically shifts <span class="meta">a</span> right by <span class="meta">b</span> bits.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"1"&nbsp;>>&nbsp;0</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">1</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">0x7f&nbsp;>>&nbsp;4</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">7</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">-1&nbsp;>>&nbsp;16</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">-1</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="ushr"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a >>> b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Logically shifts <span class="meta">a</span> right by <span class="meta">b</span> bits.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"1"&nbsp;>>>&nbsp;0</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">1</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">0x7f&nbsp;>>>&nbsp;4</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">7</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">-1&nbsp;>>>&nbsp;16</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0xffff</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="shl"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a &lt;&lt; b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Shifts <span class="meta">a</span> left by <span class="meta">b</span> bits.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"1"&nbsp;&lt;&lt;&nbsp;2</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">4</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">0x7f&nbsp;&lt;&lt;&nbsp;4</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0x7f0</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">-1&nbsp;&lt;&lt;&nbsp;2</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">-4</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="lr"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a &lt; b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+True if <span class="meta">a</span> is less than <span class="meta">b</span>
+The comparison is a string comparison <span class="meta">a</span> and <span class="meta">b</span> are
+strings and a numeric comparison otherwise.  This differs from the
+addition operation.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"12"&nbsp;&lt;&nbsp;2</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">false</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"12"&nbsp;&lt;&nbsp;"2"</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">true</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="gt"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a > b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+True if <span class="meta">a</span> is greater than <span class="meta">b</span>
+The comparison is a string comparison <span class="meta">a</span> and <span class="meta">b</span> are
+strings and a numeric comparison otherwise.  This differs from the
+addition operation.
+</div>
+
+<a name="gt"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a &lt;= b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+True if <span class="meta">a</span> is less than or equal to <span class="meta">b</span>
+The comparison is a string comparison <span class="meta">a</span> and <span class="meta">b</span> are
+strings and a numeric comparison otherwise.  This differs from the
+addition operation.
+</div>
+
+<a name="gt"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a >= b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+True if <span class="meta">a</span> is greater than or equal to <span class="meta">b</span>
+The comparison is a string comparison <span class="meta">a</span> and <span class="meta">b</span> are
+strings and a numeric comparison otherwise.  This differs from the
+addition operation.
+</div>
+
+<a name="eq"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a == b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+True if <span class="meta">a</span> is equal to <span class="meta">b</span>
+The conversion rules are given in the following table:
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th width="25%">a</th>
+                  <th width="25%">b</th>
+                  <th>comparison type</th>
+                </tr>
+<tr>
+                  <td>null</td>
+                  <td>undefined</td>
+                  <td>true</td>
+                </tr>
+<tr>
+                  <td>null or undefined</td>
+                  <td>anything</td>
+                  <td>false</td>
+                </tr>
+<tr>
+                  <td>string</td>
+                  <td>object</td>
+                  <td>string</td>
+                </tr>
+<tr>
+                  <td>number</td>
+                  <td>object</td>
+                  <td>number</td>
+                </tr>
+<tr>
+                  <td>number</td>
+                  <td>string</td>
+                  <td>number</td>
+                </tr>
+<tr>
+                  <td>object</td>
+                  <td>object</td>
+                  <td>strict equality</td>
+                </tr>
+<tr>
+                  <td colspan="2/otherwise"></td>
+                  <td>number</td>
+                </tr>
+</table>
+            </center>
+</div>
+
+<a name="ne"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a != b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+True if <span class="meta">a</span> is not equal to <span class="meta">b</span>.
+The comparison is as for equality.
+</div>
+
+<a name="seq"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a === b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+True if <span class="meta">a</span> is strictly equal to <span class="meta">b</span>
+No conversions are performed.
+</div>
+
+<a name="sne"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a !== b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+True if <span class="meta">a</span> is not strictly equal to <span class="meta">b</span>
+No conversions are performed.
+</div>
+
+<a name="land"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a &amp; b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the logical and of <span class="meta">a</span> and <span class="meta">b</span>
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">0x1010&nbsp;&amp;&nbsp;0x1100</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0x1000</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="lxor"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a ^ b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the logical exclusive or of <span class="meta">a</span> and <span class="meta">b</span>
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">0x1010&nbsp;^&nbsp;0x1100</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0x0110</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="lor"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a | b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the logical or of <span class="meta">a</span> and <span class="meta">b</span>
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">0x1010&nbsp;|&nbsp;0x1100</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0x1110</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="band"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a &amp;&amp; b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns <span class="meta">a</span> if <code>!</code>
+            <span class="meta">a</span> is true, otherwise returns
+<span class="meta">b</span>. The evaluation short-circuits if <span class="meta">a</span> is false,
+i.e. <span class="meta">b</span> is not evaluated.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">0&nbsp;&amp;&amp;&nbsp;foo()</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;foo()&nbsp;is&nbsp;not&nbsp;called</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">null&nbsp;&amp;&amp;&nbsp;foo()</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">null&nbsp;//&nbsp;foo()&nbsp;is&nbsp;not&nbsp;called</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">15&nbsp;&amp;&amp;&nbsp;foo()</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">foo()</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="bor"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a || b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns <span class="meta">a</span> if <span class="meta">a</span> is true, otherwise returns
+<span class="meta">b</span>. The evaluation short-circuits if <span class="meta">a</span> is true,
+i.e. <span class="meta">b</span> is not evaluated.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">0&nbsp;||&nbsp;foo()</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">foo()</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"0"&nbsp;||&nbsp;foo()</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">"0"&nbsp;//&nbsp;foo()&nbsp;is&nbsp;not&nbsp;called</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">true&nbsp;||&nbsp;foo()</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">foo()</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="cond"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a ? b : c</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns <span class="meta">b</span> if <span class="meta">a</span> is true, otherwise returns
+<span class="meta">c</span>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">null&nbsp;?&nbsp;foo()&nbsp;:&nbsp;bar()</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">bar()&nbsp;//&nbsp;foo()&nbsp;is&nbsp;not&nbsp;called</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"0"&nbsp;?&nbsp;foo()&nbsp;:&nbsp;bar()</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">foo()&nbsp;//&nbsp;bar()&nbsp;is&nbsp;not&nbsp;called</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="assign"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a = b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Assigns <span class="meta">b</span> to <span class="meta">a</span> and returns <span class="meta">b</span>.
+
+<p>See <a href="objobj.html#watch">watch</a>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">(a&nbsp;=&nbsp;3)&nbsp;+&nbsp;9<br>
+a<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">12<br>
+3<br>
+</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a["foo"]&nbsp;=&nbsp;3<br>
+a.foo<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">3<br>
+3<br>
+</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="xeq"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a x= b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Equivalent to <code>a = a <span class="meta">x</span> b</code>.
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;3;&nbsp;a&nbsp;*=&nbsp;2</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">6</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;3;&nbsp;a&nbsp;/=&nbsp;2</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">1.5</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;3;&nbsp;a&nbsp;%=&nbsp;2</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">1</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;3;&nbsp;a&nbsp;+=&nbsp;1</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">4</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;"3";&nbsp;a&nbsp;+=&nbsp;1</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">31</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;3;&nbsp;a&nbsp;-=&nbsp;1</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">2</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;3;&nbsp;a&nbsp;&lt;&lt;=&nbsp;2</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">12</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;-16;&nbsp;a&nbsp;>>=&nbsp;2</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">-4</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;-1;&nbsp;a&nbsp;>>>=&nbsp;16</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0xffff</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;0x1100;&nbsp;a&nbsp;&amp;=&nbsp;0x1010</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0x1000</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;0x1100;&nbsp;a&nbsp;^=&nbsp;0x1010</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0x0110</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;0x1100;&nbsp;a&nbsp;|=&nbsp;0x1010</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">0x1110</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="comma"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a, b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Evaluates <span class="meta">a</span> then <span class="meta">b</span> and returns <span class="meta">b</span>
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">a&nbsp;=&nbsp;1,&nbsp;++a</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">2</td></tr>
+</table>
+            </center>
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='regexp.html'>Regexp</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='objects.html'>Objects</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:48 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

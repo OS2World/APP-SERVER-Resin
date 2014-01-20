@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>XML Document</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="corelib.html">Core Library</a>
+<tr><td><a href="filelib.html">File Library</a>
+<tr><td><a href="servletlib.html">Servlet Library</a>
+<tr><td><a href="dblib.html">Database Library</a>
+<tr><td><a href="xmllib.html">XML Library</a>
+<tr><td><hr>
+<tr><td><a href="xmlparser.html">Parser</a>
+<tr><td><em>Document</em>
+<tr><td><a href="xmlnode.html">Node</a>
+<tr><td><a href="xmlelement.html">Element</a>
+<tr><td><a href="xmltext.html">Text</a>
+<tr><td><a href="xmlcomment.html">Comment</a>
+<tr><td><a href="xmler.html">EntityRef</a>
+<tr><td><a href="xmlcdata.html">CData</a>
+<tr><td><a href="xmlpi.html">PI</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;XML Document</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Document</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">nodeName</a></td>
+              <td>
+Returns '#document'
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">nodeType</a></td>
+              <td>
+Returns DOCUMENT_NODE
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">documentElement</a></td>
+              <td>Returns the top level element of the document.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#createElement">createElement</a>(tagName)</td>
+              <td>Creates a new element for this document.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#createTextNode">createTextNode</a>(data)</td>
+              <td>Creates a new text for this document.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#createComment">createComment</a>(data)</td>
+              <td>Creates a new comment for this document.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#createCDATASection">createCDATASection</a>(data)</td>
+              <td>Creates a new CData section for this document.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#createProcessingInstruction">createProcessingInstruction</a>(target, data)</td>
+              <td>Creates a new processing instruction for this document.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#createAttribute">createAttribute</a>(name)</td>
+              <td>
+Creates a new attribute.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#createEntityReference">createEntityReference</a>(name)</td>
+              <td>
+Creates a new entity reference.
+</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getElementsByTagName">getElementsByTagName</a>(name)</td>
+              <td>Returns a NodeList of all child elements with tag 
+name <code>name</code>.</td>
+            </tr>
+          </table>
+
+<a name="Document"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Document</b>
+                </font>
+              </td><td align=right>DOM 1.0</td>
+</tr>
+          </table>
+          <p>
+
+<a name="nodeName"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">nodeName</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns '#document'
+</div>
+
+<a name="nodeType"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">nodeType</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns DOCUMENT_NODE
+</div>
+
+<a name="documentElement"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">documentElement</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns the top level element of the document.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;foo/&gt;");<br>
+<br>
+xml.documentElement.nodeName<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+foo<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="createElement_tagName_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">createElement(tagName)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new element for this document.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;top/&gt;");<br>
+<br>
+elt&nbsp;=&nbsp;xml.createElement("bar");<br>
+xml.documentElement.appendChild(elt);<br>
+<br>
+xml.print(out);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;top&gt;&lt;bar/&gt;&lt;/top&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="createTextNode_data_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">createTextNode(data)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new text for this document.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;top/&gt;");<br>
+<br>
+text&nbsp;=&nbsp;xml.createTextNode("hello,&nbsp;world");<br>
+xml.documentElement.appendChild(text);<br>
+<br>
+xml.print(out);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;top&gt;hello,&nbsp;world&lt;/top&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="createComment_data_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">createComment(data)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new comment for this document.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;top/&gt;");<br>
+<br>
+text&nbsp;=&nbsp;xml.createComment("&nbsp;test&nbsp;comment&nbsp;");<br>
+xml.documentElement.appendChild(text);<br>
+<br>
+xml.print(out);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;top&gt;&lt;!--&nbsp;test&nbsp;comment&nbsp;--&gt;&lt;/top&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="createCDATASection_data_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">createCDATASection(data)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new CData section for this document.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;top/&gt;");<br>
+<br>
+text&nbsp;=&nbsp;xml.createCDATASection("&nbsp;test&nbsp;<&nbsp;cdata&nbsp;");<br>
+xml.documentElement.appendChild(text);<br>
+<br>
+xml.print(out);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;top&gt;&lt;![CDATA[&nbsp;test&nbsp;&lt;&nbsp;cdata&nbsp;]]&gt;&lt;/top&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="createProcessingInstruction_target_data_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">createProcessingInstruction(target, data)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new processing instruction for this document.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString("&lt;top/&gt;");<br>
+<br>
+text&nbsp;=&nbsp;xml.createProcessingInstruction("caucho",&nbsp;"debug");<br>
+xml.documentElement.appendChild(text);<br>
+<br>
+xml.print(out);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;top&gt;&lt;?caucho&nbsp;log?&gt;&lt;/top&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="createAttribute_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">createAttribute(name)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new attribute.
+</div>
+
+<a name="createEntityReference_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">createEntityReference(name)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new entity reference.
+</div>
+
+<a name="getElementsByTagName_name_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">getElementsByTagName(name)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Returns a NodeList of all child elements with tag 
+name <code>name</code>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString(@&lt;&lt;END);<br>
+&lt;top&gt;<br>
+&nbsp;&nbsp;&lt;foo&nbsp;a='1'/&gt;<br>
+&nbsp;&nbsp;&lt;foo&nbsp;a='2'&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;foo&nbsp;a='3'/&gt;<br>
+&nbsp;&nbsp;&lt;/foo&gt;<br>
+&lt;/top&gt;<br>
+END<br>
+<br>
+for&nbsp;(var&nbsp;node&nbsp;in&nbsp;xml.getElementsByTagName('foo'))&nbsp;{<br>
+&nbsp;&nbsp;writeln(node.attribute.a);<br>
+}<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+1<br>
+2<br>
+3<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='xmlparser.html'>Parser</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='xmlnode.html'>Node</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 03 Apr 2000 11:20:13 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,2075 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Technical FAQ</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><em>FAQ</em>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Technical FAQ</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#I_just_get_a_404_for_JSP_or_Servlets_">I just get a 404 for JSP or Servlets!</a></li>
+                    <li><a href="#IIS_caucho_status_fails">IIS - caucho-status fails</a></li>
+                    <li><a href="#Apache_IIS_cannot_contact_to_servlet_runner">Apache/IIS cannot contact to servlet runner</a></li>
+                    <li><a href="#Apache_IIS_doesn_t_pick_up_resin_conf_changes">Apache/IIS doesn't pick up resin.conf changes</a></li>
+                    <li><a href="#File_not_found">File not found</a></li>
+                    <li><a href="#browser_returns_test_jsp_source">browser returns test.jsp source</a></li>
+                    <li><a href="#java_net_BindException">java.net.BindException</a></li>
+                    <li><a href="#Where_do_I_put_my_jars_and_classes_">Where do I put my jars and classes?</a></li>
+                    <li><a href="#JSP_uses_the_wrong_JDK_version">JSP uses the wrong JDK version</a></li>
+                    <li><a href="#Apache_won_t_start_on_Win32">Apache won't start on Win32</a></li>
+                    <li><a href="#How_to_get_debugging_information">How to get debugging information</a></li>
+                    <li><a href="#Resin_doesn_t_update_changed_servlets_and_JSP_pages">Resin doesn't update changed servlets and JSP pages</a></li>
+                    <li><a href="#Java_JSP_doesn_t_compile">Java JSP doesn't compile</a></li>
+                    <li><a href="#Exceptions_don_t_have_line_numbers">Exceptions don't have line numbers</a></li>
+                    <li><a href="#install_sh_doesn_t_compile_mod_caucho_c_on_Linux">install.sh doesn't compile mod_caucho.c on Linux</a></li>
+                    <li><a href="#How_do_I_get_exception_line_numbers_">How do I get exception line numbers?</a></li>
+                    <li><a href="#How_do_I_enable_session_url_rewriting_">How do I enable session url rewriting?</a></li>
+                    <li><a href="#How_do_I_keep_the_generated_java_files_">How do I keep the generated .java files?</a></li>
+                    <li><a href="#How_do_I_use_multiple_resin_conf_files_">How do I use multiple resin.conf files?</a></li>
+                    <li><a href="#ClassNotFoundException_for_servlet_or_bean">ClassNotFoundException for servlet or bean</a></li>
+                    <li><a href="#Class_work_test_MyBean_not_found">Class work.test.MyBean not found</a></li>
+                    <li><a href="#Resin_can_t_load_my_JDBC_driver">Resin can't load my JDBC driver</a></li>
+                    <li><a href="#My_character_encoding_is_messed_up">My character encoding is messed up</a></li>
+                    <li><a href="#Form_character_encoding_doesn_t_work">Form character encoding doesn't work</a></li>
+                    <li><a href="#Error_405_resource_not_found">Error 405 resource not found</a></li>
+                    <li><a href="#Why_so_many_processes_on_Linux_">Why so many processes on Linux?</a></li>
+                    <li><a href="#How_do_I_run_Resin_with_a_debugger_">How do I run Resin with a debugger?</a></li>
+                    <li><a href="#I_ve_got_a_cryptic_ServletException_How_do_I_get_the_full_trace_">I've got a cryptic ServletException.  How do I get the full trace?</a></li>
+                    <li><a href="#How_do_I_configure_a_default_servlet_">How do I configure a default servlet?</a></li>
+                    <li><a href="#Can_you_recommend_any_JDBC_drivers_">Can you recommend any JDBC drivers?</a></li>
+                    <li><a href="#How_do_I_print_an_exception_stack_trace_to_the_JSP_out_">How do I print an exception stack trace to the JSP out?</a></li>
+                    <li><a href="#How_do_I_get_the_application_class_loader_">How do I get the application class loader?</a></li>
+                    <li><a href="#The_application_gets_reloaded_on_each_request">The application gets reloaded on each request</a></li>
+                    <li><a href="#How_do_I_delete_cookies_">How do I delete cookies?</a></li>
+                    <li><a href="#How_do_I_pass_JVM_arguments_like_ms48m_">How do I pass JVM arguments like -ms48m?</a></li>
+                    <li><a href="#How_do_I_change_the_cannot_connect_message_">How do I change the 'cannot connect' message?</a></li>
+                    <li><a href="#How_do_I_set_a_virtual_directory_">How do I set a virtual directory?</a></li>
+                    <li><a href="#What_is_a_web_app_">What is a web-app?</a></li>
+                    <li><a href="#Why_don_t_my_URLs_work_in_my_web_app_">Why don't my URLs work in my web-app?</a></li>
+                    <li><a href="#How_should_I_use_XSL_">How should I use XSL?</a></li>
+                    <li><a href="#Apache_doesn_t_find_my_resin_conf">Apache doesn't find my resin.conf</a></li>
+                    <li><a href="#How_do_I_stop_the_browser_from_caching_my_page_">How do I stop the browser from caching my page?</a></li>
+                    <li><a href="#How_do_I_precompile_jsp_pages_">How do I precompile *.jsp pages?</a></li>
+                    <li><a href="#How_do_I_use_virtual_hosts_with_IIS_">How do I use virtual hosts with IIS?</a></li>
+                    <li><a href="#What_value_does_caching_add_when_I_m_already_using_Apache_">What value does caching add when I'm already using Apache?</a></li>
+                    <li><a href="#libcaucho_so_not_found">libcaucho.so not found</a></li>
+                    <li><a href="#Resin_crashes_on_Windows_when_recompiling">Resin crashes on Windows when recompiling</a></li>
+                    <li><a href="#How_do_I_install_Resin_as_a_Linux_service_">How do I install Resin as a Linux service?</a></li>
+                    <li><a href="#How_do_I_configure_error_pages_in_resin_conf_">How do I configure error pages in resin.conf?</a></li>
+                    <li><a href="#How_do_I_configure_mod_caucho_with_AIX_">How do I configure mod_caucho with AIX?</a></li>
+                    <li><a href="#Where_do_all_the_files_go_">Where do all the files go?</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<a name="I_just_get_a_404_for_JSP_or_Servlets_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>I just get a 404 for JSP or Servlets!</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>Make sure you try the following:
+
+<ol>
+<li>First, check your configuration with the standalone httpd.
+Both httpd and srun use the same configuration file, so the
+results should be identical.
+</li>
+            <li>Check http://localhost/caucho-status.  That will tell if
+mod_caucho has properly read the resin.conf.
+</li>
+            <li>The srun hosts should be green and the mappings should match your resin.conf.
+</li>
+            <li>If caucho-status fails on Apache, the problem is in the
+mod_caucho/iis_srun installation and the Apache httpd.conf.
+</li>
+            <li>If caucho-status fails on IIS, try
+http://localhost/scripts/iis_srun.dll/caucho-status directly.
+If this fails, IIS can't find iis_srun.dll.  
+<ul>
+<li>Check that iis_srun.dll is in <span class="meta">c:\inetpub\scripts.</span>
+</li>
+                <li>Make sure that your IIS host has a mapping from <span class="meta">/scripts</span>
+to <span class="meta">c:\inetpub\scripts</span> and that the <span class="meta">/scripts</span> has execute
+permissions.
+</li>
+              </ul>
+</li>
+            <li>If caucho-status shows the wrong mappings, there's something wrong
+with the resin.conf or the pointer to resin.conf in httpd.conf.
+</li>
+            <li>If caucho-status shows a red servlet runner, then srun.sh hasn't
+properly started.
+</li>
+            <li>If you get a "cannot connect to servlet engine", caucho-status
+will show red, and srun.sh hasn't started properly.
+</li>
+            <li>If srun.sh doesn't start properly, you should look at the logs
+in resin1.1/log.  You should start <span class="meta">srun.sh -verbose</span> to get
+more information.
+</li>
+            <li>If you get Resin's file not found, the Apache configuration
+is good but the resin.conf probably points to the wrong directories.
+</li>
+            <li>If the error message is from Resin, your <span class="meta">app-dir</span> is probably set
+wrong.  Remember servlets belong in <span class="meta">"app-dir"/WEB-INF/classes</span>.
+</li>
+          </ol>
+
+<p>Before you ask any questions on the list, you should be able to
+answer the following questions:
+
+<ul>
+<li>Does httpd standalone work?
+</li>
+            <li>What does the /caucho-status show?
+</li>
+            <li>Is the 404 coming from your web server or from Resin?
+</li>
+          </ul>
+
+<p>If you don't answer these questions in your mail, the mail will
+probably be ignored.
+
+<p>
+          <em>Victor A. Salaman</em> writes:
+
+<p>This may sound elementary... But check for these common pitfalls:
+
+<ol>
+<li>Check in your browser that it's not configured to use a proxy server..
+and if it is, make it bypass local accesses or disable proxying altogether
+(If you are using IE, just go to Tool/Options/Connection and at the bottom
+you'll see the proxy stuff!
+
+</li>
+            <li>Make you are running httpd.exe.... A lot of people try to use "srun.exe",
+and this is just a servlet runner.... 
+
+</li>
+            <li>Modify your resin.conf file and add this line right after "&lt;caucho.com>" 
+        &lt;log id="/" href="stderr:"/>
+</li>
+          </ol>	
+
+<p>After you do this, execute httpd.exe and see what pops up....
+
+
+
+<a name="IIS_caucho_status_fails"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>IIS - caucho-status fails</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>Try looking at <span class="meta">http://localhost/scripts/iis_srun.dll/caucho-status</span>.
+If this fails, IIS can't use the iis_srun.dll plugin.  The problem is
+probably one of the following:
+
+<ul>
+<li>iis_srun.dll isn't in <span class="meta">c:\inetpub\scripts</span>.
+</li>
+            <li>The IIS host is missing the <span class="meta">/scripts</span> virtual directory.
+</li>
+            <li>
+              <span class="meta">/scripts</span> doesn't have proper execute permissions.
+</li>
+          </ul>
+
+Resin's IIS module needs the <span class="meta">/scripts</span> virtual directory to contain
+iis_srun.dll.  If you create a new IIS virtual host, you must create a
+<span class="meta">/scripts</span> virtual directory that points to <span class="meta">d:\inetpub\scripts</span>.
+
+<p>When the Resin ISAPI filter detects a JSP page or servlet, it rewrites the
+URL to <span class="meta">/scripts/iis_srun.dll/test.jsp</span>.  IIS will then execute
+iis_srun.dll as an ISAPI extension.  If your virtual site is missing the
+<span class="meta">/scripts</span> directory, IIS can't find the ISAPI extension.
+
+
+
+<a name="Apache_IIS_cannot_contact_to_servlet_runner"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Apache/IIS cannot contact to servlet runner</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The particular error message is something like:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">Cannot&nbsp;connect&nbsp;to&nbsp;servlet&nbsp;runner&nbsp;at&nbsp;localhost:6802<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The servlet runner process needs to be started.  In resin1.1/bin
+the srun executable will start the servlet runner.
+
+<p>The srun executable will start Java and wait for connections from the
+web server.
+
+
+
+<a name="Apache_IIS_doesn_t_pick_up_resin_conf_changes"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Apache/IIS doesn't pick up resin.conf changes</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+For Resin 1.1, you need to restart Apache and IIS for them to pick up
+any changes to the resin.conf.  Resin 1.2 picks up the changes
+automatically.
+
+
+
+<a name="File_not_found"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>File not found</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The web server (IIS or Apache) and the servlet runner (srun), need to find the
+web pages.  The resin.conf file configures srun.  You need to add a
+'app-dir' property, to tell srun where to look for the root directory.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&nbsp;&nbsp;&lt;http-server&nbsp;app-dir='d:\InetPub\wwwroot'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='*.jsp'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='com.caucho.jsp.JspServlet'><br>
+&nbsp;&nbsp;&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="browser_returns_test_jsp_source"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>browser returns test.jsp source</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+If you're running Resin with IIS or Apache, the web server might not
+know how to handle *.jsp files.  On Apache, the httpd.conf needs to
+add Resin.  On IIS, the IIS configuration needs to dispatch *.jsp
+files to srun_iis.dll.
+
+<p>Both may need restarting to see the changes.
+
+<p>To test if this is the problem, stop the srun executable.  If you
+browse http://localhost/test.jsp, you should get the 'Cannot connect
+to servlet runner' message.
+
+
+
+<a name="java_net_BindException"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>java.net.BindException</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+You'll get this exception if you try to start two Resin
+instances using the same port.  You'll need to stop the first one.
+
+<p>On Unix, the dramatic way of stopping Resin is to kill the wrapper.pl
+script:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;ps&nbsp;-ef&nbsp;|&nbsp;grep&nbsp;wrapper.pl<br>
+ferg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19441&nbsp;&nbsp;&nbsp;761&nbsp;&nbsp;0&nbsp;08:33&nbsp;pts/0&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;grep&nbsp;wrapper.pl<br>
+unix>&nbsp;kill&nbsp;19441<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Where_do_I_put_my_jars_and_classes_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Where do I put my jars and classes?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>First, look at the standard installation and check the
+HelloWorld example.  The HelloWorld source is in
+<span class="meta">resin1.1/doc/WEB-INF/classses</span>.  Resin will automatically compile
+that source when running the demo and put the class in the same directory.
+
+<p>If you change the app-dir to /usr/local/apache/htdocs, servlets and beans
+will belong in /usr/local/apache/htdocs/WEB-INF/classes.
+
+<p>Until you get your first servlets working, don't try to create your
+own web-apps.  When you do start working with web-apps, look at the
+guest book examples to see where beans and servlets belong.
+
+<p>You can also change the default location with the
+<span class="meta">&lt;classpath></span> directive.
+
+<p>Application jars belong in <span class="meta">WEB-INF/lib</span> and standard libraries,
+like JDBC drivers, belong in the global classpath.  In
+general, you should put standard libraries in the global classpath.
+Resin has several equivalent methods to add a jar to the classpath:
+
+<ol>
+<li>Add the driver to the CLASSPATH environment variable.
+</li>
+            <li>Start Resin with a -classpath argument including the driver.
+</li>
+            <li>Put the jar file in resin1.1/lib.
+</li>
+            <li>Put the classes in resin1.1/classes.
+</li>
+          </ol>
+
+<p>Only the last two will be automatically reloaded when the class or
+jar changes.  For the first two, you'll need to restart Resin.
+
+<p>You can see Resin's global classpath by starting it with the
+-verbose option:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;httpd.sh&nbsp;-verbose<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>You must restart Resin to pick up the new classpath.
+When using the Win32 Resin, you must quit the Resin application.  Just
+pressing the stop and start buttons will not suffice.
+
+
+
+<a name="JSP_uses_the_wrong_JDK_version"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>JSP uses the wrong JDK version</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+On Win32, Resin and Caucho JSP try to find Java in the following
+order:
+
+<ul>
+<li>The command-line argument, -java_home
+</li>
+            <li>The environment variable JAVA_HOME
+</li>
+            <li>The registry, using JavaSoft's CurrentVersion of the JDK.
+</li>
+            <li>Following the PATH of the java executable.
+</li>
+          </ul>
+
+To find out which Java version Caucho JSP is using, use the
+'-version' argument on the command line:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">resin1.1>&nbsp;bin/httpd&nbsp;-version<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+<a name="Apache_won_t_start_on_Win32"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Apache won't start on Win32</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The error message might be something like:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">"Syntax&nbsp;error&nbsp;on&nbsp;line&nbsp;785&nbsp;of<br>
+C:\PROGRA~1\APACHE~1\APACHE/conf/httpd.conf:<br>
+Cannot&nbsp;load&nbsp;c:\resin1.1\srun\win32-1.3.6\mod_caucho.dll&nbsp;into&nbsp;server:"<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+Usually, this is a path problem, for example, you may have
+used "win-1.3.6" instead of "win32-1.3.6".
+
+It will also happen if the dll is incompatible with the Apache version.
+Apache 1.3.6 is compatible with Apache 1.3.9.  If you're using a different
+version, send us a message and we'll make sure you get the right
+compiled version.
+
+
+
+<a name="How_to_get_debugging_information"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How to get debugging information</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Resin can write debugging information to standard output or to any
+file.  To add debugging information add a <span class="meta">log</span> directive to the
+resin.conf file.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&nbsp;&nbsp;&lt;log&nbsp;id='/'&nbsp;href='stderr:'/><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<span class="meta">href</span> can be any path.  stderr: is perhaps the most useful.
+<span class="meta">id</span> can select which portions of Resin to get logging
+information.  Here are some useful patterns:
+
+<p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                <td>/</td>
+                <td>Debug everything
+</td>
+              </tr>
+              <tr>
+                <td>/caucho.com/jsp</td>
+                <td>Debug jsp
+</td>
+              </tr>
+              <tr>
+                <td>/caucho.com/jsp/java</td>
+                <td>See the JSP generated Java
+</td>
+              </tr>
+              <tr>
+                <td>/caucho.com/jsp/js</td>
+                <td>See the JSP generated Java
+</td>
+              </tr>
+              <tr>
+                <td>/caucho.com/xsl</td>
+                <td>XSL debugging
+</td>
+              </tr>
+              <tr>
+                <td>/caucho.com/tcp-server
+    </td>
+                <td>See thread creation and deletion
+</td>
+              </tr>
+              <tr>
+                <td>/caucho.com/http
+    </td>
+                <td>HTTP related information
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Resin_doesn_t_update_changed_servlets_and_JSP_pages"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Resin doesn't update changed servlets and JSP pages</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Resin has a delay for testing updated servlets and JSP pages.
+The configuration variable for both is 'class-update-interval' in
+resin.conf.  It's an application-level variable.  The default is 15
+seconds.  So Resin will only check every 15 seconds for an updated
+page.  You can set this value to 0 for development work.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;http-config&nbsp;class-update-interval='0'><br>
+&nbsp;&nbsp;...<br>
+&lt;/http-config><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>If you want Resin to check servlets for updates every hour, your
+resin.conf might look like:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;http-config&nbsp;class-update-interval='3600'><br>
+&nbsp;&nbsp;...<br>
+&lt;/http-config><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Java_JSP_doesn_t_compile"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Java JSP doesn't compile</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<boundary-box>
+java.lang.NoClassDefFoundError: sun/tools/javac/Main
+</boundary-box>
+
+<p>The JRE does not contain a Java compiler.  You either need to get
+the JDK or use another compiler.  To configure another compiler use:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&nbsp;&nbsp;&lt;java&nbsp;compiler='/usr/local/bin/jikes'/><br>
+&nbsp;&nbsp;...<br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Exceptions_don_t_have_line_numbers"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Exceptions don't have line numbers</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+For debugging, it is crucial to get proper line numbers.
+Unfortunately, Java JITs (just-in-time compilers) remove the line
+numbers.
+
+<p>For development we recommend you turn jit compiling off.  Start
+the server with the JIT compiler turned off.  On Unix you can use:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;httpd.sh&nbsp;-nojit<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="install_sh_doesn_t_compile_mod_caucho_c_on_Linux"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>install.sh doesn't compile mod_caucho.c on Linux</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+This appears to be an Apache 1.3.9 bug.  The loader configuration is missing
+from apxs (usually in /usr/local/apache/bin/apxs).
+
+<p>For Solaris, the configuration should look like:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">my&nbsp;$CFG_CC&nbsp;=&nbsp;gcc'<br>
+my&nbsp;$CFG_CFLAGS_SHLIB&nbsp;&nbsp;=&nbsp;'-fpic&nbsp;-DSHARED_MODULE';<br>
+my&nbsp;$CFG_LD_SHLIB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'gcc';<br>
+my&nbsp;$CFG_LDFLAGS_SHLIB&nbsp;=&nbsp;'-shared';<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="How_do_I_get_exception_line_numbers_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I get exception line numbers?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+For debugging, it is crucial to get proper line numbers.
+Unfortunately, Java JITs (just-in-time compilers) remove the line
+numbers.
+
+<p>For development we recomment you turn jit compiling off.  On unix,
+start the server as:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;httpd.sh&nbsp;-nojit<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="How_do_I_enable_session_url_rewriting_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I enable session url rewriting?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>This is only supported in Resin 1.1.b1 and later.  You can disable
+cookies in the resin.conf with a configuration like
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;http-server&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;session-config<br>
+&nbsp;&nbsp;&nbsp;enable-cookies='false'<br>
+&nbsp;&nbsp;&nbsp;enable-url-rewriting='true'/&gt;<br>
+<br>
+&lt;/http-server&gt;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="How_do_I_keep_the_generated_java_files_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I keep the generated .java files?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>The generated .java files are put in <span class="meta">&lt;java work-dir></span>.  By
+default, that's <span class="meta">/tmp/caucho</span> on Unix and <span class="meta">\temp\caucho</span> on
+Windows.
+
+
+
+<a name="How_do_I_use_multiple_resin_conf_files_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I use multiple resin.conf files?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>This is especially important if you want to use a different
+workspace for development than deployment.  Just call the
+<code>httpd</code> or <code>srun</code> executable with the -conf flag.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;httpd.sh&nbsp;start&nbsp;-conf&nbsp;devel.conf&nbsp;-verbose<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">d:\>&nbsp;httpd.exe&nbsp;-conf&nbsp;devel.conf&nbsp;-verbose<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="ClassNotFoundException_for_servlet_or_bean"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>ClassNotFoundException for servlet or bean</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+First check that the class is in the right location.  In the standard
+configuration, Java classes belong in <span class="meta">resin/doc/WEB-INF/classes</span>.
+If you're using Resin's autocompilation, the Java source file must be in the
+same location.
+
+<p>If you're using the automatic compilation, check that the <span class="meta">package</span>
+in the *.java file matches its location.
+
+
+
+<a name="Class_work_test_MyBean_not_found"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Class work.test.MyBean not found</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Your jsp file must import the proper packages so Java can find the
+bean.  Also, the bean should typically be in <span class="meta">resin/doc/WEB-INF/classes</span>.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;import='test.*'&nbsp;%><br>
+&lt;%=&nbsp;MyBean.printData()&nbsp;%><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Also, if your bean has no package, you need to import the bean by name:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;import='MyBean'&nbsp;%><br>
+&lt;%=&nbsp;MyBean.printData()&nbsp;%><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Resin_can_t_load_my_JDBC_driver"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Resin can't load my JDBC driver</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Your JDBC driver <em>must</em> be in the global classpath.  Both Resin's
+DBPool and the JDBC mechanism can only load classes in the global classpath.
+Since WEB-INF/lib and WEB-INF/classes use special class loaders, neither JDBC
+nor Resin's DBPool can find them.
+
+
+
+<a name="My_character_encoding_is_messed_up"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>My character encoding is messed up</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Resin has an optimization, <span class="meta">static-encoding</span>, which assumes that
+your page is written in the same encoding as you're printing.  That usually
+works, but some people write a page in one encoding, like <span class="meta">Shift-JIS</span>
+and print it in <span class="meta">UTF-8</span>.  To make that work, you need to disable
+<span class="meta">static-encoding</span>.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;jsp&nbsp;static-encoding='false'/><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+Here's an example page that would need to disable static-encoding:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;contentType='text/html;&nbsp;charset=Shift-JIS'&nbsp;%><br>
+&lt;%&nbsp;response.setContentType("text/html;&nbsp;charset=UTF-8")&nbsp;%><br>
+...<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Form_character_encoding_doesn_t_work"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Form character encoding doesn't work</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+A POST request with application/x-www-form-urlencoded doesn't contain any
+information about the character request.  So Resin needs to use a set of
+heuristics to decode the form.  Here's the order:
+
+<ol>
+<li>request.getAttribute("caucho.form.character.encoding")
+</li>
+            <li>The response.setContentType() encoding of the page.
+</li>
+            <li>The <span class="meta">character-encoding</span> tag in the resin.conf.
+</li>
+          </ol>
+
+Resin uses the default character encoding of your JVM to read form data.  To
+set the encoding to another charset, you'll need to change the resin.conf as
+follows:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;http-server&nbsp;character-encoding='Shift_JIS'><br>
+&nbsp;&nbsp;...<br>
+&lt;/http-server><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Error_405_resource_not_found"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Error 405 resource not found</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Usually, this is a servlet extending HttpServlet and implementing
+doGet but not doPost.  If you send a POST request, like a form, to a
+servlet that only implements doGet, you will get 405 resource not found.
+
+
+
+<a name="Why_so_many_processes_on_Linux_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Why so many processes on Linux?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+On Linux, each native thread is displayed as a separate process
+by 'ps -auxw'.  Don't worry, those processes are extremely
+lightweight.
+
+
+
+<a name="How_do_I_run_Resin_with_a_debugger_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I run Resin with a debugger?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Eric Hansen writes:
+
+<p>A lot of people have been asking about a suitable debugging environment for
+resin.  I have been using JPadPro with the updated version of jdb.  (I found
+that the jdb.exe that ships with the JDKs 1.1.8 and 1.2.2 do not like all
+the classloading that happens in a servlet engine.)
+
+<p>Instead, try using the JavaTM Platform Debugger Architecture (JPDA)
+http://www.javasoft.com/products/jpda/.
+
+<p>Just unzip the executables, dlls, and docs files in some directory.  I chose
+c:\jdb.  My project class files are in: c:\local, my resin1.1 files are in:
+c:\resin1.1, and jdk1.2.2 files are in c:\jdk1.2.2.
+
+<p>To start up the debugger issue the following command (you may need
+additional classfiles in the classpath, etc.):
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">C:\jdb\bin\jdb.exe&nbsp;-classpath<br>
+"C:\resin1.1\lib\jdk12.jar;C:\resin1.1\lib\jsdk.jar;C:\resin1.1\lib\jsdk22.j<br>
+ar;C:\resin1.1\lib\resin.jar;C:\jdk1.2.2\jre\lib\rt.jar;C:\jdk1.2.2\lib\tool<br>
+s.jar;C:\local"&nbsp;com.caucho.server.http.HttpServer&nbsp;-conf<br>
+c:\resin1.1\conf\resin.conf<br>
+>&nbsp;run<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>You can access the webserver at: http://localhost/ or
+http://localhost:8080/, etc.  depending on the port number you picked.  You
+should be able to issue the usual jdb commands.  Check the list of commands
+by doing: help or ? at the jdb> prompt.
+
+<p>I use jdb with JPadPro (http://www.modelworks.com).  It has some built-in
+scripts to work with jdb.  It is tailored to work with the jdb that ships
+with the JDK, which has a slightly different response syntax from the JPDA
+version of jdb.  Since all of JPadPro's commands are written in JavaScript,
+you can easily modify the commands to parse the different command/response
+syntax in JPDA.  Or you could even modify the jdb code to have it issue
+similar commands, since JPDA ships with source code for jdb.  However, it's
+probably easiest to modify the JavaScript.  (Check in
+Tools/Java/JDK/Debugger/*, including onBreakPointHit, setBreakPoint.)  I
+modified setBreakPoint, for example, to look like this:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">function&nbsp;BreakpointResult(data,&nbsp;breakpoint)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;var&nbsp;index&nbsp;=&nbsp;data.indexOf("Breakpoint&nbsp;set");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;index2&nbsp;=&nbsp;data.indexOf("Set&nbsp;breakpoint&nbsp;request");<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;((index&nbsp;==&nbsp;-1)&nbsp;&&&nbsp;(index2&nbsp;==&nbsp;-1))<br>
+&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;breakpoint.active&nbsp;=&nbsp;false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gOutput.writeMessage(breakpoint.getPath(),&nbsp;breakpoint.getLineIndex(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Setting&nbsp;breakpoint&nbsp;to&nbsp;inactive&nbsp;-&nbsp;breakpoint&nbsp;is&nbsp;not&nbsp;positioned&nbsp;on&nbsp;a<br>
+valid&nbsp;line");<br>
+&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>This is because the old version of jdb issued the syntax: "Breakpoint
+set...", and the new one issues the command "Set breakpoint request...".
+You get the picture.
+
+<p>A similar formula should bear fruit for Visual Cafe, although they have
+their own proprietary debugger.
+
+<p>Hope that's useful.
+Eric
+
+
+
+<a name="I_ve_got_a_cryptic_ServletException_How_do_I_get_the_full_trace_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>I've got a cryptic ServletException.  How do I get the full trace?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Eric Hansen writes:
+
+<h4>PROBLEM:</h4>
+ 
+Have you ever received a cryptic Exception message like this in your error logging due to an error in a JSP page: ???
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffccdd" class="result">javax.servlet.ServletException<br>
+&nbsp;at&nbsp;com.caucho.jsp.QPageContext.handlePageException(QPageContext.java:371)<br>
+&nbsp;at&nbsp;work.ProgramOverview__jsp._jspService(ProgramOverview__jsp.java:115)<br>
+&nbsp;at&nbsp;com.caucho.jsp.JavaPage.subservice(JavaPage.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;com.caucho.jsp.Page.service(Page.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;com.caucho.jsp.QServlet.service(QServlet.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;com.caucho.server.http.AbstractRequest.service(AbstractRequest.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;com.caucho.server.http.VirtualHost.service(VirtualHost.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;com.caucho.server.http.QRequestDispatcher.forward(QRequestDispatcher.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;com.caucho.server.http.QRequestDispatcher.forward(QRequestDispatcher.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;javax.servlet.http.HttpServlet.service(HttpServlet.java:646)<br>
+&nbsp;at&nbsp;com.caucho.server.http.AbstractRequest.service(AbstractRequest.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;com.caucho.server.http.VirtualHost.service(VirtualHost.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;com.caucho.server.http.Request.dispatch(Request.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;com.caucho.server.http.HttpRequest.handleRequest(HttpRequest.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;com.caucho.server.http.HttpRequest.handleConnection(HttpRequest.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;com.caucho.server.TcpConnection.run(TcpConnection.java,&nbsp;Compiled&nbsp;Code)<br>
+&nbsp;at&nbsp;java.lang.Thread.run(Thread.java:479)<br>
+</td>
+              </tr>
+            </table>
+          </center>
+ 
+<h3>SOLUTION:</h3>
+ 
+<p>You need to change your catch routine.  There is a method in ServletException called getRootCause().  This allows the developer of the servlet engine/JSP engine to embed a
+regular Exception inside a ServletException, which gets carried along for the ride.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">catch(Exception&nbsp;e)<br>
+{<br>
+&nbsp;&nbsp;logMessage(e,"",-1);<br>
+&nbsp;&nbsp;if(e&nbsp;instanceof&nbsp;javax.servlet.ServletException)<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Throwable&nbsp;et;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;et&nbsp;=&nbsp;((javax.servlet.ServletException)e).getRootCause();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(et!=null&&et&nbsp;instanceof&nbsp;Exception)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logMessage(((Exception)et),"ROOT&nbsp;EXCEPTION",-1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+ 
+<p>(logMessage is some logging routine you write to do logging...  Could also be System.err.println...)
+I was finding it quite difficult to debug JSP pages because I couldn't see what the underlying Exception was, just the ServletException which gets thrown from the JSP.  The
+above modification (or something similar) exposes it.  I figure other people might have the same problem.
+ 
+<p>Hope that helps,
+Eric
+
+
+
+<a name="How_do_I_configure_a_default_servlet_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I configure a default servlet?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+&lt;servlet-mapping url-pattern='/' servlet-name='myServlet'/>
+
+<p>This has a different effect from <span class="meta">url-pattern='/*'</span>.   <span class="meta">/*</span> will
+have priority over extension mappings like <span class="meta">*.jsp</span>, while <span class="meta">/</span> has
+the lowest priority.
+
+
+
+<a name="Can_you_recommend_any_JDBC_drivers_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Can you recommend any JDBC drivers?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Arun Jamwal writes:
+
+<p>I have used Weblogic's type 2 JDBC driver (formerly known as FastForward)
+on two big projects. Oracle's type 4 JDBC driver was crashing against
+a big query...and type 2 couldn't be used with M$ VM. Weblogic bundles
+these
+drivers with Tengah but you can ask them just for the JDBC drivers....
+
+<p>I had used Openlink's type 3 JDBC drivers too (about 2.5+ years ago) but I
+didn't
+like them much.
+
+PS: Check out these links for more info:
+
+<p><a href="http://www.beasys.com/products/weblogic/drivers.html">http://www.beasys.com/products/weblogic/drivers.html</a><br>
+<a href="http://www.javasoft.com/products/jdbc/drivers.html">http://www.javasoft.com/products/jdbc/drivers.html</a>
+
+
+
+<a name="How_do_I_print_an_exception_stack_trace_to_the_JSP_out_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I print an exception stack trace to the JSP out?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Mattias Nilsson writes:
+
+<p>Here's the code I use for dumping exceptions on JSP pages
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">catch(Exception&nbsp;e)&nbsp;{<br>
+&nbsp;&nbsp;ByteArrayOutputStream&nbsp;bout&nbsp;=&nbsp;new&nbsp;ByteArrayOutputStream();<br>
+&nbsp;&nbsp;e.printStackTrace(new&nbsp;PrintStream(bout));&nbsp;<br>
+&nbsp;&nbsp;out.println(bout.toString());<br>
+}<br>
+</td>
+                </tr>
+              </table>
+            </center>   
+
+also very useful to include in error emails etc.
+
+</p>
+
+<a name="How_do_I_get_the_application_class_loader_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I get the application class loader?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Unfortunately, the Servlet API doesn't have a call to get the application's
+class loader.  With Resin 1.1.b6, you can use
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">application.getAttribute("caucho.class-loader")<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="The_application_gets_reloaded_on_each_request"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>The application gets reloaded on each request</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>Other symptoms are that sessions are killed on each request.
+
+<p>This may occur if your *.java files have a date in the future.
+When the *.class is compiled, it will have an date before the *.java.
+So Resin will think it's old and recompile on the next request.
+
+<p>This may occur, for example, if you work on NT and use Linux as a
+fileserver and the two clocks aren't properly synchronized.
+
+<p>The only solution is to synchronize the clocks for both machines.
+
+
+
+<a name="How_do_I_delete_cookies_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I delete cookies?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Normally, you can just grab the cookie from <span class="meta">request.getCookies()</span>,
+call <span class="meta">cookie.setMaxAge(0)</span>, and add the cookie to the Response.
+
+<p>One thing you may need to watch out for is that the <span class="meta">Path</span> and
+<span class="meta">Domain</span> of the deleting cookie must match the browser's cookie.  By
+default, Resin sends <span class="meta">Path=/</span> and no domain.
+
+<p>If you set a cookie header explicitly, you may need to call <span class="meta">setPath(null)</span>.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">response.addHeader("Set-Cookie:&nbsp;foo=bar");<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+To delete this cookie, you must call:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">Cookie&nbsp;cookie&nbsp;=&nbsp;new&nbsp;Cookie("foo",&nbsp;"bar");<br>
+cookie.setPath(null);<br>
+response.addCookie(cookie);<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="How_do_I_pass_JVM_arguments_like_ms48m_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I pass JVM arguments like -ms48m?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+You can pass them on the command line like: <span class="meta">-J-ms40m</span>.  You don't need
+to escape <span class="meta">-Dfoo=bar</span>. If you're on Unix, you can also add them to srun.sh or httpd.sh in the <span class="meta">args</span> variable. You may need to quote the assignment:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">args="-J-ms40m&nbsp;-Dfoo=bar"<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="How_do_I_change_the_cannot_connect_message_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I change the 'cannot connect' message?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+In the resin.conf, add an <span class="meta">error-page</span> directive using <span class="meta">connection</span>
+for the exception type.  The location must be an absolute path understandable
+to your web server.  For example, since the web server will display this
+message, you can't forward to a jsp file.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;error-page&nbsp;exception-type='connection'&nbsp;location='/errorpage.html'/><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="How_do_I_set_a_virtual_directory_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I set a virtual directory?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Use the <span class="meta">&lt;path-mapping></span> directive.  For example, to grab images
+from /home/images/*, use:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;path-mapping&nbsp;url-pattern='/images/*'&nbsp;real-path='/home/images'/><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="What_is_a_web_app_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>What is a web-app?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The vast majority of sites can completely ignore web-apps.  If you're
+starting with Resin, use the default web-app and don't worry about it.
+
+<p>You'll only want to use web-apps when you want separate projects using
+the same web server.  For example, on an ISP site, each user might get her
+own web-app.  She can treat the web-app as if she had control over
+the whole web server starting at a URL prefix like <span class="meta">~karen</span>.
+
+<p>A web-app is a generalization of a virtual host.  With virtual
+hosts, each host pretends that it controls its own server when it
+really is sharing the server with other virtual hosts.  A web-app
+extends this by creating virtual applications for a URL prefix.
+
+<p>Each web-app gets its own sessions, servlets, beans and static
+pages.
+
+
+
+<a name="Why_don_t_my_URLs_work_in_my_web_app_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Why don't my URLs work in my web-app?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Remember, the browser doesn't know about your web-apps.  It treats the
+web server as a single URL-space.  This may cause you troubles if you
+use a standard directory structure like putting images in '/images/*'.
+
+<p>To see this problem, suppose you have a web-app called
+'/myproject'.  Suppose you have a JSP page in the web-app called
+<span class="meta">foo/bar.jsp</span>.  The full URL will be
+<span class="meta">/myproject/foo/bar.jsp</span>.  Your image reference should look like
+one of the following:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;img&nbsp;src='../images/image1.gif'/><br><br>
+&lt;img&nbsp;src='<%=&nbsp;application.getContextPath()&nbsp;%>/images/image1.gif'/><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+Using <span class="meta">/images/image1.gif</span> will fail because the browser will
+look for <span class="meta">http://myhost.com/images/image1.gif</span> when you really
+want <span class="meta">http://myhost.com/myproject/images/image1.gif</span>.
+
+
+
+<a name="How_should_I_use_XSL_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How should I use XSL?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+Scott Ferguson writes:
+
+<p>Since my experience with XSLT is only with simple examples, you'll want to take it with a shaker of salt.  And, 
+of course, it really depends on the application.  Some applications are a perfect fit for XSLT and others 
+should avoid it.  For what it's worth, here's my current thinking on XSLT.
+
+<p>XSLT is a very new technology; the spec was only finished in December.  There really hasn't been enough time 
+for people to discover what works and what doesn't work.  Be very careful of new technologies, especially 
+radical new technologies.  Even Java, which has turned out to be a great language, was a disaster in the 1.0.2 
+timeframe, and Java on the client is still less-than-optimal and applets are nightmarish.  When C++ was the 
+hot new thing, many projects jumped full into C++ implementations and created huge unmanageable 
+disasters.
+
+<p>Now, I'm not suggesting that you avoid XSLT entirely, just that you be careful in using it and avoid placing it at 
+the center of your architecture.  I'd suggest you limit XSLT to places where it's a clear win.  Otherwise you can 
+waste lots of time coming up with the perfect tag library or debugging an architecture that will turn out, in hindsight, to have been an anti-design pattern.
+
+<p>Here some useful areas I've found helpful:
+<ol>
+<li>automatic insertion of response.encodeURL in &lt;a href> and &lt;form action>
+</li>
+            <li>calculating the image size from &lt;img src> and filling in width and height
+</li>
+            <li>some well-defined formatting primitives: &lt;example>, &lt;callout>, &lt;var>, &lt;section>.  An &lt;artist> tag is a good example.  But, again, be
+careful of inventing the perfect tag library, stick to obvious tags, and
+define them only after you really need them.
+</li>
+            <li>page formatting.  It's nice to have the stylesheet create the navigation, breadcrumbs, meta tags, etc.
+</li>
+            <li>user preferences.  Call a jsp:useBean at the top of the page and use as simple as possible bean methods in 
+the XSL.
+</li>
+          </ol>
+
+<p>So my approach, if I were starting a project, would be to select either straight JSP or servlet->JSP templates as 
+a basic architecture, depending on the actual project needs.  I'd replace JSP with XTP, but only use a 
+defaultcopy.xsl and a header.xsl stylesheet.  So far, this use of XTP is essentially identical to JSP.  Only after 
+common idioms and formatting kruft start filling up the JSP and become error-prone would I put them into the stylesheet.   With XSLT such a new technology, a
+waterfall-style "design before you implement" approach is likely to get
+you into lots of trouble with XSLT.
+
+<p>I'd avoid putting lots of Java code in the stylesheets.  Put them in
+beans instead.  Debugging Java code that comes from stylesheets into a JSP
+file is hard.  Really hard.
+
+<p>Your mileage <em>will</em> vary.  Any discussion of XSLT architecture
+will be theoretical until several full-sized projects succeed with XSLT
+and several fail.
+
+
+
+<a name="Apache_doesn_t_find_my_resin_conf"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Apache doesn't find my resin.conf</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+On windows, the argument to <span class="meta">CauchoConfigFile</span> should be enclosed in
+quotes.  Also, since Apache treats '\' as an escape, you'll need
+either to use forward slashes or double the backslashes.
+
+
+
+<a name="How_do_I_stop_the_browser_from_caching_my_page_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I stop the browser from caching my page?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Unfortunately, all the browsers work differently.  The following seems to
+be a consensus on the headers to set:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">response.setHeader("Cache-Control",&nbsp;"no-cache,&nbsp;post-check=0,&nbsp;pre-check=0");<br>
+response.setHeader("Pragma",&nbsp;"no-cache");<br>
+response.setHeader("Expires",&nbsp;"Thu,&nbsp;01&nbsp;Dec&nbsp;1994&nbsp;16:00:00&nbsp;GMT");<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="How_do_I_precompile_jsp_pages_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I precompile *.jsp pages?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+You can run Resin on a single page from the shell:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;httpd.sh&nbsp;-e&nbsp;/test/myfile.jsp<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+That will compile the JSP.  When you next start Resin, the JSP file will
+already be available.
+
+<p>You can also use a link checker spider to traverse your website to
+hit all the pages you want to precompile.
+
+
+
+<a name="How_do_I_use_virtual_hosts_with_IIS_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I use virtual hosts with IIS?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Jan Venema replies,
+
+<p>This is my working config under IIS 4.0 end Resin1.1b6
+
+<code>
+            <pre>
+
+&lt;caucho.com>
+
+  &lt;http-server app-dir='d:\inetpub\wwwroot' class-update-interval='2'>
+
+    &lt;error-log id='log/default-error.log'/>
+
+    &lt;!--
+      -- Each virtual host has its own applications, sessions, and servlets.
+      -- You must duplicate the configuration for each host.  Each host
+      -- ignores the configuration in the outer block.
+      -->
+
+    &lt;host id='192.168.0.2' app-dir='d:\inetpub\wwwroot\inverko' class-update-interval='2'>
+        &lt;error-log id='d:\inetpub\wwwroot\inverko\error.log'/>
+        &lt;servlet-mapping url-pattern='/servlet/*' servlet-name='invoker'/>
+        &lt;servlet-mapping url-pattern='*.jsp' servlet-name='com.caucho.jsp.JspServlet'/>
+    &lt;/host>
+
+    &lt;host id='192.168.0.3' app-dir='d:\inetpub\wwwroot\dmd' class-update-interval='2'>
+        &lt;error-log id='d:\inetpub\wwwroot\dmd\error.log'/>
+        &lt;servlet-mapping url-pattern='/servlet/*' servlet-name='invoker'/>
+        &lt;servlet-mapping url-pattern='*.jsp' servlet-name='com.caucho.jsp.JspServlet'/>
+
+    &lt;/host>
+
+
+  &lt;/http-server>
+&lt;/caucho.com>
+</pre>
+          </code>
+
+
+
+<a name="What_value_does_caching_add_when_I_m_already_using_Apache_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>What value does caching add when I'm already using Apache?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<em>
+            <pre>
+> What value does caching provide when Resin is behind another web server like
+> IIS.  Do I want caching on.  Presumably, most jsp pages and all servlets are
+> dynamic.
+</pre>
+          </em>
+
+True, but many pages are only quasi-dynamic.  For example, cnn.com's
+home page is
+dynamically generated, but it changes only every 15 minutes or so.  cnn.com
+probably has a 15 minute cron job that updates a static file and you could
+develop something like that yourself or spend time caching database results.
+Resin's caching just makes that easier.  If cnn.com used Resin, it could do all
+that very easily by adding:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%&nbsp;response.setDateHeader("Expires",&nbsp;System.currentTimeMillis()&nbsp;+&nbsp;15&nbsp;*&nbsp;60000);<br>
+%><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Also, sophisticated sites have top pages that change for logged in users, but
+dynamic sub-pages that are common.  Because a include() page is treated as a
+separate request, you can cache just the subpage.
+
+<p>The database is often the bottleneck for latency and also for database licenses
+and hardware.  If you can avoid 75% of your Oracle calls by setting a simple
+header, you can delay buying Sun's high-end enterprise servers for a couple of
+months.
+
+
+
+
+<a name="libcaucho_so_not_found"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>libcaucho.so not found</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>libcaucho.so contains some small JNI routines for Unix.  It should be
+compiled when you call configure; make.  For some reason, the JVM isn't
+picking the library up.  You'll probably want to check LD_LIBRARY_PATH both
+in your environment and in wrapper.pl.
+
+<p>For many sites, a missing libcaucho.so isn't a big deal.  It just
+grabs some CPU statistics.  However, it also enabled the setuid needed by
+user-name and group-name.  So if you're using user-name to change the
+user from root, you'll need to get libcaucho.so running.
+
+
+
+<a name="Resin_crashes_on_Windows_when_recompiling"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Resin crashes on Windows when recompiling</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+This appears to be a problem with the internal javac compiler for some
+versions of the JDK.
+
+<p>To solve the problem, just use an external compiler, either javac or
+jikes:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;java&nbsp;compiler='javac'/><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="How_do_I_install_Resin_as_a_Linux_service_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I install Resin as a Linux service?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Stephen Kuo asks:
+
+<p>This should be a very basic question for those Linux guru.
+
+<p>In my Red Hat 6.2, I put the following line in the /etc/rc.d/rc.local file
+to make Resin as a service:
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">/usr/local/resin1.1/bin/srun.sh&nbsp;start<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>But when I reboot the system, Resin does not start up.
+
+<p>Guy Tal reponds:
+
+<p>You should also set your environment params in the rc file (when you
+execute from the command line, they are ready from your own environment,
+however rc files are run as root so these will not be set).
+Add the following (with the appropriate settings for your own machine):
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">----------Snip----------<br>
+PATH=/usr/local/bin:/usr/bin:/bin<br>
+export&nbsp;PATH<br>
+<br>
+JAVA_HOME=/usr/java<br>
+export&nbsp;JAVA_HOME<br>
+<br>
+RESIN_HOME=/opt/resin1.1<br>
+export&nbsp;RESIN_HOME<br>
+<br>
+CLASSPATH=/usr/java/jre/lib/rt.jar<br>
+CLASSPATH=$CLASSPATH:/opt/resin1.1/lib/resin.jar<br>
+CLASSPATH=$CLASSPATH:/opt/resin1.1/lib/jsdk22.jar<br>
+CLASSPATH=$CLASSPATH:/opt/resin1.1/lib/jdk12.jar<br>
+export&nbsp;CLASSPATH<br>
+----------Snip----------<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="How_do_I_configure_error_pages_in_resin_conf_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I configure error pages in resin.conf?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The basic command is <a href="app-config.html#error-page">error-page</a>.
+There are three kinds of error pages
+
+<ul>
+<li>Error code pages, e.g. 404
+</li>
+            <li>Exception, e.g. java.lang.NullPointerException
+</li>
+            <li>connection failures, "can't connect to srun"
+</li>
+          </ul>
+
+
+
+<a name="How_do_I_configure_mod_caucho_with_AIX_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>How do I configure mod_caucho with AIX?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+See the following question on configuring as a static Apache module.
+
+
+<a name="Where_do_all_the_files_go_"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Where do all the files go?</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+The document root is set in resin.conf using the app-dir:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;http-server&nbsp;app-dir='/www/htdocs'><br>
+&nbsp;&nbsp;...<br>
+&lt;/http-server><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+Each virtual host and each web-app will have its own app-dir.
+The app-dir configuration must be in resin.conf, 
+not the web.xml (otherwise Resin couldn't find web.xml):
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='myapp'&nbsp;app-dir='/www/myapp'><br>
+&nbsp;&nbsp;&nbsp;...<br>
+&lt;/web-app><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+If you don't specify an app-dir, Resin will use <span class="meta">id</span>
+looking in /www/htdocs/myapp in the above example.
+
+<p>Optionally, you can put a web.xml in [app-dir]/WEB-INF/web.xml
+(again, following JSDK 2.2).  The web.xml can contain anything the
+<span class="meta">web-app</span> in resin.conf can.
+
+<p>Auto-reloaded classes belong in [app-dir]/WEB-INF by default,
+following JSDK 2.2:
+
+<pre>
+classes  -- auto-load/recompile Java servlet/bean/classes directory
+lib -- auto-loaded *.jar files
+</pre>
+
+In the web-app, you can add to the auto-reload classpath using:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;classpath&nbsp;id='myclasses'&nbsp;source='/home/work/proj/src'&nbsp;compile='true'/><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The JSP/Java work directory is /tmp/caucho (or \temp\caucho).  You can
+change that with:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;java&nbsp;compiler='javac'&nbsp;work-dir='/path/to/my/work/dir'/><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Finally, the startup scripts will look for jars in resin1.1/lib to add
+to the classpath before starting resin.
+
+
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='../future.html'>Future</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='index.html'>Reference</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 24 Jul 2000 12:47:52 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

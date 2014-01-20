@@ -1,0 +1,704 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>JSP Actions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="jsp-directives.html">Directives</a>
+<tr><td><em>Actions</em>
+<tr><td><a href="jsp-variables.html">Variables</a>
+<tr><td><a href="jsp-applications.html">Applications</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;JSP Actions</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>JSP Actions</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#expr">&lt;%= expression %&gt;</a></td>
+              <td>Prints the value of <span class="meta">expression</span> evaluated the page's
+<a href="jsp-directives.html#language">language</a>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#scriptlet">&lt;% scriptlet %&gt;</a></td>
+              <td>Executes the statements in <span class="meta">scriptlet</span> using the page's
+<a href="jsp-directives.html#language">language</a>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#decl">&lt;%! declaration %&gt;</a></td>
+              <td>Adds <span class="meta">declaration</span> code to the Servlet class</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#include">&lt;jsp:include page="path"/&gt;</a></td>
+              <td>Includes the contents of the local URL at <span class="meta">path</span> during
+runtime.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#forward">&lt;jsp:forward page="path" /&gt;</a></td>
+              <td>Forwards the request to another page, i.e. an internal redirect.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#usebean">&lt;jsp:useBean id="name" ...&gt;...</a></td>
+              <td>Creates a new bean and variable for the page.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#getProperty">&lt;jsp:getProperty name="name" ... /&gt;</a></td>
+              <td>Prints a bean property.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setProperty">&lt;jsp:setProperty ... value="value"/&gt;</a></td>
+              <td>Sets a bean property to <span class="meta">value</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#setProperty">&lt;jsp:setProperty ... param="param"/&gt;</a></td>
+              <td>Sets a bean property to a parameter value.</td>
+            </tr>
+          </table>
+
+<a name="jsp"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>JSP Actions</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="expr"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%= expression %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Prints the value of <span class="meta">expression</span> evaluated the page's
+<a href="jsp-directives.html#language">language</a>.
+
+<p>The expression action is equivalent to the following:
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="def">&nbsp;&nbsp;out.print(<span class="meta">expression</span>);<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+            <p>It also has the following XML equivalent
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="def">&lt;jsp:expression><br>
+&nbsp;&nbsp;<span class="meta">expression</span><br>
+&lt;/jsp:expression><br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+The following simple example just prints the value of a form variable.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+Name:&nbsp;&lt;%=&nbsp;request.getParameter("name")&nbsp;%&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Name:&nbsp;George&nbsp;Washington<br>
+
+      </td></tr>
+    </table>
+              </center>
+</p>
+          </div>
+
+<a name="scriptlet"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;% scriptlet %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Executes the statements in <span class="meta">scriptlet</span> using the page's
+<a href="jsp-directives.html#language">language</a>.
+
+<p>The <span class="meta">scriptlet</span> is any statement list in the language,
+e.g. Java.  The scriptlet can use any of the <a href="jsp-variables.html">implicit variables</a>, such as the request
+object and the out writer.
+
+</p>
+            <p>Scriptlets have the following XML equivalent
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="def">&lt;jsp:scriptlet><br>
+&nbsp;&nbsp;<span class="meta">scriptlet</span><br>
+&lt;/jsp:scriptlet><br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;h1&gt;Form&nbsp;results&lt;/h1&gt;<br>
+<br>
+&lt;pre&gt;<br>
+&lt;%<br>
+&nbsp;&nbsp;Enumeration&nbsp;e&nbsp;=&nbsp;request.getParameterNames();<br>
+&nbsp;&nbsp;while&nbsp;(e.hasMoreElements())&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;key&nbsp;=&nbsp;e.nextElement();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;value&nbsp;=&nbsp;request.getParameter(key);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;out.println(key&nbsp;+&nbsp;":&nbsp;"&nbsp;+&nbsp;value);<br>
+&nbsp;&nbsp;}<br>
+%&gt;<br>
+&lt;/pre&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;h1&gt;Form&nbsp;results&lt;/h1&gt;<br>
+<br>
+&lt;pre&gt;<br>
+&nbsp;&nbsp;Name:&nbsp;George&nbsp;Washington<br>
+&nbsp;&nbsp;Rank:&nbsp;General<br>
+&lt;/pre&gt;<br>
+
+      </td></tr>
+    </table>
+              </center>
+</p>
+          </div>
+
+<a name="decl"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;%! declaration %&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Adds <span class="meta">declaration</span> code to the Servlet class
+
+<p>JSP places the declaration code in the servlet class.  In contrast,
+scriptlet and expression code are in a service method.  So
+declarations can declare class variables and methods.
+
+<br>
+              <b>Note: </b>Declarations are primarily useful for Java, but are allowed in
+JavaScript.
+
+</p>
+            <p>Declarations have the following XML equivalent
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="def">&lt;jsp:declaration><br>
+&nbsp;&nbsp;<span class="meta">declaration</span><br>
+&lt;/jsp:declaration><br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;%=&nbsp;foo()&nbsp;%&gt;<br>
+<br>
+&lt;%!<br>
+&nbsp;&nbsp;private&nbsp;int&nbsp;foo()&nbsp;{&nbsp;return&nbsp;1329;&nbsp;}<br>
+%&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+</p>
+          </div>
+
+<a name="include"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;jsp:include page="path"/&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Includes the contents of the local URL at <span class="meta">path</span> during
+runtime.
+
+<p>jsp:include is a runtime action.  It will call the included
+<span class="meta">path</span> just as if <span class="meta">path</span> its own HTTP request.  The result
+of that page will be included in the current page.
+
+</p>
+            <p>
+              <span class="meta">path</span> is relative to the current page.  Its root is the root
+of the application.
+
+</p>
+            <p>For compile-time includes, use <a href="jsp-directives.html#include">&lt;%@ include file='path'%&gt;</a>
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">inc.jsp</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;%=&nbsp;2&nbsp;+&nbsp;2&nbsp;%&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">test.jsp</font>
+                  </caption><tr><td class='example' bgcolor='#ffccdd'>
+Header<br>
+&lt;jsp:include&nbsp;page='inc.jsp'/&gt;<br>
+Footer<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Header<br>
+4<br>
+Footer<br>
+
+      </td></tr>
+    </table>
+              </center>
+</p>
+          </div>
+
+<a name="forward"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;jsp:forward page="path" /&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Forwards the request to another page, i.e. an internal redirect.
+
+<p>If the page has already written some output, jsp:request will clear
+the output <a href="jsp-directives.html#buffer">buffer</a>.
+
+</p>
+            <p>
+              <span class="meta">path</span> is relative to the current page.
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">fwd.jsp</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;%=&nbsp;2&nbsp;+&nbsp;2&nbsp;%&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">test.jsp</font>
+                  </caption><tr><td class='example' bgcolor='#ffccdd'>
+Header<br>
+&lt;jsp:forward&nbsp;page='inc.jsp'/&gt;<br>
+Footer<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+4<br>
+
+      </td></tr>
+    </table>
+              </center>
+</p>
+          </div>
+
+<a name="usebean"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;jsp:useBean id="name" ...&gt;...</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new bean and variable for the page.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Value</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>id</td>
+                  <td>&nbsp;</td>
+                  <td>The variable name for the bean
+</td>
+                </tr>
+                <tr>
+                  <td>class</td>
+                  <td>&nbsp;</td>
+                  <td>The bean's Java class
+</td>
+                </tr>
+                <tr>
+                  <td>scope</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;
+</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>page</td>
+                  <td>Only active in the page, stored in pageContext
+</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>request</td>
+                  <td>Active for the request, stored in request
+</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>session</td>
+                  <td>Active for the session, stored in session
+</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>application</td>
+                  <td>Active for the application, stored in application
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>jsp:useBean enables a popular style JSP page creation where Java
+Beans calculate the content, and JSP formats the presentation.
+
+</p>
+            <p>jsp:useBean creates an initializes a JSP bean for the page. The
+scope attribute determines the bean lifetime.  For example, a session
+bean will be created once in a session.
+
+<p>jsp:useBean assigns the bean to the variable <span class="meta">name</span>.  It will also
+store the bean in the appropriate scope variable.  For example, an
+application bean "foo" will be stored in the application variable.
+
+</p>
+            <p>jsp:useBean can also initialize beans.  When jsp:useBean creates a
+new bean, it will execute the JSP in the jsp:useBean tag.
+
+</p>
+            <p>Roughly, JSP makes the following translation:
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;jsp:useBean&nbsp;id='foo'&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class='com.caucho.test.TestBean'&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scope='session'&gt;<br>
+&nbsp;&nbsp;&lt;%&nbsp;foo.myInitialization("test");&nbsp;%gt;<br>
+&lt;/jsp:useBean&gt;<br>
+
+      </td></tr>
+    <tr><td class='def' bgcolor='#ffccdd'>
+com.caucho.test.TestBean&nbsp;foo;<br>
+foo&nbsp;=&nbsp;(com.caucho.test.TestBean)&nbsp;session.getValue("foo");<br>
+if&nbsp;(foo&nbsp;==&nbsp;null)&nbsp;{<br>
+&nbsp;&nbsp;foo&nbsp;=&nbsp;new&nbsp;com.caucho.test.TestBean();<br>
+&nbsp;&nbsp;session.value.foo&nbsp;=&nbsp;foo;<br>
+&nbsp;&nbsp;foo.myInitialization("test");<br>
+}<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="getProperty"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;jsp:getProperty name="name" ... /&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Prints a bean property.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>The variable name for the bean
+</td>
+                </tr>
+                <tr>
+                  <td>property</td>
+                  <td>The property name to retrieve.
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>jsp:getProperty converts property names following the bean
+standards.
+
+</p>
+            <p>Roughly, jsp:getProperty makes the following conversion:
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;jsp:getProperty&nbsp;name='foo'&nbsp;property='bar'/&gt;<br>
+
+      </td></tr>
+    <tr><td class='def' bgcolor='#ffccdd'>
+out.print(foo.getBar());<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="setProperty"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;jsp:setProperty ... value="value"/&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets a bean property to <span class="meta">value</span>.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>The variable name for the bean
+</td>
+                </tr>
+                <tr>
+                  <td>property</td>
+                  <td>The property name to set.
+</td>
+                </tr>
+                <tr>
+                  <td>value</td>
+                  <td>The value to set.
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>If value is a runtime attribute, the bean property gets the
+expression value.  If it's a static string, the value is first
+converted to the argument type and then set.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;jsp:setProperty&nbsp;name='foo'&nbsp;property='count'&nbsp;value='10'/&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+foo.setCount(10);<br>
+
+      </td></tr>
+    <tr><td class='example' bgcolor='#ffccdd'>
+&lt;jsp:setProperty&nbsp;name='foo'&nbsp;property='string'&nbsp;value='10'/&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+foo.setString("10");<br>
+
+      </td></tr>
+    <tr><td class='example' bgcolor='#ffccdd'>
+&lt;jsp:setProperty&nbsp;name='foo'&nbsp;property='count'&nbsp;value='<%=&nbsp;2&nbsp;+&nbsp;2&nbsp;%>'/&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+foo.setCount(2&nbsp;+&nbsp;2);<br>
+
+      </td></tr>
+    <tr><td class='example' bgcolor='#ffccdd'>
+&lt;jsp:setProperty&nbsp;name='foo'&nbsp;property='count'&nbsp;value='2&nbsp;+&nbsp;2'/&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+<span class="warn">error</span><br>
+
+      </td></tr>
+    <tr><td class='example' bgcolor='#ffccdd'>
+&lt;jsp:setProperty&nbsp;name='foo'&nbsp;property='char'&nbsp;value='10'/&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+foo.setChar('1');<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="setProperty"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;jsp:setProperty ... param="param"/&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets a bean property to a parameter value.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Value</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>&nbsp;</td>
+                  <td>The variable name for the bean
+</td>
+                </tr>
+                <tr>
+                  <td>property</td>
+                  <td>
+                    <span class="meta">property</span>
+                  </td>
+                  <td>The property name to set.
+</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>*</td>
+                  <td>Set all properties
+</td>
+                </tr>
+                <tr>
+                  <td>param</td>
+                  <td>
+                    <span class="meta">param</span>
+                  </td>
+                  <td>The form parameter to use as a value.
+</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>
+                    <span class="meta">empty</span>
+                  </td>
+                  <td>If missing, use <span class="meta">property</span>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The second form of jsp:setProperty lets scripts easily set Bean
+properties to form values.
+</div>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='jsp-directives.html'>Directives</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='jsp-variables.html'>Variables</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Fri, 26 May 2000 14:33:09 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

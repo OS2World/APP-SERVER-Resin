@@ -1,0 +1,51 @@
+			Caucho Public License
+			     version 1.0
+
+Caucho Technology ("Caucho") permits redistribution, modification and use
+of the accompanying software and documentation ("the Software") under 
+the Q Public License version 1.0 ("the QPL") provided that the
+conditions of this license ("the License") are met:
+
+1. Redistributions of the Software in source or binary form must include 
+   an unmodified copy of the License, normally in a plain ASCII text
+   file named LICENSE, and an unmodified copy of the QPL, normally in a
+   plain ASCII text file named QPL.
+
+2. Caucho Technology reserves all rights to its names, trademarks and logos.
+   In particular, the names "Resin" or "Caucho" are trademarks of
+   Caucho Technology and may not be used to endorse products derived from
+   this software.  "Resin" or "Caucho" may not appear in the names of
+   products derived from this software.
+
+3. Caucho Technology requests that attribution be given to Resin
+   in any manner possible.  We suggest using the "Resin Powered"
+   button or creating a "powered by Resin(tm)" link to
+   http://www.caucho.com for each page served by Resin.
+
+4. If you transmit any improvement or modification of the Software to
+   Caucho, you agree to assign the copyright of the improvement or
+   modification to Caucho Technology.
+
+5. The License will terminate immediately without notice from Caucho
+   Technology if you fail to comply with any provision of the License or
+   the QPL.  Upon such termination, you must destroy all copies and
+   derived works of the Software.  You may terminate the License at
+   any time by destroying all copies and derived works of the Software.
+
+6. The Software is provided "AS IS," without a warranty of any kind.
+   ALL EXPRESS OR IMPLIED REPRESENTATIONS AND WARRANTIES, INCLUDING ANY
+   IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+   OR NON-INFRINGEMENT, ARE HEREBY EXCLUDED.
+
+7. CAUCHO TECHNOLOGY AND ITS LICENSORS SHALL NOT BE LIABLE FOR ANY DAMAGES
+   SUFFERED BY YOU OR ANY THIRD PARTY AS A RESULT OF USING OR DISTRIBUTING
+   THE SOFTWARE. IN NO EVENT WILL CAUCHO TECHNOLOGY OR ITS LICENSORS BE
+   LIABLE FOR ANY LOST REVENUE, PROFIT OR DATA, OR FOR DIRECT, INDIRECT,
+   SPECIAL, CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED
+   AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF THE USE OF OR
+   INABILITY TO USE THE SOFTWARE, EVEN IF HE HAS BEEN ADVISED OF THE
+   POSSIBILITY OF SUCH DAMAGES.      
+
+8. Any action related to the License or the QPL will be governed by
+   California law and controlling U.S. federal law. No choice of law
+   rules of any jurisdiction will apply.

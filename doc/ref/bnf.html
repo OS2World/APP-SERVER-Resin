@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Semi-Formal Description</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr>
+          </table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Semi-Formal Description</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Expires">Expires</a></li>
+                    <li><a href="#Included_Pages">Included Pages</a></li>
+                    <li><a href="#Caching_Anonymous_Users">Caching Anonymous Users</a></li>
+                    <li><a href="#Experimental_Anonymous_Caching">Experimental Anonymous Caching</a></li>
+                    <li><a href="#If_Modified">If-Modified</a></li>
+                    <li><a href="#cache_mapping">cache-mapping</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<p>Server caching can speed dynamic pages to
+near-static speeds.   Many pages created by database
+queries only change every 15 minutes or so, e.g. CNN or Slashdot.
+Resin can cache the results and serve them like static pages.
+
+<p>By default, pages are not cached.  To cache, a page must set a
+HTTP caching header and be cacheable.  Examples of non-cacheable pages
+include any page using sessions.
+
+<p>Resin's caching operates like a proxy cache.  It's controlled by the
+same HTTP headers as any proxy cache.  Every user shares the same cached page.
+
+<a name="Expires"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Expires</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>Setting the <span class="meta">Expires</span> header will cache the results
+until the time expires.  For heavily loaded pages, even setting short
+expires times can significantly improve performance.  Sessions should
+be disabled for caching.
+
+<p>The following example sets expiration for 15 seconds.  So the
+counter should update slowly.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Expires</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;session=false&nbsp;%><br>
+&lt;%!&nbsp;int&nbsp;counter;&nbsp;%><br>
+&lt;%<br>
+long&nbsp;now&nbsp;=&nbsp;System.currentTimeMillis();<br>
+response.setDateHeader("Expires",&nbsp;now&nbsp;+&nbsp;15000);<br>
+%><br>
+Count:&nbsp;&lt;%=&nbsp;counter++&nbsp;%><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+          <span class="meta">Expires</span> is useful for database generated pages which are
+continuously, but slowly updated.  To cache based on something with a known
+modified date, like a file, you can use <span class="meta">If-Modified</span>.
+
+
+
+<a name="Included_Pages"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Included Pages</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Resin can cache subpages even when the top page can't be cached.
+Sites allowing user personalization will often design pages with
+<span class="meta">jsp:include</span> subpages.  Some subpages are user-specific and can't
+be cached.  Others are common to everybody and can be cached.
+
+<p>Resin treats subpages as independent requests, so they can be
+cached independent of the top-level page.  Try the following, use the
+first <span class="meta">expires</span> counter example as the included page.  Create a
+top-level page that looks like:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;session=true&nbsp;%><br>
+&lt;%&nbsp;if&nbsp;(!&nbsp;session.isNew())&nbsp;{&nbsp;%><br>
+&lt;h1>Welcome&nbsp;back!&lt;/h1><br>
+&lt;%&nbsp;}&nbsp;%><br>
+<br>
+&lt;jsp:include&nbsp;page="expires.jsp"/><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Caching_Anonymous_Users"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Caching Anonymous Users</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>In many cases, logged in users get specialized pages, but
+anonymous users all see the same page.  In this case, you can still
+take advantage of Resin's caching, but you'll need to do a little work
+in your design.
+
+<p>First, you'll need to create an <span class="meta">include()</span> subpage that contains
+the common page.  The top page can't be cached because it depends on
+whether a user is logged in or not.
+
+<p>You must use <span class="meta">include()</span> because <span class="meta">forward()</span> is cached just
+like the top page.  The top page isn't cacheable because of the user login,
+so the forwarded page isn't cacheable either.
+
+<p>Here's what a sample subpage might look like:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;session=false&nbsp;%><br>
+&lt;%!&nbsp;int&nbsp;counter;&nbsp;%><br>
+&lt;%<br>
+long&nbsp;now&nbsp;=&nbsp;System.currentTimeMillis();<br>
+response.setDateHeader("Expires",&nbsp;now&nbsp;+&nbsp;15000);<br>
+<br>
+String&nbsp;user&nbsp;=&nbsp;request.getParameter("user");<br>
+%><br>
+User:&nbsp;&lt;%=&nbsp;user&nbsp;%>&nbsp;&lt;%=&nbsp;counter++&nbsp;%><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The top page slightly trickier because it needs to pass the user
+to the subpage.  You need to pass a unique id.  If you pass a boolean
+<span class="meta">logged-in</span> parameter, all logged in users will see the same page.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;session=true&nbsp;%><br>
+&lt;%<br>
+String&nbsp;user&nbsp;=&nbsp;getSomeSortOfUniqueUserId();<br>
+if&nbsp;(user&nbsp;==&nbsp;null)<br>
+&nbsp;&nbsp;user&nbsp;=&nbsp;"Anonymous";<br>
+%><br>
+<br>
+...&nbsp;<br>
+&lt;jsp:include&nbsp;page='cachedpage.jsp'/><br>
+&nbsp;&nbsp;&lt;jsp:page&nbsp;name='user'&nbsp;value='&lt;%=&nbsp;user&nbsp;%>'/><br>
+&lt;/jsp:include><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Of course, the top-level page could also be a servlet:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">...<br>
+<br>
+String&nbsp;user&nbsp;=&nbsp;getSomeSortOfUniqueUserId(request);<br>
+if&nbsp;(user&nbsp;==&nbsp;null)<br>
+&nbsp;&nbsp;user&nbsp;=&nbsp;"Anonymous";<br>
+<br>
+RequestDispatcher&nbsp;disp;<br>
+disp&nbsp;=&nbsp;request.getRequestDispatcher("/cachedpage.jsp?user="&nbsp;+&nbsp;user);<br>
+<br>
+disp.include(request,&nbsp;response);<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Experimental_Anonymous_Caching"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Experimental Anonymous Caching</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>Resin 1.1 has an experimental anonymous user caching feature.  If a user
+is not logged in, she will get a cached page.  If she's logged in, she'll
+get her own page.  This feature will not work if anonymous users are
+assigned cookies for tracking purposes.
+
+<p>The top page must still set the <span class="meta">Expires</span> or
+<span class="meta">If-Modified</span> header, but Resin will take care of deciding if the
+page is cacheable or not.  If the request has any cookies, Resin will
+not cache it or use the cached page.  If it has no cookies, Resin will
+use the cached page.
+
+<p>User tracking cookies will make the page uncacheable even if the
+page is the same for all users.  Resin chooses to cache or not, based
+on the existence of any cookies in the request, whether they're used
+or not.
+
+
+
+<a name="If_Modified"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>If-Modified</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The <span class="meta">If-Modified</span> headers let you cache based on an
+underlying change date.  For example, the page may only change when an
+underlying source page changes.  Resin lets you easily use 
+<span class="meta">If-Modified</span> by overriding methods in HttpServlet or
+in a JSP page.
+
+<p>The following page only changes when the underlying 'test.xml'
+page changes.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;session=false&nbsp;%><br>
+&lt;%!<br>
+int&nbsp;counter;<br>
+<br>
+public&nbsp;long&nbsp;getLastModified(HttpServletRequest&nbsp;req)<br>
+{<br>
+&nbsp;&nbsp;String&nbsp;path&nbsp;=&nbsp;req.getRealPath("test.xml");<br>
+&nbsp;&nbsp;return&nbsp;new&nbsp;File(path).lastModified();<br>
+}<br>
+%><br>
+Count:&nbsp;&lt;%=&nbsp;counter++&nbsp;%><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+          <span class="meta">If-Modified</span> pages are useful in combination with the
+<span class="meta">cache-mapping</span> configuration.
+
+
+
+<a name="cache_mapping"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>cache-mapping</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<span class="meta">cache-mapping</span> assigns a browser Expires to an
+If-Modified cacheable page.  It does not affect Expires cached pages
+and it does not affect Resin's caching.  The FileServlet takes
+advantage of <span class="meta">cache-mapping</span> because it's an If-Modified servlet.
+
+<p>Often, you want a long Expires time for a page to a browser.  For
+example, any gif will not change for 24 hours.  That keeps browsers
+from asking for the same gif every five seconds; that's especially
+important for tiny formatting gifs.  However, as soon as that page or
+gif changes, you want the change immediately available to any new
+browser or to a browser using reload.
+
+<p>Here's how you would set the Expires to 24 hours for a gif, based
+on the default FileServlet.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;web-app&nbsp;id='/'><br>
+&nbsp;&nbsp;&lt;cache-mapping&nbsp;url-pattern='*.gif'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expires='24h'/><br>
+&lt;/web-app><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The <span class="meta">cache-mapping</span> automatically generates the Expires
+header.  It only works for cacheable pages setting If-Modified or
+ETag.  It will not affect pages explicily setting Expires or
+non-cacheable pages.  So it's safe to create a cache-mapping
+for <span class="meta">*.jsp</span> even if only some are cacheable.
+
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 06 Apr 2000 15:16:18 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

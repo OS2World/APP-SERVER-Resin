@@ -1,0 +1,33 @@
+<?xml-stylesheet href='quote.xsl'?>
+<title>Stock Quotes with XTP</title>
+
+<center>
+<table border=3>
+<tr><th>Symbol<th>Open<th>Low<th>High<th>Last<th>Change<th>% Change
+
+<tr><td>SUNW
+    <td><quote symbol=sunw field="Open"/>
+    <td><quote symbol=sunw field="Today's Low"/>
+    <td><quote symbol=sunw field="Today's High"/>
+    <td><quote symbol=sunw field="Last Sale:"/>
+    <td><quote symbol=sunw field="Change:"/>
+    <td><quote symbol=sunw field="% Change"/>
+
+<tr><td>IBM
+    <td><quote symbol=ibm field="Open"/>
+    <td><quote symbol=ibm field="Today's Low"/>
+    <td><quote symbol=ibm field="Today's High"/>
+    <td><quote symbol=ibm field="Last Sale:"/>
+    <td><quote symbol=ibm field="Change:"/>
+    <td><quote symbol=ibm field="% Change"/>
+
+<tr><td>INTC
+    <td><quote symbol=intc field="Open"/>
+    <td><quote symbol=intc field="Today's Low"/>
+    <td><quote symbol=intc field="Today's High"/>
+    <td><quote symbol=intc field="Last Sale:"/>
+    <td><quote symbol=intc field="Change:"/>
+    <td><quote symbol=intc field="% Change"/>
+
+</table>
+</center>

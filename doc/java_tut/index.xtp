@@ -1,0 +1,16 @@
+<title>Resin Tutorial</title>
+
+<ul>
+<li><a href='add_page.xtp'>JSP</a> page creation.
+<li><a href='servlets.xtp'>Servlet</a> creation.
+<li><a href='parse_error.xtp'>parse error</a> messages.
+<li><a href='run_error.xtp'>runtime error</a> messages.
+<li><a href='debug.xtp'>debugging and tracing</a> configuration.
+<li><a href='form.xtp'>form</a> data from the client.
+<li><a href='mail_form.xtp'>Mailing form</a> results to a survey account.
+<li><a href='db_form.xtp'>database pools</a> to store form data.
+<li><a href='bean.xtp'>Java beans</a> with JSP.
+<li><a href='cache.xtp'>Caching</a> infrequently changing database pages.
+<li><a href='xtp-page.xtp'>XTP</a> to simplify JSP tags.
+<li><a href='xsl-filter.xtp'>XSL</a> to filter JSP output.
+</ul>

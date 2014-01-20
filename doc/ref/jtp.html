@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Java Template Pages</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr>
+          </table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Java Template Pages</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#blank">Blank Stylesheet Example</a></li>
+                    <li><a href="#page">Simple Page Template</a></li>
+                    <li><a href="#counter">Creating a Custom Tag</a></li>
+                    <li><a href="#mixing">Mixing JTP and JSP</a></li>
+                    <li><a href="#clever">Using Clever Patterns</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<p>JTP (Java Template Pages) is based on XSL stylesheets.  The
+documentation for the specific tags is in the <a href="xsl.html">XSL
+stylesheet</a> section.  This section describes how JTP works.
+
+</p>
+          <p>JTP lets web designers create active pages
+without changing the original text.  It uses a separate <a href="xsl.html">XSL</a> stylesheet to transform the original document
+into a fancy formatted document.  Because the active stylesheet is
+separate from the passive content, JTP gives designers a tighter
+focus.  When worrying about style, designers can concentrate on the
+stylesheet.  When concentrating on content, designers can focus on the
+text.
+
+</p>
+          <p>JTP makes the input file simpler: it can be plain old HTML.  It
+separates the content (*.jtp) from the style (*.xsl).  The tradeoff
+is that XSL stylesheets are slightly more complicated than JSP active
+pages.  For JSP, scripts execute exactly where they're placed.
+JTP has to match HTML to script fragments using patterns.
+
+</p>
+          <p>JTP works by matching stylesheet patterns to the input HTML,
+creating the result HTML following the pattern actions.
+JTP analyzing the input HTML into a structured HTML tree
+using the <a href="xmllib.html">XML document object model</a>.  For
+each node, it finds the best pattern in the XSL and applies the
+action.  The action prints to the output HTML.
+
+<a name="blank"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Blank Stylesheet Example</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+In this example, we're using a blank stylesheet.  Even with a blank
+stylesheet, Resin does something useful: it prints out all text,
+removing the tags.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">hello.jtp</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;TITLE&gt;Hello,&nbsp;world&lt;/TITLE&gt;<br>
+<br>
+&lt;H1&gt;Hi,&nbsp;World!&lt;/H1&gt;<br>
+<br>
+&lt;P&gt;The&nbsp;hello,&nbsp;world&nbsp;example&nbsp;is&nbsp;simple.<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>Resin first reads in the JTP file, parsing it like an HTML
+file.  It adds optional tags, like &lt;html&gt; and &lt;/p&gt; and
+forces all HTML tags to be lower case.
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">hello$9342.dom</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;html&gt;<br>
+&nbsp;&nbsp;&lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Hello,&nbsp;world&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;/head&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;body&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Hi,&nbsp;World!&lt;/h1&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;The&nbsp;hello,&nbsp;world&nbsp;example&nbsp;is&nbsp;simple.&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;/body&gt;<br>
+&lt;/html&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+            <p>Next, Resin starts its matching process at the top.  Since the stylesheet
+is empty, it uses the default rules.  The default rules say: process
+an element's children and print a text node's data.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td class="green">
+<ol>
+<li>#document, process children
+ <ol>
+ <li>&lt;html&gt;, process children
+  <ol>
+  <li>&lt;head&gt;, process children
+   <ol>
+   <li>&lt;title&gt;, process children
+    <ol>
+    <li>"Hello, world", print to output
+    </li>
+                                      </ol>
+   </li>
+                                  </ol>
+  </li>
+                                <li>&lt;body&gt;, process children
+   <ol>
+   <li>&lt;h1&gt;, process children
+    <ol>
+    <li>"Hi, World!", print to output
+    </li>
+                                      </ol>
+   </li>
+                                    <li>&lt;p&gt;, process children
+    <ol>
+    <li>"The hello, ...", print to output
+    </li>
+                                      </ol>
+   </li>
+                                  </ol>
+  </li>
+                              </ol>
+ </li>
+                          </ol>
+</li>
+                      </ol>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">hello$9342.html</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">Hello,&nbsp;world<br>
+<br>
+Hi,&nbsp;World!<br>
+The&nbsp;hello,&nbsp;world&nbsp;example&nbsp;is&nbsp;simple.<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+
+<a name="page"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Simple Page Template</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+Resin's JTP can create standard page layout: common backgrounds,
+navigation, headers and footers.  This is a common use for any of the
+active content creation tools.
+
+<p>This example adds two things to the default stylesheet.  All
+elements are copied instead of ignored, and the body of the HTML gets
+a background and a margin.
+
+</p>
+            <p>Copying elements is easy.  The copy template matches all elements
+<code>match='*'</code>.  When Resin processes a node whose pattern
+matches nothing else, it will execute the copy action.  The action
+copies the element (<code>xsl:copy-element</code>) and processes the
+children (<code>xsl:apply-templates</code>).
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;xsl:template&nbsp;match='*'&gt;<br>
+&nbsp;&nbsp;&lt;xsl:copy-element&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:apply-templates/&gt;<br>
+&nbsp;&nbsp;&lt;/xsl:copy-element&gt;<br>
+&lt;/xsl:template&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+            <p>For the page template pattern, we use <code>match='/html/body'</code>.
+Resin will execute the template in place of the body.  We could
+have used <code>match='body'</code> and for most JTP pages that would work
+fine.  But if someone created an internal &lt;body&gt; tag, say in the
+middle of a table, that body tag would get the top level decoration.
+Probably not what was intended.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;xsl:template&nbsp;match='/html/body'&gt;<br>
+<span class="eg-em">&nbsp;&nbsp;&lt;!--&nbsp;cyan&nbsp;background&nbsp;--&gt;<br>
+&nbsp;&nbsp;&lt;body&nbsp;bgcolor='cyan'&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;table&nbsp;width='100%'&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;!--&nbsp;left&nbsp;margin&nbsp;--&gt;<br>
+&nbsp;&nbsp;&lt;tr&gt;&lt;td&nbsp;width='240'&gt;&lt;/td&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;!--&nbsp;center&nbsp;column&nbsp;--&gt;<br>
+&nbsp;&nbsp;&lt;td&nbsp;width='80%'&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;!--&nbsp;insert&nbsp;body&nbsp;contents&nbsp;--&gt;<br>
+</span><br>
+<br>
+&nbsp;&nbsp;&lt;xsl:apply-templates/&gt;<br>
+<br>
+<span class="eg-em">&nbsp;&nbsp;&lt;!--&nbsp;copyright&nbsp;footer&nbsp;--&gt;<br>
+&nbsp;&nbsp;&lt;hr&gt;<br>
+&nbsp;&nbsp;Copyright&nbsp;&amp;copy;&nbsp;1999&nbsp;Caucho&nbsp;Technology<br>
+<br>
+&nbsp;&nbsp;&lt;/td&gt;&lt;/tr&gt;<br>
+&nbsp;&nbsp;&lt;/table&gt;<br>
+&nbsp;&nbsp;&lt;/body&gt;<br>
+</span><br>
+&lt;/xsl:template&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+            <p>The translation follows the same order as in the blank stylesheet
+example.  The body rule is used for the body and the copy-element rule
+is used for every other tag.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;TITLE&gt;Hello,&nbsp;world&lt;/TITLE&gt;<br>
+<br>
+&lt;H1&gt;Hi,&nbsp;World!&lt;/H1&gt;<br>
+<br>
+&lt;P&gt;The&nbsp;hello,&nbsp;world&nbsp;example&nbsp;is&nbsp;simple.<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;html&gt;<br>
+&nbsp;&nbsp;&lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Hello,&nbsp;world&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;/head&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;body&nbsp;bgcolor='cyan'&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;table&nbsp;width='100%'&gt;<br>
+&nbsp;&nbsp;&lt;tr&gt;&lt;td&nbsp;width='240'&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&lt;td&nbsp;width='80%'&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Hi,&nbsp;World!&lt;/h1&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&lt;p&gt;The&nbsp;hello,&nbsp;world&nbsp;example&nbsp;is&nbsp;simple.<br>
+&nbsp;&nbsp;&nbsp;&lt;/p&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;hr&gt;<br>
+&nbsp;&nbsp;Copyright&nbsp;&amp;copy;&nbsp;1999&nbsp;Caucho&nbsp;Technology<br>
+<br>
+&nbsp;&nbsp;&lt;/td&gt;&lt;/tr&gt;<br>
+&nbsp;&nbsp;&lt;/table&gt;<br>
+&nbsp;&nbsp;&lt;/body&gt;<br>
+&lt;/html&gt;<br>
+
+      </td></tr>
+    </table>
+              </center>
+
+</p>
+
+
+<a name="counter"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Creating a Custom Tag</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+All by itself, the template example is cool.  But here's something
+more interesting, creating a custom tag.  In this case, we'll just
+create a simple counter.
+
+<p>To use the counter tag, just add it to the JTP file.
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">counter.jtp</font>
+                  </caption><tr><td class='example' bgcolor='#ffccdd'>
+<span class="eg-em">A&nbsp;counter&nbsp;example:</span>&lt;counter/&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+A&nbsp;counter&nbsp;example:&nbsp;2<br>
+
+      </td></tr>
+    </table>
+              </center>
+
+</p>
+            <p>Here's the addition to the stylesheet file.
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">default.xsl</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&nbsp;&nbsp;&lt;xsl:template&nbsp;match='counter'&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;#=&nbsp;application.attribute.counter++&nbsp;#&gt;<br>
+&nbsp;&nbsp;&lt;/xsl:template&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+            <p>The <code>xsl:template</code> tag says we're defining a new tag.  The
+<code>match='counter'</code> tells Resin to apply the counter tag
+whenever it sees <code>&lt;counter/&gt;</code>.
+
+</p>
+            <p>JavaScript code is between the special expression tags '&lt;#=' and
+'#&gt;'.  Resin will insert the value of the expression into the
+generated text.
+
+</p>
+            <p>The <a href="jspapp.html">application</a> object is the same as for
+JSP.  In fact, stylesheets can use any of the JSP implicit variables.
+
+</p>
+
+<a name="mixing"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Mixing JTP and JSP</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+<p>Resin actually creates a JSP file after processing a JTP file.
+It then evaluates the JSP file to create the output HTML.  So the
+actual processing order is:
+
+</p>
+            <ol>
+<li>Parse JTP file as HTML
+</li>
+              <li>Find and parse XSL stylesheet
+</li>
+              <li>Applying the stylesheet to the JTP, creating a JSP file
+</li>
+              <li>Execute the JSP file
+</li>
+            </ol>
+
+<p>Here's we're going to take advantage of this by creating a named
+counter.  If the counter has an 'id' attribute, we'll use it at the
+value of the application variable.
+
+</p>
+            <p>Scripts use the counter the same as before:</p>
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">counter.jtp</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">
+                    <span class="eg-em">A&nbsp;counter&nbsp;example:&nbsp;</span>&lt;counter&nbsp;id='test'/&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>Here's the patterns to do it.  The <code>xsl-cache</code> directive
+tells Resin that it can cache the generated JSP file.  Resin can
+cache the file because it only depends on the JTP file, not on the
+request or on a random number.
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">default.xsl</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;?xsl-cache?&gt;<br>
+&lt;xsl:template&nbsp;match='counter'&gt;<br>
+&nbsp;&nbsp;&lt;#&nbsp;var&nbsp;id&nbsp;=&nbsp;elt.attribute.id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(id)&nbsp;{&nbsp;#&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;%=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;application.attribute["&lt;#=&nbsp;id&nbsp;#&gt;"]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%&gt;<br>
+&nbsp;&nbsp;&lt;#&nbsp;}&nbsp;else&nbsp;{&nbsp;#&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;%=&nbsp;application.attribute.counter++&nbsp;%&gt;<br>
+&nbsp;&nbsp;&lt;#&nbsp;}&nbsp;#&gt;<br>
+&lt;/xsl:template&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+            <p>The following JSP file is the result.  Resin will
+execute the generated JSP file to produce the result.  Because
+default.xsl was marked as cached, on following requests Resin will
+merely reexecute 'gen438.jsp'.
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">gen438.jsp</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffccdd" class="result">A&nbsp;counter&nbsp;example:&nbsp;&lt;%=&nbsp;<br>
+&nbsp;&nbsp;application.attribute["test"]++&nbsp;<br>
+%&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+
+<a name="clever"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Using Clever Patterns</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+The previous example can be rewritten by using more clever <a href="xql.html">XQL</a> patterns.  One pattern matches counters
+with id attributes.  Another matches other counters.  So the following
+stylesheet does the same thing as the previous one.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;?xsl-cache?&gt;<br>
+<br>
+&lt;xsl:template&nbsp;match='counter'&gt;<br>
+&nbsp;&nbsp;&lt;%=&nbsp;application.attribute.counter++&nbsp;%&gt;<br>
+&lt;/xsl:template&gt;<br>
+<br>
+&lt;xsl:template&nbsp;match='counter[@id]'&gt;<br>
+&nbsp;&nbsp;&lt;%=&nbsp;application.attribute["&lt;#=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;elt.attribute.id<br>
+&nbsp;&nbsp;#&gt;"]&nbsp;%&gt;<br>
+&lt;/xsl:template&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+
+</p>
+          <hr><table border=0 width='100%'><tr>
+<td>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:48 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

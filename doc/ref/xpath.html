@@ -1,0 +1,1403 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>XML Path Language (XPath)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="xtp-intro.html">XTP intro</a>
+<tr><td><a href="xtp-jsp.html">XTP to JSP</a>
+<tr><td><em>XPath</em>
+<tr><td><a href="xpath-fun.html">XPath Fun</a>
+<tr><td><a href="xsl.html">XSL</a>
+<tr><td><a href="xslt-lite.html">XSL lite</a>
+<tr><td><a href="xslt-lite-eg.html">XSL lite examples</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;XML Path Language (XPath)</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>Resin can use XPath, the XML Path Language, to <a href="xmlnode.html#select">select nodes</a> from 
+an XML tree.  Scripts can select all 'table' children, or
+even all 'table' elements in an entire HTML file.  The XPath language is
+exceptionally rich.  It can describe an incredible number of node
+selections. 
+
+</p>
+          <p>Java applications can use the
+<a href="../javadoc/com/caucho/xpath/package-frame.html">xpath</a>
+package to use XPath with an XML tree.
+
+</p>
+          <p>The XML Path Language describes nodes in an  <a href="xmllib.html">XML</a> tree.  It's a mini-language 
+for specifying nodes patterns, like <a href="regexp.html">regular
+expressions</a> are a mini-language for specifying text patterns.
+
+</p>
+          <p>The language selects sets of nodes.  Each operator in XPath selects
+a new set based on the old set of nodes.  For example, given a set of
+chapters, XPath can select all sections in those chapters,
+chapters with 'advanced' attributes, or grandchildren with 'color'
+attributes of 'blue'.
+
+<p>
+            <table border="1" width="100%" cellpadding="3" cellspacing="0">
+              <tr class="section">
+                <td colspan="2">
+                  <font size="+2">
+                    <b>Basic Patterns</b>
+                  </font>
+                </td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#node">node</a></td>
+                <td>Selects all child elements with <a href="xmlnode.html#nodeName">nodeName</a> of <span class="meta">node</span>.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#star">*</a></td>
+                <td>Selects all child elements.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#attr">@attr</a></td>
+                <td>Selects the attribute <span class="meta">attr</span>.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#starattr">@*</a></td>
+                <td>Selects all attributes.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#starattr">ns:*</a></td>
+                <td>Selects elements in the given namespace.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#node">node</a>()</td>
+                <td>Matches an <a href="xmlelement.html">element</a> node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#text">text</a>()</td>
+                <td>Matches a <a href="xmltext.html">text</a> node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#comment">comment</a>()</td>
+                <td>Matches a comment.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#processing_instruction">processing-instruction</a>()</td>
+                <td>Matches a <a href="xmlpi.html">processing instruction</a> node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#dot">.</a></td>
+                <td>Selects the current node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#parent">..</a></td>
+                <td>Selects the parent of current node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#root">/</a></td>
+                <td>Selects the document node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#filter">a[expr]</a></td>
+                <td>Select only those nodes matching <span class="meta">a</span> which also satisfy the
+expression <span class="meta">expr</span>.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#nth_filter">a[n]</a></td>
+                <td>Selects the <span class="meta">n</span>th matching node matching <span class="meta">a</span>
+                </td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#compose">a/b</a></td>
+                <td>For each node matching <span class="meta">a</span>, add the nodes matching <span class="meta">b</span>
+to the result.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#descendant">a//b</a></td>
+                <td>For each node matching <span class="meta">a</span>, add the descendant nodes
+matching <span class="meta">b</span> to the result.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#root_descendant">//b</a></td>
+                <td>Returns elements in the entire document matching <span class="meta">b</span>.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#union">a|b</a></td>
+                <td>All nodes matching <span class="meta">a</span> or <span class="meta">b</span>.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#exprroot">expr/path</a></td>
+                <td>Uses an expression as the start of a path.</td>
+              </tr>
+            </table>
+            <p>
+            <table border="1" width="100%" cellpadding="3" cellspacing="0">
+              <tr class="section">
+                <td colspan="2">
+                  <font size="+2">
+                    <b>Node Axes</b>
+                  </font>
+                </td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#child">child::a</a></td>
+                <td>The child axis selects children of the current node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#descendant">descendant::a</a></td>
+                <td>The descendant axis selects descendants of the current node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#descendant_or_self">descendant-or-self::a</a></td>
+                <td>Selects descendants including the current node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#attribute">attribute::a</a></td>
+                <td>Selects attributes of the current element.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#following_sibling">following-sibling::a</a></td>
+                <td>Selects nodes after the current node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#preceding_sibling">preceding-sibling::a</a></td>
+                <td>Selects nodes before the current node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#following">following::a</a></td>
+                <td>Selects the first matching node following in document order, excluding
+descendants.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#preceding">preceding::a</a></td>
+                <td>Selects the first matching node preceding in document order, excluding
+ancestors.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#parent">parent::a</a></td>
+                <td>Selects the parent if it matches.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#ancestor">ancestor::a</a></td>
+                <td>Selects matching ancestors.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#ancestor_or_self">ancestor-or-self::a</a></td>
+                <td>
+Selects ancestors including the current node.
+</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#self">self::a</a></td>
+                <td>Selects the current node.</td>
+              </tr>
+            </table>
+            <p>
+            <table border="1" width="100%" cellpadding="3" cellspacing="0">
+              <tr class="section">
+                <td colspan="2">
+                  <font size="+2">
+                    <b>Expressions</b>
+                  </font>
+                </td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#expr_path">path</a></td>
+                <td>Selects nodes based on the <span class="meta">path</span>.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#number">number</a></td>
+                <td>Numbers have the same syntax as Java doubles.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#string">"string"</a></td>
+                <td>String literals can use single or double quotes.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#equals">a = b</a></td>
+                <td>Standard comparisons.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#equals">a + b</a></td>
+                <td>Arithmetic expressions.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code">(<a href="#expr">expr</a>)</td>
+                <td>Parenthesized expressions.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#fun">fun</a>(arg1, ..., argn)</td>
+                <td>Function calls.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#not">not</a>(expr)</td>
+                <td>Boolean not.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#or">a or b</a></td>
+                <td>Boolean or.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#and">a and b</a></td>
+                <td>Boolean and.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#var">$var</a></td>
+                <td>The value of a variable.</td>
+              </tr>
+            </table>
+
+<a name="Basic"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Basic Patterns</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+The basic XPath patterns cover 90% of the cases that most stylesheets
+will need.  Because the pattern language is based on familiar
+filesystem paths, the most useful patterns should be easy.
+
+<a name="node"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">node</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects all child elements with <a href="xmlnode.html#nodeName">nodeName</a> of <span class="meta">node</span>.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString(@&lt;&lt;END);<br>
+&lt;top&gt;<br>
+&nbsp;&nbsp;&lt;a&nbsp;id='1'/&gt;<br>
+&nbsp;&nbsp;&lt;b&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;id='2'/&gt;<br>
+&nbsp;&nbsp;&lt;/b&gt;<br>
+&nbsp;&nbsp;&lt;a&nbsp;id='3'/&gt;<br>
+&lt;/top&gt;<br>
+END<br>
+<br>
+top&nbsp;=&nbsp;xml.documentElement<br>
+<br>
+for&nbsp;(var&nbsp;node&nbsp;in&nbsp;top.select('a'))<br>
+&nbsp;&nbsp;writeln(node.nodeName,&nbsp;':&nbsp;',&nbsp;node.attribute.id);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+a:&nbsp;1<br>
+a:&nbsp;3<br>
+
+      </td></tr>
+    </table>
+              </center>
+
+</div>
+
+<a name="star"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">*</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects all child elements.
+</div>
+
+<a name="attr"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">@attr</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects the attribute <span class="meta">attr</span>.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">chapter/@title</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;title&nbsp;attributes&nbsp;of&nbsp;chapters.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">//var[@name='keywords']/@content</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">The&nbsp;contents&nbsp;of&nbsp;all&nbsp;var&nbsp;keywords.<br>
+A&nbsp;web&nbsp;spider&nbsp;might&nbsp;use&nbsp;this.<br>
+</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="starattr"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">@*</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects all attributes.
+</div>
+
+<a name="starattr"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">ns:*</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects elements in the given namespace. Namespace patterns
+only make sense in the context of XSL, where the namespace
+declarations have been made.
+</div>
+
+<a name="node"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">node()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Matches an <a href="xmlelement.html">element</a> node.
+</div>
+
+<a name="text"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">text()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Matches a <a href="xmltext.html">text</a> node.
+</div>
+
+<a name="comment"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">comment()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Matches a comment.
+</div>
+
+<a name="pi"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">processing-instruction()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Matches a <a href="xmlpi.html">processing instruction</a> node.
+</div>
+
+
+<a name="dot"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">.</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects the current node.
+
+<p>The current node is primarily useful for descendant patterns.
+for some filter patterns.
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">.//image</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Any&nbsp;image&nbsp;descendant.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">.//image</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Any&nbsp;image&nbsp;descendant.</td></tr>
+</table>
+                </center>
+
+</p>
+            </div>
+
+<a name="parent"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">..</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects the parent of current node.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">../brother</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;brothers.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">../../aunt</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;aunts.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">//*[../@color='blue']</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;elements&nbsp;with&nbsp;blue&nbsp;parents.</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="root"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">/</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects the document node.
+
+<p>Useful for finding constants in a document.
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">/html</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">The&nbsp;single&nbsp;root&nbsp;element.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">/html/head</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">The&nbsp;HTML&nbsp;head&nbsp;section.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">/html/head/var</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">All&nbsp;var&nbsp;tags.</td></tr>
+</table>
+                </center>
+</p>
+            </div>
+
+<a name="filter"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a[expr]</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Select only those nodes matching <span class="meta">a</span> which also satisfy the
+expression <span class="meta">expr</span>.
+
+<p>The expression <span class="meta">b</span> is a combination of <code>and</code>,
+<code>or</code>, <code>not</code>, comparisons and XPath patterns.  An XPath
+expression, e.g. <code>chapter/verse</code>, is true if at least one node
+matches the pattern.
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">chapter[verse]</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Chapters&nbsp;with&nbsp;a&nbsp;verse.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">chapter[not(verse)]</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Chapters&nbsp;with&nbsp;no&nbsp;verses.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">chapter[not(verse)&nbsp;and&nbsp;not(section)]</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Chapters&nbsp;with&nbsp;neither&nbsp;verses&nbsp;<br>
+nor&nbsp;sections.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">*[@color='blue']</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Blue&nbsp;children.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">*[@color='blue'][position()=last()&nbsp;-&nbsp;1]</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">second&nbsp;to&nbsp;last&nbsp;blue&nbsp;child</td></tr>
+</table>
+                </center>
+</p>
+            </div>
+
+<a name="nth_filter"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a[n]</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects the <span class="meta">n</span>th matching node matching <span class="meta">a</span>
+When a filter's expression is a number, XPath selects based on position.
+This special case of the filter pattern treats selections as ordered
+lists.
+
+<p>The position filter is equivalent to
+<code>
+                <span class="meta">a</span>[position()=<span class="meta">n</span>]</code>
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">child[3]</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">third&nbsp;child</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">child/grandchild[1]</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">first&nbsp;grandchild&nbsp;from&nbsp;every&nbsp;child&nbsp;(not&nbsp;only&nbsp;the&nbsp;first<br>
+grandchild).</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">child[last()]</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">last&nbsp;child</td></tr>
+</table>
+              </center>
+
+</div>
+
+<a name="compose"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a/b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+For each node matching <span class="meta">a</span>, add the nodes matching <span class="meta">b</span>
+to the result.
+
+<p>The following is almost a definition of a/b. 
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" class="example">for&nbsp;(var&nbsp;a&nbsp;in&nbsp;node.select('a'))&nbsp;{<br>
+&nbsp;&nbsp;for&nbsp;(var&nbsp;b&nbsp;in&nbsp;a.select('b'))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;possible&nbsp;duplicates&nbsp;if&nbsp;a&nbsp;or&nbsp;b<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;are&nbsp;weird&nbsp;patterns.<br>
+&nbsp;&nbsp;}<br>
+}<br>
+</td>
+                    </tr>
+                  </table>
+                </center>
+
+Some example interpretations, 
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">chapter/verse</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">grandchildren&nbsp;verse&nbsp;with&nbsp;<br>
+parent&nbsp;chapter.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">../span</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">sibling&nbsp;span&nbsp;elements.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">./span</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">children&nbsp;span&nbsp;elements.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">*/*</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">All&nbsp;grandchildren.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">*[color='blue']/verse</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">All&nbsp;grandchildren&nbsp;verse&nbsp;elements<br>
+with&nbsp;blue&nbsp;colored&nbsp;parents.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">a/b/c</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Great&nbsp;grandchildren&nbsp;c,&nbsp;with<br>
+parent&nbsp;b&nbsp;and&nbsp;grandparent&nbsp;a.</td></tr>
+</table>
+                </center>
+</p>
+            </div>
+
+<a name="descendant"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a//b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+For each node matching <span class="meta">a</span>, add the descendant nodes
+matching <span class="meta">b</span> to the result.  The '//' operator selects all
+descendants matching <span class="meta">b</span>.  The '/' operator selects all children
+matching <span class="meta">b</span>.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">chapter//a</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;links&nbsp;contained&nbsp;in&nbsp;a&nbsp;chapter.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">.//image</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Any&nbsp;image&nbsp;descendant.</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="root_descendant"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">//b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Returns elements in the entire document matching <span class="meta">b</span>.
+
+<p>This is equivalent to /.//<span class="meta">b</span>, but less weird.
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">//image</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">All&nbsp;images&nbsp;in&nbsp;the&nbsp;document</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">//a[@href='http://www.caucho.com']</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">All&nbsp;links&nbsp;to&nbsp;caucho</td></tr>
+</table>
+                </center>
+
+</p>
+            </div>
+
+<a name="union"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a|b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+All nodes matching <span class="meta">a</span> or <span class="meta">b</span>.
+
+Some example interpretations, 
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">lion|tiger|bear</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Lions&nbsp;and&nbsp;tigers&nbsp;and&nbsp;bears.<br>
+</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="exprroot"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">expr/path</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Uses an expression as the start of a path.  Usually,
+<span class="meta">expr</span> will be a special function call, like the <code>id()</code>
+function.  <code>expr[expr]</code> is also allowed.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">id('314')/@color</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">The&nbsp;color&nbsp;attribute&nbsp;of&nbsp;the&nbsp;element&nbsp;with&nbsp;id&nbsp;314.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">key('id',&nbsp;'a')[@color='red']</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;the&nbsp;node&nbsp;returned&nbsp;by&nbsp;key&nbsp;if&nbsp;they&nbsp;have&nbsp;a&nbsp;red&nbsp;color.<br>
+</td></tr>
+</table>
+              </center>
+</div>
+
+
+
+<a name="Axis"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Node Axes</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+<a name="child"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">child::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+The child axis selects children of the current node.  It is entirely
+equivalent to the usual slash notation.  So <code>child::a/child::b</code>
+is the same as <code>a/b</code>.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">child::chapter</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Select&nbsp;all&nbsp;chapter&nbsp;elements&nbsp;of&nbsp;the&nbsp;current&nbsp;node.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">child::text()</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;text&nbsp;children.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">child::comment()</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;comment&nbsp;children.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">/child::h1</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Select&nbsp;all&nbsp;top-level&nbsp;h1&nbsp;elements.</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="descendant"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">descendant::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+The descendant axis selects descendants of the current node.  It is 
+equivalent to '//'.  So <code>child::a//child::b</code>
+is the same as <code>a//b</code>.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">descendant::a</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Select&nbsp;all&nbsp;hyperlinks&nbsp;below&nbsp;the&nbsp;current&nbsp;node.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">/descendant::table</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Select&nbsp;all&nbsp;tables&nbsp;in&nbsp;the&nbsp;document.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">child::section/descendant::image</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Select&nbsp;all&nbsp;images&nbsp;in&nbsp;a&nbsp;section.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">.[descendant::image]</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;the&nbsp;current&nbsp;node&nbsp;if&nbsp;it&nbsp;contains&nbsp;an&nbsp;image.</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="descendant_or_self"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">descendant-or-self::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+Selects descendants including the current node.
+</div>
+
+<a name="attribute"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">attribute::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+Selects attributes of the current element.  It is 
+equivalent to @<span class="meta">a</span>.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">attribute::width</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;the&nbsp;width&nbsp;of&nbsp;the&nbsp;current&nbsp;node.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">image[attribute::width&nbsp;>&nbsp;10]</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;image&nbsp;children&nbsp;with&nbsp;a&nbsp;width&nbsp;attribute<br>
+greater&nbsp;than&nbsp;10.</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="following_sibling"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">following-sibling::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+Selects nodes after the current node.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">following-sibling::chapter</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;following&nbsp;chapters.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">h3/following-sibling::text()</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Following&nbsp;text&nbsp;nodes&nbsp;after&nbsp;an&nbsp;h3.</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="preceding_sibling"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">preceding-sibling::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+Selects nodes before the current node.
+
+<code>preceding-siblings::</code> counts positions backwards.
+So preceding-sibling::a[1] selects the closest preceding sibling.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">preceding-sibling::chapter</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;chapters&nbsp;before&nbsp;chapter&nbsp;3.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">fun/preceding-sibling::comment()</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;the&nbsp;comments&nbsp;before&nbsp;a&nbsp;function.</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="following"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">following::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+Selects the first matching node following in document order, excluding
+descendants.  In other words, the following axis will scan through
+every node in document order, starting with <code>getNextSibling()</code>.
+
+<p>following, preceding, ancestor and self partition the document.
+</p>
+            </div>
+
+<a name="preceding"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">preceding::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+Selects the first matching node preceding in document order, excluding
+ancestors.  In other words, the preceding axis will scan through
+every node in document order, starting with the root and ending in the
+current node, but it will skip ancestors.
+
+<p>following, preceding, ancestor and self partition the document.
+</p>
+            </div>
+
+<a name="parent"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">parent::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+Selects the parent if it matches.  The '..' pattern from
+the core is equivalent to 'parent::node()'.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">parent::chapter</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;the&nbsp;parent&nbsp;if&nbsp;it's&nbsp;a&nbsp;chapter.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">parent::*/@color</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;the&nbsp;color&nbsp;of&nbsp;the&nbsp;parent.</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="ancestor"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">ancestor::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+Selects matching ancestors.
+
+<p>following, preceding, ancestor and self partition the document.
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">ancestor::section</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;ancestor&nbsp;sections.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">ancestor::*/@color</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;ancestor&nbsp;color&nbsp;attributes.</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="ancestor_or_self"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">ancestor-or-self::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects ancestors including the current node.
+</div>
+
+<a name="self"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">self::a</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+
+Selects the current node. '.' is equivalent to 'self::node()'.
+
+<p>following, preceding, ancestor and self partition the document.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">self::chapter</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Selects&nbsp;the&nbsp;current&nbsp;node&nbsp;if&nbsp;it's&nbsp;a&nbsp;chapter.</td></tr>
+</table>
+              </center>
+</div>
+
+
+
+<a name="expr"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Expressions</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+<a name="expr_path"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">path</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects nodes based on the <span class="meta">path</span>.
+
+<p>The path interpretation depends on the context.  When filtering
+nodes, the path expression is a boolean.  Any matching node will
+return true.  When the value is a string, as in the xsl:value-of, then
+the textValue is used.
+
+<p>
+              <center>
+                <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                    <td>boolean</td>
+                    <td>True if <span class="meta">path</span> matches any nodes.
+</td>
+                  </tr>
+                  <tr>
+                    <td>string</td>
+                    <td>The text value of the first matching node.
+</td>
+                  </tr>
+                  <tr>
+                    <td>number</td>
+                    <td>The string value converted to a number.
+</td>
+                  </tr>
+                </table>
+              </center>
+</div>
+
+<a name="number"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">number</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Numbers have the same syntax as Java doubles.
+</div>
+
+<a name="string"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">"string"</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+String literals can use single or double quotes.
+</div>
+
+<a name="equals"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a = b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Standard comparisons.
+
+XPath converts the arguments to a common type before comparison.  The
+conversion priority is boolean, number, string.  In other words, if
+either arg is a boolean, a boolean comparison is used.
+<ol>
+<li>boolean
+</li>
+                <li>number
+</li>
+                <li>string
+</li>
+              </ol>
+
+<p>Node-sets, e.g. chapter/@color, are compared differently.  Each
+node in the node set is compared.  If any matches, then the comparison
+is true.
+
+<p>
+              <center>
+                <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                    <td>a = b</td>
+                    <td>True if a equals b.
+</td>
+                  </tr>
+                  <tr>
+                    <td>a != b</td>
+                    <td>True if a is not equal to b.
+</td>
+                  </tr>
+                  <tr>
+                    <td>a < b</td>
+                    <td>True if a is less than b.
+</td>
+                  </tr>
+                  <tr>
+                    <td>a <= b</td>
+                    <td>True if a is less than or equal to b.
+</td>
+                  </tr>
+                  <tr>
+                    <td>a > b</td>
+                    <td>True if a is greater than b.
+</td>
+                  </tr>
+                  <tr>
+                    <td>a >= b</td>
+                    <td>True if a is greater than or equal to b.
+</td>
+                  </tr>
+                </table>
+              </center>
+</div>
+
+<a name="equals"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a + b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Arithmetic expressions.
+
+<p>
+              <center>
+                <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                    <td> - a</td>
+                    <td>Unary minus
+</td>
+                  </tr>
+                  <tr>
+                    <td>a + b</td>
+                    <td>Add
+</td>
+                  </tr>
+                  <tr>
+                    <td>a - b</td>
+                    <td>Substract
+</td>
+                  </tr>
+                  <tr>
+                    <td>a * b</td>
+                    <td>Multiply
+</td>
+                  </tr>
+                  <tr>
+                    <td>a div b</td>
+                    <td>Divide
+</td>
+                  </tr>
+                  <tr>
+                    <td>a mod b</td>
+                    <td>Floating point mod, like Java.
+</td>
+                  </tr>
+                </table>
+              </center>
+</div>
+
+<a name="group"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">(expr)</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Parenthesized expressions.
+</div>
+
+<a name="fun"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">fun(arg1, ..., argn)</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Function calls.
+
+The function library is in the <a href="xpath-fun.html">XPath function</a> section.
+</div>
+
+<a name="not"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">not(expr)</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Boolean not.
+</div>
+
+<a name="or"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a or b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Boolean or.
+</div>
+
+<a name="and"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a and b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Boolean and.
+</div>
+
+<a name="var"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">$var</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+The value of a variable.  Variables, in general, only make
+sense in a context like XSL.  Normal use of XPath outside of XSL will
+not use variables.
+</div>
+
+
+</p>
+          <hr><table border=0 width='100%'><tr>
+<td>
+<a href='xtp-jsp.html'>XTP to JSP</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='xpath-fun.html'>XPath Fun</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:49 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

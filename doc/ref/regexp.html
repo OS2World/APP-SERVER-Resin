@@ -1,0 +1,908 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Regular Expressions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="sourcetext.html">Source Text</a>
+<tr><td><a href="literals.html">Literals</a>
+<tr><td><em>Regexp</em>
+<tr><td><a href="ops.html">Operators</a>
+<tr><td><a href="objects.html">Objects</a>
+<tr><td><a href="functions.html">Functions</a>
+<tr><td><a href="statements.html">Statements</a>
+<tr><td><a href="wrap.html">Java Wrapping</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Regular Expressions</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+
+Resin's regular expressions are based on Perl5 but matche 16-bit
+strings.  The JavaScript interface is based on Netscape 1.3.  See
+<a href="stringobj.html">string objects</a> and <a href="regexpobj.html">regular expression objects</a> for API details.
+
+<p>
+          <p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">/<span class="meta">regexp</span>/[i][g][m][x]<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+The <span class="meta">regexp</span> syntax follows Perl5.  
+<a href="literals.html#squote">Characters escape</a> the same as 
+for strings.</p>
+
+<p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Regexp Literals</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">character</a></td>
+              <td>Match <span class="meta">character</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">[set]</a></td>
+              <td>Matches any characters in <span class="meta">set</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">[^set]</a></td>
+              <td>Matches any characters not in <span class="meta">set</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">.</a></td>
+              <td>Matches any character except newline, i.e. [^\n]</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\s</a></td>
+              <td>Matches whitespace, i.e. [ \t\r\n\v\f]</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\S</a></td>
+              <td>Matches non-whitespace, i.e. [^ \t\r\n\v\f]</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\d</a></td>
+              <td>Matches any digit, i.e. [0-9]</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\D</a></td>
+              <td>Matches any non-digit, i.e. [^0-9]</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\w</a></td>
+              <td>Matches any alphanumeric character, i.e. [a-zA-Z0-9_]</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\W</a></td>
+              <td>Matches any non-alphanumeric character, i.e. [^a-zA-Z0-9_]</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">ab</a></td>
+              <td>Match <span class="meta">a</span> followed by <span class="meta">b</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code">(<a href="#a">a</a>)</td>
+              <td>Matches if <span class="meta">a</span> matches, storing the submatch.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\n</a></td>
+              <td>Matches the <span class="meta">n</span>th submatch.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code">(<a href="#_a">?:a</a>)</td>
+              <td>Match <span class="meta">a</span>. Does not store the submatch.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">a|b</a></td>
+              <td>Match if <span class="meta">a</span> matches or if <span class="meta">b</span> matches.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">a*</a></td>
+              <td>Match as many <span class="meta">a</span> as possible.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">a+</a></td>
+              <td>Match as many <span class="meta">a</span> as possible but at least one.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">a?</a></td>
+              <td>Try to match <span class="meta">a</span>, otherwise just match.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">a{m,n}</a></td>
+              <td>Try to match at most <span class="meta">n</span> repetitions of <span class="meta">a</span>, but match at
+least <span class="meta">m</span> of them.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">a{n}</a></td>
+              <td>Match exactly <span class="meta">n</span> repetitions of <span class="meta">a</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">a*?</a></td>
+              <td>Match as few <span class="meta">a</span> as possible.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">a+?</a></td>
+              <td>Match as few <span class="meta">a</span> as possible but at least one.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">a??</a></td>
+              <td>Try to match without <span class="meta">a</span>, otherwise try to match <span class="meta">a</span>.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">^</a></td>
+              <td>Matches at the beginning of the line.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">$</a></td>
+              <td>Matches at the end of the line.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\b</a></td>
+              <td>Matches at a word boundary.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\B</a></td>
+              <td>Matches if not at a word boundary.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\A</a></td>
+              <td>Matches at the beginning of the string.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\Z</a></td>
+              <td>Matches at the end of the string.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#null">\G</a></td>
+              <td>Matches at the beginning of the test (for a /g).</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code">(<a href="#_a">?=a</a>)</td>
+              <td>Matches only if <span class="meta">a</span> follows but do not match <span class="meta">a</span> as
+part of the matched string.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code">(<a href="#_a">?!a</a>)</td>
+              <td>Matches only if <span class="meta">a</span> does not follow.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code">(<a href="#_text">?#text</a>)</td>
+              <td>Match always. <span class="meta">text</span> is just a comment.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code">(<a href="#_imsx">?imsx</a>)</td>
+              <td>Sets the given flag for the entire regular expression.</td>
+            </tr>
+          </table>
+
+<a name="Regexp_Literals"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Regexp Literals</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="character"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">character</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Match <span class="meta">character</span>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"cab".search(/a/)</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">1</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="_set_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">[set]</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches any characters in <span class="meta">set</span>.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+                <caption>
+                  <font size="+1">Sets</font>
+                </caption>
+<tr>
+                  <th>Pattern</th>
+                  <th>Name</th>
+                  <th>Meaning</th>
+                </tr>
+<tr>
+                  <td>
+                    <span class="meta">x</span>
+                  </td>
+    <td>Character match</td>
+    <td>Match <span class="meta">a</span>
+                  </td>
+                </tr>
+<tr>
+                  <td>
+                    <span class="meta">x</span>-<span class="meta">y</span>
+                  </td>
+    <td>Range match</td>
+    <td>Match any character from <span class="meta">x</span> to <span class="meta">y</span>
+                  </td>
+                </tr>
+<tr>
+                  <td>
+                    <span class="meta">x</span>
+                    <span class="meta">y</span>
+                  </td>
+    <td>Union</td>
+    <td>Match any character in <span class="meta">x</span> or <span class="meta">y</span>
+                  </td>
+                </tr>
+<tr>
+                  <td>\s</td>
+    <td>Space match</td>
+    <td>Matches [ \t\r\n\v\f]</td>
+                </tr>
+<tr>
+                  <td>\S</td>
+    <td>Non-space match</td>
+    <td>Matches [^ \t\r\n\v\f]</td>
+                </tr>
+<tr>
+                  <td>\d</td>
+    <td>Digit match</td>
+    <td>Matches [0-9]</td>
+                </tr>
+<tr>
+                  <td>\D</td>
+    <td>Non-digit match</td>
+    <td>Matches [^0-9]</td>
+                </tr>
+<tr>
+                  <td>\w</td>
+    <td>Alphanumeric match</td>
+    <td>Matches [a-zA-Z0-9_]</td>
+                </tr>
+<tr>
+                  <td>\W</td>
+    <td>Non-alphanumeric match</td>
+    <td>Matches [^a-zA-Z0-9_]</td>
+                </tr>
+</table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"cab".replace(/[ab]/g,&nbsp;'*')</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">c**</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"bark".replace(/[a-c]/g,&nbsp;'*')</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">**rk</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="_set_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">[^set]</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches any characters not in <span class="meta">set</span>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"cab".replace(/[^ab]/g,&nbsp;'*')</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">*ab</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"bark".replace(/[^a-c]/g,&nbsp;'*')</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">ba**</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">.</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches any character except newline, i.e. [^\n]
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"a&nbsp;yellow&nbsp;cab".search(/c.b/)</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">9</td></tr>
+</table>
+            </center>
+
+</div>
+
+<a name="_s"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\s</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches whitespace, i.e. [ \t\r\n\v\f]
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"c&nbsp;a\tb\n".replace(/\s/,&nbsp;':')</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">c:a:b:</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="_S"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\S</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches non-whitespace, i.e. [^ \t\r\n\v\f]
+</div>
+
+<a name="_d"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\d</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches any digit, i.e. [0-9]
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"buying&nbsp;500".search(/\d+/)</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">7</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="_D"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\D</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches any non-digit, i.e. [^0-9]
+</div>
+
+<a name="_w"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\w</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches any alphanumeric character, i.e. [a-zA-Z0-9_]
+</div>
+
+<a name="_W"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\W</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches any non-alphanumeric character, i.e. [^a-zA-Z0-9_]
+</div>
+
+<a name="ab"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">ab</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Match <span class="meta">a</span> followed by <span class="meta">b</span>.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"a&nbsp;big&nbsp;car".search(/.ar/)</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">6</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="_a_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">(a)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches if <span class="meta">a</span> matches, storing the submatch.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">"repeat&nbsp;a&nbsp;repeat".match(/(.+).*&nbsp;\1/)</td>
+                </tr>
+              </table>
+            </center>
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffccdd" class="result">["at&nbsp;a",&nbsp;"a"]<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="_n"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\n</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches the <span class="meta">n</span>th submatch.
+</div>
+
+<a name="_a_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">(?:a)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Match <span class="meta">a</span>. Does not store the submatch.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"big".match(/b(?:i|a)g/)<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">["big"]<br>
+</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"bag".match(/b(?:i|a)g/)<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">["bag"]<br>
+</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"big".match(/b(i|a)g/)<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">["big",&nbsp;"i"]<br>
+</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="a_b"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a|b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Match if <span class="meta">a</span> matches or if <span class="meta">b</span> matches.
+</div>
+
+<a name="a_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a*</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Match as many <span class="meta">a</span> as possible.
+</div>
+
+<a name="a_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a+</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Match as many <span class="meta">a</span> as possible but at least one.
+</div>
+
+<a name="a_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a?</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Try to match <span class="meta">a</span>, otherwise just match.
+</div>
+
+<a name="a_m_n_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a{m,n}</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Try to match at most <span class="meta">n</span> repetitions of <span class="meta">a</span>, but match at
+least <span class="meta">m</span> of them.  If <span class="meta">m</span> is omitted, it is treated
+as 0.  If <span class="meta">n</span> is omitted, it is treated as infinity.
+</div>
+
+<a name="a_n_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a{n}</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Match exactly <span class="meta">n</span> repetitions of <span class="meta">a</span>.
+</div>
+
+<a name="a_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a*?</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Match as few <span class="meta">a</span> as possible.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"big&nbsp;bug".match(/b.*?g/)<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">["big"]<br>
+</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"big&nbsp;bug".match(/b.*g/)<br>
+</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">["big&nbsp;bug"]<br>
+</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="a_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a+?</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Match as few <span class="meta">a</span> as possible but at least one.
+</div>
+
+<a name="a_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">a??</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Try to match without <span class="meta">a</span>, otherwise try to match <span class="meta">a</span>.
+</div>
+
+<a name="_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">^</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches at the beginning of the line.
+</div>
+
+<a name="_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">$</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches at the end of the line.
+</div>
+
+<a name="_b"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\b</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches at a word boundary.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+"a&nbsp;big&nbsp;red&nbsp;cab".replace(/\b/g,&nbsp;":");<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+:a:&nbsp;:big:&nbsp;:red:&nbsp;:cab<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="_B"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\B</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches if not at a word boundary.
+</div>
+
+<a name="_A"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\A</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches at the beginning of the string.
+</div>
+
+<a name="_Z"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\Z</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches at the end of the string.
+</div>
+
+<a name="_G"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">\G</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches at the beginning of the test (for a /g).
+</div>
+
+<a name="_a_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">(?=a)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches only if <span class="meta">a</span> follows but do not match <span class="meta">a</span> as
+part of the matched string.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"500&nbsp;at&nbsp;57%".match(/\d+(?=%)/)</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">["57"]</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"500&nbsp;at&nbsp;57%".match(/\d+/)</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">["500"]</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="_a_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">(?!a)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Matches only if <span class="meta">a</span> does not follow.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"57%&nbsp;off&nbsp;500".match(/\d+(?!%|\d)/)</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">["500"]</td></tr>
+<tr>
+                  <td bgcolor="#ffeecc" width="50%" class="example">"57%&nbsp;off&nbsp;500".match(/\d+/)</td>
+                </tr>
+                <td bgcolor="#ffccdd" class="result">["57"]</td></tr>
+</table>
+            </center>
+</div>
+
+<a name="_text_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">(?#text)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Match always. <span class="meta">text</span> is just a comment.
+</div>
+
+<a name="_imsx_"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">(?imsx)</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets the given flag for the entire regular expression.
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='literals.html'>Literals</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='ops.html'>Operators</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:48 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

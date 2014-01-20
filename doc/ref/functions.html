@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Functions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="sourcetext.html">Source Text</a>
+<tr><td><a href="literals.html">Literals</a>
+<tr><td><a href="regexp.html">Regexp</a>
+<tr><td><a href="ops.html">Operators</a>
+<tr><td><a href="objects.html">Objects</a>
+<tr><td><em>Functions</em>
+<tr><td><a href="statements.html">Statements</a>
+<tr><td><a href="wrap.html">Java Wrapping</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Functions</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Function_Declaration">Function Declaration</a></li>
+                    <li><a href="#Argument_Binding">Argument Binding</a></li>
+                    <li><a href="#The_code_arguments_code_variable">The <code>arguments</code> variable</a></li>
+                    <li><a href="#this"><code>this</code></a></li>
+                    <li><a href="#closure">Closures</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<a name="Function_Declaration"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Function Declaration</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">function&nbsp;[<span class="meta">name</span>]&nbsp;(<span class="meta">arg_1</span>,&nbsp;...,&nbsp;<span class="meta">arg_n</span>)<br>
+{<br>
+&nbsp;&nbsp;<span class="meta">statement_list</span><br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+The function declaration creates a new function with formal arguments
+<span class="meta">arg_1</span> through <span class="meta">arg_n</span> and body <span class="meta">statement_list</span>.
+If <span class="meta">name</span> is given, the function is stored as the value of the
+variable <span class="meta">name</span>.
+
+<p>Function declarations are expressions, so they can be used as
+arguments for functions like <a href="arrayobj.html#sort">sort</a> and
+<a href="regexpobj.html#replace">replace</a>.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Sort with comparison function</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;[{a:19},&nbsp;{a:1},&nbsp;{a:13}]<br>
+a&nbsp;=&nbsp;a.sort(function(a,&nbsp;b)&nbsp;{&nbsp;return&nbsp;a.a&nbsp;&lt;&nbsp;b.a&nbsp;?&nbsp;-1&nbsp;:&nbsp;1&nbsp;})<br>
+a.toSource()<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+[{a:1},&nbsp;{a:13},&nbsp;{a:19}]<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Regexp replace with replace function</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+"abcdefa".replace(/[ac]/g,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function(a)&nbsp;{&nbsp;return&nbsp;a.charCodeAt(0)&nbsp;})<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+97b99def97<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="Argument_Binding"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Argument Binding</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+A function call binds the actual arguments supplied to the call to the
+formal arguments in the function definition.  If the caller supplies
+fewer arguments than the definition asks for, Resin will bind the
+value <code>undefined</code>.  The arguments are treated as local
+variables, i.e. modifying the arguments will not change any global
+value.  (See the <a href="statements.html#var">var</a> statement.) 
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Argument Binding</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;foo(a,&nbsp;b)&nbsp;{&nbsp;return&nbsp;a&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;b;&nbsp;}<br>
+<br>
+foo(3)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+3&nbsp;undefined<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Arguments are locals</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+var&nbsp;a&nbsp;=&nbsp;"global"<br>
+function&nbsp;foo(a)&nbsp;{<br>
+&nbsp;&nbsp;var&nbsp;c&nbsp;=&nbsp;a;<br>
+&nbsp;&nbsp;a&nbsp;=&nbsp;"local";<br>
+&nbsp;&nbsp;return&nbsp;c&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a;<br>
+}<br>
+<br>
+foo("dummy")&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;a<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+dummy&nbsp;local&nbsp;global<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<a name="The_code_arguments_code_variable"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>The <code>arguments</code> variable</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Function calls also set the <code>arguments</code> variable.  This array
+contains the calling arguments in call order.  The <code>arguments</code>
+variable allows variable length function calls.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Variable length arguments</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;sum()<br>
+{<br>
+&nbsp;&nbsp;var&nbsp;sum&nbsp;=&nbsp;0;<br>
+<br>
+&nbsp;&nbsp;for&nbsp;(var&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;<&nbsp;arguments.length;&nbsp;i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sum&nbsp;+=&nbsp;arguments[i];<br>
+<br>
+&nbsp;&nbsp;return&nbsp;sum;<br>
+}<br>
+<br>
+sum(1,&nbsp;2,&nbsp;3,&nbsp;4,&nbsp;5)<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+15<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+The <code>arguments</code> variable also contains an alias to each of the
+formal variables.  So <code>arguments[<span class="meta">arg_1</span>]</code> returns the
+same value as <span class="meta">arg_1</span>.
+
+<p>Finally, <code>arguments</code> contains the property <code>callee</code>
+which contains the function itself, allowing anonymous functions to
+make recursive calls.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Anonymous Fibonacci</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+fib&nbsp;=&nbsp;function&nbsp;(a)&nbsp;{<br>
+&nbsp;&nbsp;if&nbsp;(a&nbsp;&lt;&nbsp;2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;1;<br>
+&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;arguments.callee(a&nbsp;-&nbsp;1)&nbsp;+&nbsp;arguments.callee(a&nbsp;-&nbsp;2);<br>
+}<br>
+<br>
+for&nbsp;(var&nbsp;i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;=&nbsp;5;&nbsp;i++)<br>
+&nbsp;&nbsp;writeln(fib(i))<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+1<br>
+2<br>
+3<br>
+5<br>
+8<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="this"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b><code>this</code></b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The special variable <code>this</code> allows functions to access
+properties of the called object, i.e. it allows them to act as methods
+instead of free functions.  Since JavaScript functions are objects and
+can be assigned dynamically, the value of <code>this</code> depends on how
+the function is called.  If it's called as a method, <code>this</code> is
+the object.  If it's called as a free function, <code>this</code> is the
+global object.
+
+<p>
+          <p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                <th>call expression</th>
+                <th>value of <code>this</code>
+                </th>
+              </tr>
+<tr>
+                <td>foo()</td>
+                <td>the <a href="globalobj.html">global</a> object</td>
+              </tr>
+<tr>
+                <td>
+                  <span class="meta">obj</span>.foo()</td>
+                <td>
+                  <span class="meta">obj</span>
+                </td>
+              </tr>
+<tr>
+                <td>
+                  <span class="meta">obj</span>["foo"]()</td>
+                <td>
+                  <span class="meta">obj</span>
+                </td>
+              </tr>
+<tr>
+                <td>(<span class="meta">expr</span>)()</td>
+                <td>the <a href="globalobj.html">global</a> object</td>
+              </tr>
+<tr>
+                <td>new foo()</td>
+                <td>a new object with prototype <code>foo.prototype</code>
+                </td>
+              </tr>
+<tr>
+                <td>foo.<a href="funobj.html#call">call</a>(<span class="meta">obj</span>)</td>
+                <td>
+                  <span class="meta">obj</span>
+                </td>
+              </tr>
+<tr>
+                <td>foo.<a href="funobj.html#apply">apply</a>(<span class="meta">obj</span>)</td>
+                <td>
+                  <span class="meta">obj</span>
+                </td>
+              </tr>
+</table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Using <code>this</code> as class method</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+class&nbsp;Counter&nbsp;{<br>
+&nbsp;&nbsp;/**<br>
+&nbsp;&nbsp;&nbsp;*&nbsp;Return&nbsp;new&nbsp;value&nbsp;of&nbsp;count<br>
+&nbsp;&nbsp;&nbsp;*/<br>
+&nbsp;&nbsp;function&nbsp;next()&nbsp;{&nbsp;return&nbsp;this.count++;&nbsp;}<br>
+&nbsp;&nbsp;/**<br>
+&nbsp;&nbsp;&nbsp;*&nbsp;Create&nbsp;a&nbsp;new&nbsp;counter<br>
+&nbsp;&nbsp;&nbsp;*/<br>
+&nbsp;&nbsp;function&nbsp;Counter(a)&nbsp;{&nbsp;this.count&nbsp;=&nbsp;a;&nbsp;}<br>
+}<br>
+<br>
+counter&nbsp;=&nbsp;new&nbsp;Counter(10);<br>
+for&nbsp;(var&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;3;&nbsp;i++)<br>
+&nbsp;&nbsp;writeln(counter.next())<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+10<br>
+11<br>
+12<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="closure"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Closures</b>
+                </font>
+              </td><td align=right>JavaScript 1.2</td>
+</tr>
+          </table>
+          <p>
+
+Scripts can declare functions inside of functions, creating closures.
+The inner function, i.e. the closure, can access the outer function's
+local variables as its own variables.  In fact, the closure can access
+the outer function's variables even when the outer function has
+completed.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Closure</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;outer(a)<br>
+{<br>
+&nbsp;&nbsp;return&nbsp;function()&nbsp;{&nbsp;return&nbsp;a++&nbsp;}&nbsp;//&nbsp;incrementing&nbsp;function<br>
+}<br>
+<br>
+next&nbsp;=&nbsp;outer(10);&nbsp;//&nbsp;'next'&nbsp;can&nbsp;still&nbsp;access&nbsp;'a'<br>
+<br>
+for&nbsp;(var&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;3;&nbsp;i++)<br>
+&nbsp;&nbsp;writeln(next());<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+10<br>
+11<br>
+12<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='objects.html'>Objects</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='statements.html'>Statements</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:48 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,130 @@
+a.topnav {
+  text-decoration : none;
+  color : #002b80;
+  font-family : sans-serif;
+}
+
+a.leftnav:link {
+  text-decoration : none;
+  color : #002b80;
+}
+
+a.leftnav:visited {
+  text-decoration : none;
+  color :  #cc0044;
+}
+
+.toc {
+/*  background : #b8e6d6; */
+/*  background : #eeeeee; */
+/*  background : #ccddff; */
+/*  background : #ccffee; */
+  background : #ccddff;
+}
+
+.section {
+  background : #ccddff;
+}
+
+.desc {
+  margin : 0 1em 0em 3em;
+}
+
+.egpad {
+  padding : 0.5em 1em;
+  margin : 0;
+}
+
+.side {
+  background : #ccddff;
+  padding : 0.5em;
+  font-size : larger;
+  float : right;
+  width : 30%;
+}
+
+.def {
+/*  background : #eeccff; */
+  background : #cccccc;
+  color : black;
+  font-family : monospace;
+  font-size : 0.9em;
+}
+/* XXX: netscape ignores
+caption {
+  font-size : 10em;
+}
+*/
+
+.deftable {
+  background : #eeccff;
+/*  background : #b8e6d6; */
+}
+
+table.deftable th {
+  background : #c78ae6;
+/*  background : #7accb1; */
+}
+
+.example {
+  background : #ffeecc;
+  color : black;
+  font-family : monospace;
+  font-size : 0.9em;
+}
+
+span.example {
+  background : #ffeecc;
+  font-family : monospace;
+  font-size : 0.9em;
+  color : black;
+}
+
+.egcolor {
+  background : #ffeecc;
+  color : black;
+}
+
+.screenshot {
+  background : silver;
+  color : black;
+}
+
+.green {
+  color : black;
+  background : #99ffdd; /* 00ffdd, bbff99, ddffcc, ccffee, ffccdd */
+}
+
+.eg-em {
+/*  color : #0044cc; */
+  color : #003399;
+/* aa00ff, ff0055; 0044cc, 8800cc, cc0044, 0055ff */
+}
+
+.badexample {
+  color : red;
+}
+
+.result {
+  background : #ffccdd;
+  color : black;
+  font-family : monospace;
+  font-size : 0.9em;
+}
+
+.warn {
+  color : #ff0055;
+}
+
+code {
+  font-family : monospace;
+}
+
+.meta {
+  font-style : italic;
+  color : #003399;
+}
+
+ul.none {
+  list-style : none
+}

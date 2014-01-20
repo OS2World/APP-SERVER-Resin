@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Tag Library Configuration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="resin-config.html">Resin Config</a>
+<tr><td><a href="http-config.html">HTTP Config</a>
+<tr><td><a href="app-config.html">App Config</a>
+<tr><td><a href="servlet-config.html">Servlet Config</a>
+<tr><td><a href="auth-config.html">Login Config</a>
+<tr><td><em>Taglib Config</em>
+<tr><td><a href="config-sum.html">Summary</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Tag Library Configuration</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+
+The tag library configuration file is typically provided by the tag library
+vendor.  In general, users of the tag library will only need to configure
+the <span class="meta">taglib</span> to point to the vendor's configuration.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">resin.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;web-app><br>
+&lt;taglib&nbsp;taglib-uri='/mytag/test'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;taglib-location='/MyTag.tlb'/><br>
+&lt;/web-app><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>As a shortcut during development, you can pull the taglib definition
+into the resin.conf:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;web-app><br>
+&lt;taglib&nbsp;taglib-uri='/mytag/test'><br>
+&nbsp;&nbsp;&lt;tag&nbsp;name='bar'&nbsp;tagclass='test.NoTag'/><br>
+&nbsp;&nbsp;&lt;tag&nbsp;name='foo'&nbsp;tagclass='test.MyTag'&nbsp;teiclass='test.MyTagInfo'/><br>
+&lt;/web-app><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>taglib</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#taglib">taglib</a></td>
+              <td>Defines a tag library.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#tag">tag</a></td>
+              <td>Defines a tag.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#attribute">attribute</a></td>
+              <td>Defines a tag attribute.</td>
+            </tr>
+          </table>
+
+<a name="taglib"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>taglib</b>
+                </font>
+              </td><td align=right>Resin 1.1</td>
+</tr>
+          </table>
+          <p>
+
+<a name="taglib"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">taglib</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Defines a tag library.  The <span class="meta">taglib</span> declaration will contain
+several <span class="meta">tag</span> declarations.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>version</td>
+                  <td>Version of the tag library.
+</td>
+                </tr>
+                <tr>
+                  <td>jspversion</td>
+                  <td>Expected JSP version
+</td>
+                </tr>
+                <tr>
+                  <td>shortname</td>
+                  <td>A short name for the tag library.  For IDEs, this may
+give a suggested tag prefix.
+</td>
+                </tr>
+                <tr>
+                  <td>uri</td>
+                  <td>A unique identifier for the tag library.
+</td>
+                </tr>
+                <tr>
+                  <td>info</td>
+                  <td>An information string for the tag library.
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="tag"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">tag</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Defines a tag.  The <span class="meta">tag</span> may contain several <span class="meta">attribute</span>
+declarations. 
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>name</td>
+                  <td>The tag name
+</td>
+                </tr>
+                <tr>
+                  <td>tagclass</td>
+                  <td>The tag class
+</td>
+                </tr>
+                <tr>
+                  <td>teiclass</td>
+                  <td>The TagExtraInfo class (used for validation and
+declaring implicit variables.
+</td>
+                </tr>
+                <tr>
+                  <td>bodycontent</td>
+                  <td>False if the tag should always be empty.
+</td>
+                </tr>
+                <tr>
+                  <td>info</td>
+                  <td>An information string for the tag.
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="attribute"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">attribute</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Defines a tag attribute.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>name</td>
+                  <td>The attribute name.
+</td>
+                </tr>
+                <tr>
+                  <td>required</td>
+                  <td>True if the tag is required.
+</td>
+                </tr>
+                <tr>
+                  <td>rtexprvalue</td>
+                  <td>True if the tag can use a real time expression.
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='auth-config.html'>Login Config</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='config-sum.html'>Summary</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Tue, 25 Apr 2000 12:33:37 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

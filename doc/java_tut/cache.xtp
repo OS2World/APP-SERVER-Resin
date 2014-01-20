@@ -1,0 +1,85 @@
+<title browser-title='Caching : Resin Tutorial'>Server Caching</title>
+
+<p/>Server caching can speed dynamic pages to
+near-static speeds.   Many pages created by database
+queries only change every 15 minutes or so, e.g. CNN or Slashdot.
+Resin can cache the results and serve them like static pages.
+
+<p/>Resin's caching operates like a proxy cache.  Every user 
+shares the same cached page.
+
+<ct:subsection title='Expires'>
+
+<p/>Setting the <ct:var>Expires</ct:var> header will cache the results
+until the time expires.  For heavily loaded pages, even setting short
+expires times can significantly improve performance.  Sessions should
+be disabled for caching.
+
+<p/>The following example sets expiration for 15 seconds.  So the
+counter should update slowly.
+
+<ct:example title='Expires'>
+&lt;%@ page session=false %>
+&lt;%! int counter; %>
+&lt;%
+long now = System.currentTimeMillis();
+response.setDateHeader("Expires", now + 15000);
+%>
+Count: &lt;%= counter++ %>
+</ct:example>
+
+<p/><var/Expires/> is useful for database generated pages which are
+continuously, but slowly updated.  To cache based on something with a known
+modified date, like a file, you can use <var/If-Modified/>.
+
+</ct:subsection>
+
+<ct:subsection title='If-Modified'>
+
+The <ct:var>If-Modified</ct:var> headers let you cache based on an
+underlying change date.  For example, the page may only change when an
+underlying source page changes.  Resin lets you easily use 
+<ct:var>If-Modified</ct:var> by overriding methods in HttpServlet or
+in a JSP page.
+
+<p/>The following page only changes when the underlying 'test.xml'
+page changes.
+
+<ct:example>
+&lt;%@ page session=false %>
+&lt;%!
+int counter;
+
+public long getLastModified(HttpServletRequest req)
+{
+  String path = req.getRealPath("test.xml");
+  return new File(path).lastModified();
+}
+%>
+Count: &lt;%= counter++ %>
+</ct:example>
+
+</ct:subsection>
+
+<ct:subsection title='Included Pages'>
+
+Resin can cache subpages even when the top page can't be cached.
+Sites allowing user personalization will often design pages with
+<var/jsp:include/> subpages.  Some subpages are user-specific and can't
+be cached.  Others are common to everybody and can be cached.
+
+<p/>Resin treats subpages as independent requests, so they can be
+cached independent of the top-level page.  Try the following, use the
+first <var/expires/> counter example as the included page.  Create a
+top-level page that looks like:
+
+<ct:example>
+&lt;%@ page session=true %>
+&lt;% if (! session.isNew()) { %>
+&lt;h1>Welcome back!&lt;/h1>
+&lt;% } %>
+
+&lt;jsp:include page="expires.jsp"/>
+</ct:example>
+
+</ct:subsection>

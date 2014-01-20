@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>
+Welcome to Resintm 1.1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="css/default.css" type="text/css">
+  </head>
+  <body background="images/background.gif" bgcolor="white">
+    <table width="100%" summary="" border="0" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td>
+                <img width="120" height="40" alt="caucho" src="images/caucho.gif">
+              </td>
+            </tr><tr><td><em>Resin 1.1</em>
+<tr><td><a href="ref/faq.html">FAQ</a>
+<tr><td><a href="ref/index.html">Reference Guide</a>
+<tr><td><a href="javadoc/index.html">JavaDoc</a>
+<tr><td><a href="examples/index.html">Demo</a>
+<tr><td><a href="java_tut/index.xtp">Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="changes.html">Change Log</a>
+<tr><td><a href="errata.html">Errata</a>
+<tr><td><a href="future.html">Future</a>
+</table>
+        </td>
+        <td width="30">
+          <img width="30" height="1" alt="" src="images/pixel.gif">
+        </td>
+        <td width="100%"><!-- top navigation -->
+          <table width="100%" summary="" border="0" cellpadding="0" cellspacing="0">
+            <tr class="toptitle">
+              <td width="90%" background="images/hbleed.gif" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;
+Welcome to Resin<sup>tm</sup> 1.1</font>
+              </td>
+            </tr>
+          </table>
+          <img width="1" height="20" alt="" src="images/pixel.gif">
+          <br>
+          <a name="Congratulations__Resin_is_working_"></a>
+          <p>
+          <table width="100%" border="0" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Congratulations! Resin is working.</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>Some things to look at
+
+</p>
+          <ul>
+<li>The <a href="examples/index.html">demos</a>
+</li>
+            <li>The <a href="java_tut/index.xtp">mini-tutorial</a>
+</li>
+            <li>The <a href="ref/faq.html">FAQ</a>
+</li>
+            <li>
+              <a href="ref/starting.html">Installation</a> configurations
+<ul>
+<li>Standalone <a href="ref/httpd.html">Resin Web Server</a>
+</li>
+                <li>
+                  <a href="ref/cse-apache-unix.html">Resin with Unix Apache</a>
+</li>
+                <li>
+                  <a href="ref/cse-apache-win.html">Resin with Win32 Apache</a>
+</li>
+                <li>
+                  <a href="ref/cse-apache-os2.html">Resin with OS/2 Apache</a>
+</li>
+                <li>
+                  <a href="ref/cse-iis.html">Resin with IIS</a>
+</li>
+                <li>
+                  <a href="ref/cse-netscape.html">Resin with Netscape</a>
+</li>
+              </ul>
+</li>
+            <li>
+              <a href="ref/config.html">resin.conf</a> configuration
+<ul>
+<li>
+                  <a href="ref/servlet-config.html">Servlet configuration</a>
+</li>
+                <li>
+                  <a href="ref/app-config.html">Web application configuration</a>
+</li>
+                <li>
+                  <a href="ref/http-config.html">HTTP and srun configuration</a>
+</li>
+                <li>
+                  <a href="ref/resin-config.html">General Resin configuration</a>
+</li>
+              </ul>
+</li>
+            <li>The <a href="ref/index.html">Reference guide</a>
+</li>
+            <li>The <a href="javadoc/index.html">JavaDoc</a>
+</li>
+          </ul>
+
+<a name="Questions_and_Support"></a>
+          <h3>Questions and Support</h3>
+
+<p>A good place to ask questions is the resin-interest mailing list.  Not
+every question is answered, but many are and you can learn about clever ways
+of using Resin by reading it.
+
+<p>To subscribe, send a mail to <a href="mailto:resin-interest-request@caucho.com">resin-interest-request@caucho.com</a>
+with the body "subscribe".
+
+<p>You can also subscribe to the Resin-interest digest.  A new digest
+is sent every 2 days or so.  To subscribe, send a mail to <a href="mailto:resin-interest-digest-request@caucho.com">resin-interest-digest-request@caucho.com</a>
+with the body "subscribe".
+
+<p>You can also send us questions, feedback and bug reports directly <a href="mailto:resin@caucho.com">resin@caucho.com</a>:
+
+<ul>
+<li>Resin Platinum users will receive the highest support, including
+  an email response in one business day and any needed bug fixes
+  within in two weeks.
+</li>
+            <li>Registered Resin users will receive a priority in email responses
+  and bug reports over questions from non-registered users.
+</li>
+            <li>Questions from non-registered users may or may not be answered as
+  time permits.  Please send us your feedback and bug reports even if
+  you're not registered.  We may not be able to get to your questions,
+  but we'll use your suggestions and bug reports to improve future
+  Resin versions.
+</li>
+          </ul>
+
+<p>See <a href="http://www.caucho.com/support/faq.html">caucho.com</a>
+or contact <a href="mailto:sales@caucho.com">sales@caucho.com</a> for
+more information.
+
+
+
+<a name="Licensing"></a>
+          <h3>Licensing</h3>
+
+Resin&nbsp;1.1 beta is open source.  We do expect funded projects to
+purchase a license; if you're being paid to use Resin, 
+you should buy a license.  Legally, you are not required to pay us to
+use Resin, but look at it this way: you're not legally required to tip
+at restaurants either.  We devote full-time engineering resources to
+develop Resin.  Future development of Resin is critically dependent on
+your support.
+
+<p>Customers modifying or redistributing Resin, including other open
+source projects, must read the license carefully to make sure your
+redistribution satisfies the terms of the license.
+
+
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='changes.html'>Change Log</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Mon, 20 Mar 2000 22:40:45 -0800 (PST)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Semi-Formal Configuration Description</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="resin-config.html">Resin Config</a>
+<tr><td><a href="http-config.html">HTTP Config</a>
+<tr><td><a href="app-config.html">App Config</a>
+<tr><td><a href="servlet-config.html">Servlet Config</a>
+<tr><td><a href="auth-config.html">Login Config</a>
+<tr><td><a href="taglib.html">Taglib Config</a>
+<tr><td><em>Summary</em>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Semi-Formal Configuration Description</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>Configuration is based on element XML.  You can also think of is as
+key-value lists, like the NT registry or a Lisp assoc-list.  To make
+the configuration more readable, you can use attributes as syntactic sugar.
+
+<p>The following are equivalent:
+<p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                <td>&lt;foo>&lt;bar>13&lt;/bar>&lt;/foo></td>
+                <td>canonical representation, but verbose
+</td>
+              </tr>
+              <tr>
+                <td>&lt;foo bar=13/></td>
+                <td>typical configuration
+</td>
+              </tr>
+              <tr>
+                <td>&lt;foo>&lt;bar id=13/>&lt;/foo></td>
+                <td>Useful for a key-based list.
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>In general, the order is not important, but the nesting depth is.
+
+<p>The special element
+<a href="resin-config.html#resin_include">resin:include</a> can be used in
+any place to read in another file.
+
+<a name="Semi_Formal_Description"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Semi-Formal Description</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<code>
+            <pre>
+
+caucho.com ::= <a href="resin-config.html#log">log</a>* |
+               <a href="resin-config.html#java">java</a> |
+               <a href="resin-config.html#jsp">jsp</a> |
+               <a href="resin-config.html#dbpool.sql">dbpool.sql</a>* | 
+               <a href="resin-config.html#smtp.vfs">smtp.vfs</a> | 
+               <a href="http-config.html#http-server">http-server</a>
+
+log ::= <a href="resin-config.html#log">id</a> |
+        <a href="resin-config.html#log">href</a> |
+        <a href="resin-config.html#log">timestamp</a>
+
+java ::= <a href="resin-config.html#java">compiler</a> |
+         <a href="resin-config.html#java">work-dir</a> |
+         <a href="resin-config.html#java">args</a>
+
+dbpool.sql ::= <a href="resin-config.html#dbpool.sql">id</a> |
+               <a href="resin-config.html#dbpool.sql">driver</a> |
+               <a href="resin-config.html#dbpool.sql">url</a> |
+               <a href="resin-config.html#dbpool.sql">user</a> |
+               <a href="resin-config.html#dbpool.sql">password</a> |
+               <a href="resin-config.html#dbpool.sql">max-connections</a>
+
+smtp.vfs ::= <a href="resin-config.html#smtp.vfs">host</a> |
+             <a href="resin-config.html#smtp.vfs">port</a>
+
+http-server ::=	<a href="http-config.html#httpd-host">httpd-host</a> |
+                <a href="http-config.html#httpd-port">httpd-port</a> |
+                <a href="http-config.html#srun-host">srun-host</a> |
+                <a href="http-config.html#srun-port">srun-port</a> |
+                <a href="http-config.html#srun">srun</a>* |
+                <a href="http-config.html#srun-backup">srun-backup</a>* |
+                <a href="http-config.html#user-name">user-name</a> |
+                <a href="http-config.html#group-name">group-name</a> |
+                <a href="http-config.html#thread-min">thread-min</a> |
+                <a href="http-config.html#thread-max">thread-max</a> |
+                <a href="http-config.html#thread-keepalive">thread-keepalive</a> |
+                <a href="http-config.html#request-timeout">request-timeout</a> |
+                <a href="http-config.html#timeout-interval">timeout-interval</a> |
+                <a href="http-config.html#cache">cache</a> |
+                <a href="http-config.html#host">host</a>* |
+                <span class="meta">any host tag (for default host)</span>
+		 
+srun ::= <a href="http-config.html#srun">srun-host</a> |
+         <a href="http-config.html#srun">srun-port</a>
+		 
+srun-backup ::= <a href="http-config.html#srun-backup">srun-host</a> |
+                <a href="http-config.html#srun-backup">srun-port</a>
+
+cache ::= <a href="http-config.html#cache">dir</a> |
+          <a href="http-config.html#entries">entires</a> |
+          <a href="http-config.html#size">size</a>
+
+host ::= <a href="http-config.html#host">id</a> |
+         <a href="http-config.html#host">regexp</a> |
+         <a href="http-config.html#host">app-dir</a> |
+         <a href="http-config.html#error-log">error-log</a> |
+         <a href="http-config.html#access-log">access-log</a>* |
+         <a href="app-config.html#web-app">web-app</a>* |
+         <span class="meta">any web-app tag (for '/' web-app)</span>
+	  
+access-log ::= <a href="http-config.html#access-log">id</a> |
+               <a href="http-config.html#access-log">format</a>
+
+web-app ::= <a href="http-config.html#web-app">id</a> |
+            <a href="http-config.html#web-app">url-regexp</a> |
+            <a href="http-config.html#web-app">app-dir</a> |
+            <a href="app-config.html#servlet-mapping">servlet-mapping</a>* |
+            <a href="app-config.html#servlet">servlet</a>* |
+            <a href="app-config.html#classpath">classpath</a>* |
+            <a href="app-config.html#class-update-interval">class-update-interval</a> |
+            <a href="app-config.html#context-param">context-param</a>* |
+            <a href="app-config.html#session-config">session-config</a> |
+            <a href="app-config.html#error-page">error-page</a>* |
+            <a href="app-config.html#path-mapping">path-mapping</a>* |
+            <a href="app-config.html#mime-mapping">mime-mapping</a>* |
+            <a href="app-config.html#cache-mapping">cache-mapping</a>* |
+            <a href="app-config.html#filter-mapping">filter-mapping</a>* |
+            <a href="app-config.html#welcome-file-list">welcome-file-list</a> |
+            <a href="app-config.html#character-encoding">character-encoding</a> |
+            <a href="app-config.html#directory-servlet">directory-servlet</a> |
+            <a href="app-config.html#jsp">jsp</a> |
+            <a href="app-config.html#taglib">taglib</a>* |
+            <a href="app-config.html#temp-dir">temp-dir</a> |
+            <a href="app-config.html#db-pool">db-pool</a>* |
+            <a href="app-config.html#browser-mapping">browser-mapping</a>*
+
+servlet-mapping ::= <a href="app-config.html#url-pattern">url-pattern</a> |
+                    <a href="app-config.html#servlet-mapping">url-regexp</a> |
+                    <a href="servlet-config.html#servlet-name">servlet-name</a> |
+                    <a href="app-config.html#servlet-mapping">path-info</a> |
+                    <a href="servlet-config.html#servlet-class">servlet-class</a> |
+                    <a href="servlet-config.html#init-param">init-param</a>* |
+                    <a href="servlet-config.html#load-on-startup">load-on-startup</a> |
+                    <a href="servlet-config.html#servlet-mapping">run-at</a>*
+
+servlet ::= <a href="servlet-config.html#servlet-name">servlet-name</a> |
+            <a href="servlet-config.html#servlet-class">servlet-class</a> |
+            <a href="servlet-config.html#init-param">init-param</a>* |
+            <a href="servlet-config.html#load-on-startup">load-on-startup</a> |
+            <a href="servlet-config.html#servlet-mapping">run-at</a>*
+
+init-param ::= <a href="servlet-config.html#init-param">param-name</a> |
+               <a href="servlet-config.html#init-param">param-value</a> |
+
+classpath ::= <a href="app-config.html#classpath">id</a> |
+              <a href="app-config.html#classpath">source</a> |
+              <a href="app-config.html#classpath">compile</a>
+
+context-param ::= <a href="app-config.html#context-param">param-name</a> |
+                  <a href="app-config.html#context-param">param-value</a>
+
+session-config ::= <a href="app-config.html#session-config">session-timeout</a> |
+                  <a href="app-config.html#session-config">session-max</a>
+                  <a href="app-config.html#session-config">enable-cookies</a>
+                  <a href="app-config.html#session-config">enable-url-rewriting</a>
+
+error-page ::= <a href="app-config.html#error-page">location</a> |
+               <a href="app-config.html#error-page">exception</a> |
+               <a href="app-config.html#error-page">error-code</a>
+
+path-mapping ::= <a href="app-config.html#path-mapping">url-pattern</a> |
+                 <a href="app-config.html#path-mapping">url-regexp</a> |
+                 <a href="app-config.html#path-mapping">real-path</a>
+
+mime-mapping ::= <a href="app-config.html#mime-mapping">extension</a> |
+                 <a href="app-config.html#mime-mapping">mime-type</a>
+
+cache-mapping ::= <a href="app-config.html#cache-mapping">url-pattern</a> |
+                  <a href="app-config.html#cache-mapping">url-regexp</a> |
+                  <a href="app-config.html#cache-mapping">expires</a>
+
+filter-mapping ::= <a href="app-config.html#filter-mapping">mime-type</a> |
+                   <a href="app-config.html#filter-mapping">servlet-name</a>
+
+browser-mapping ::= <a href="app-config.html#browser-mapping">regexp</a> |
+                    <a href="app-config.html#browser-mapping">force10</a>
+
+db-pool ::= <a href="resin-config.html#dbpool.sql">id</a> |
+            <a href="resin-config.html#dbpool.sql">driver</a> |
+            <a href="resin-config.html#dbpool.sql">url</a> |
+            <a href="resin-config.html#dbpool.sql">user</a> |
+            <a href="resin-config.html#dbpool.sql">password</a> |
+            <a href="resin-config.html#dbpool.sql">max-connections</a>
+
+</pre>
+          </code>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='taglib.html'>Taglib Config</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='topics.html'>Topics</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 06 Apr 2000 15:16:18 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

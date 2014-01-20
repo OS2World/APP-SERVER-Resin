@@ -1,0 +1,24 @@
+<?xml-stylesheet href='guestbook.xsl'?>
+<title>Guest Book Comments</title>
+
+<table width='100%'>
+<tr>
+  <td width='25%'><em>Name</em></td>
+  <td width='75%'><em>Comment</em></td>
+</tr>
+<ct:guest-book>
+  <tr><td><ct:guest-name/><td><ct:guest-comment/>
+</ct:guest-book>
+</table>
+
+<hr>
+
+<ct:error-message/>
+
+<ct:form-table action='GuestXtp' method='post'>
+  <ct:hidden name='action' value='login'/>
+  <input name='Name' ct:form-request-value='Name'/>
+  <ct:password name='Password' ct:form-request-value='Password'/>
+  <ct:label>Hint: the password is quidditch</ct:label>
+  <ct:submit value='Login'/>
+</ct:form-table>

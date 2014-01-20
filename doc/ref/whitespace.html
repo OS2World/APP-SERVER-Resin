@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Source Text</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr>
+          </table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Source Text</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Whitespace">Whitespace</a></li>
+                    <li><a href="#autosemicolon">Automatic semicolon insertion</a></li>
+                    <li><a href="#encoding">Source encoding</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<a name="Whitespace"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Whitespace</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+JavaScript treats whitespace characters as separators but
+otherwise ignores them.  Additionally, newlines insert <a href="#autosemicolon">automatic semicolons</a> when possible.  In
+either case, a liberal and consistent use of whitespace makes scripts
+easier to read and more maintainable.
+
+<p>
+          <p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                <th>Code</th>
+                <th>Name</th>
+              </tr>
+<tr>
+                <td>
+                  <code>' '  0x20</code>
+                </td>
+                <td>Space</td>
+              </tr>
+<tr>
+                <td>
+                  <code>'\t' 0x09</code>
+                </td>
+                <td>Tab</td>
+              </tr>
+<tr>
+                <td>
+                  <code>'\v' 0x0b</code>
+                </td>
+                <td>Vertical Tab</td>
+              </tr>
+<tr>
+                <td>
+                  <code>'\f' 0x0c</code>
+                </td>
+                <td>Form Feed (new page)</td>
+              </tr>
+<tr>
+                <td>
+                  <code>'\n' 0x0a</code>
+                </td>
+                <td>Newline</td>
+              </tr>
+<tr>
+                <td>
+                  <code>'\r' 0x0d</code>
+                </td>
+                <td>Carriage Return</td>
+              </tr>
+</table>
+          </center>
+
+
+
+<a name="autosemicolon"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Automatic semicolon insertion</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Because newlines naturally separate <a href="statements.html">statements</a>, scripts can often omit the
+semicolon separator.  Scripts must be aware of the automatic
+semicolons because in a few cases, statements may be unexpectedly
+separated.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Semicolon insertion for returns</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">function&nbsp;foo()<br>
+{<br>
+&nbsp;&nbsp;return&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;semicolon&nbsp;inserted&nbsp;here<br>
+&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;+&nbsp;3&nbsp;&nbsp;&nbsp;//&nbsp;this&nbsp;expression&nbsp;is&nbsp;_not_&nbsp;the&nbsp;return&nbsp;value<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Automatic semicolon insertion with functions</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">foo&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;semicolon&nbsp;inserted&nbsp;here,&nbsp;so&nbsp;foo&nbsp;is&nbsp;treated&nbsp;as&nbsp;a<br>
+(15)&nbsp;&nbsp;&nbsp;//&nbsp;variable,&nbsp;not&nbsp;a&nbsp;function&nbsp;call.<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">No automatic semicolon insertion in expression</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">foo(&nbsp;&nbsp;&nbsp;//&nbsp;no&nbsp;semicolon&nbsp;inserted&nbsp;here,&nbsp;so&nbsp;foo(15)&nbsp;is&nbsp;called<br>
+&nbsp;15)<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">No automatic semicolon insertion in <code>for</code></font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">for(var&nbsp;i&nbsp;=&nbsp;0&nbsp;//&nbsp;no&nbsp;semicolon&nbsp;inserted&nbsp;here,&nbsp;so&nbsp;this&nbsp;is&nbsp;an&nbsp;error<br>
+&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;&lt;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;no&nbsp;semicolon&nbsp;inserted&nbsp;here,&nbsp;so&nbsp;this&nbsp;is&nbsp;an&nbsp;error<br>
+&nbsp;&nbsp;&nbsp;&nbsp;i++)&nbsp;{<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="encoding"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Source encoding</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The default source encoding is Latin-1, i.e. ISO-8859-1.  Because
+characters are 16-bits and the source file is 8-bits, the source file
+is an encoding of the 16-bit characters.  The default encoding
+converts the bytes to the character with the same number, i.e. byte
+245 becomes character 245.  This poses a problem for languages like
+Japanese which use all 16 bits.
+
+<p>The calling program, e.g. <a href="jsp.html">JSP</a>, will set the
+encoding using a program-specific method.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Setting the encoding in JSP</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">
+                  <code>&lt;%@ encoding=utf8 %&gt;</code><br>
+<br>
+&lt;title&gt;Hello,&nbsp;world&lt;/title&gt;<br>
+&lt;h1&gt;Hello,&nbsp;world&lt;/h1&gt;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:49 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<title>Syndication Example</title>
+
+<ct:columns>
+<ct:column>
+<a href="../view_source.jsp?templates/rss.xtp">This page</a> is an example
+of adding syndication to your site.  The slashdot table on the right
+is the current list of headlines on slashdot.
+
+<p/>There are several syndication formats around, including Netscape's
+RSS and the RDF format.  The stylesheet in this example can
+automatically handle any of them.  That flexibility comes from the
+power of XSL matching.
+
+<p/>This example shows off the following Resin features:
+<ul>
+<li>XTP - This page is a JSP page generated from XTP using some
+a <a href="../view_source.jsp?templates/WEB-INF/xsl/formatting.xsl">formatting.xsl</a> stylesheet.
+<li>JSP 1.0 includes - The main page includes a
+<a href="../view_source.jsp?templates/WEB-INF/classes/jsp/RSS.java">RSS servlet</a>.
+<li>XSL filtering - The RSS servlet formats its results with a
+<a href="../view_source.jsp?templates/WEB-INF/xsl/rss.xsl">RSS XSL stylesheet</a>.
+<li>Caching - The syndicated content is automatically cached by Resin,
+controlled by the RSS servlet.  It is updated every hour.
+</ul>
+</ct:column>
+
+<ct:column width='30%'>
+<ct:use-rss>http://www.slashdot.org/slashdot.rdf</ct:use-rss>
+</ct:column>
+
+</ct:columns>

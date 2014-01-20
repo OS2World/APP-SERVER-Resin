@@ -1,0 +1,94 @@
+<?xml-stylesheet href='simple-format.xsl'?>
+<!--
+   - A simple guestbook using a single XTP page and no beans.
+   -
+   - The stylesheet, simple-format.xsl just creates simple page formatting
+   - and automatically inserts response.encodeURL() in forms and anchors.
+   -
+   - The differences between guestbook.xtp and guestbook.jsp are minor.
+   -  1) <%@ page language %> is in the body to make the HTML happy.
+   -  2) <h1>title</h1> is automatically generated.
+   -  3) <form action='<%= response.encodeURL() %>'> is automatically generated
+   -
+   - Because XTP is compiled to JSP, there is no performance penalty over
+   - a JSP page.
+  -->
+
+<head>
+<title>XTP Guest Book</title>
+</head>
+<body>
+<!--
+   - JSP declarations must be in the body to make the HTML parser happy
+  -->
+<%@ page language=java import='jsp.*, java.util.*'%>
+
+<!-- Retrieve the guestbook from the application, creating if necessary -->
+<jsp:useBean id='guestBook' class='java.util.Hashtable' scope=application/>
+
+<!--
+   - "controller" code, handling state changes and user input
+  -->
+<%
+String name = (String) session.getAttribute("name");
+
+String user = request.getParameter("Name");
+String passwd = request.getParameter("Password");
+
+if (user == null)
+  user = "";
+else if ("quidditch".equals(passwd)) {
+  name = user;
+  session.setAttribute("name", name);
+}
+
+String comment = request.getParameter("Comment");
+if (comment != null && name != null)
+  guestBook.put(name, comment);
+if (comment == null && name != null)
+  comment = (String) guestBook.get(name);
+if (comment == null)
+  comment = "";
+%>
+<!--
+   - display the guestbook
+  -->
+<table>
+<tr><td width='25%'><em>Name</em><td><em>Comment</em></td>
+<%
+Enumeration e = guestBook.keys();
+while (e.hasMoreElements()) {
+  String guestName = (String) e.nextElement();
+  String guestComment = (String) guestBook.get(guestName);
+
+  %><tr><td><%= guestName %><td><%= guestComment %></tr><%
+}
+%>
+</table>
+<hr>
+<!--
+   - If the user is logged in, let him change the comment.
+  -->
+<% if (name != null) { %>
+<form action="guestbook.xtp" method='POST'>
+<table>
+<tr><td>Name:<td><%= name %>
+<tr><td>Comment:<td><input size="40" name="Comment" value="<%= comment %>">
+</table>
+</form>
+
+<!--
+   - If the user is not logged in, show him a login form.
+   - The stylesheet automatically URL-encodes the action.
+  -->
+<% } else { %>
+<form action="guestbook.xtp" method="POST">
+<table>
+<tr><td>Name:<td><input name='Name' value='<%= user %>'>
+<tr><td>Password:<td><input name='Password' type='password'>
+<tr><td>Hint:<td>The password is 'quidditch'
+<tr><td><input type=submit value='Login'>
+</table>
+</form>
+<% } %>
+</body>

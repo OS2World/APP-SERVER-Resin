@@ -1,0 +1,623 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>XML Query Language (XQL)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr>
+          </table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;XML Query Language (XQL)</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <p>Resin can use XQL, the XML Query Language, to <a href="xmlnode.html#select">select nodes</a> from 
+an XML tree.  Scripts can select all 'table' children, or
+even all 'table' elements in an entire HTML file.  The XQL language is
+exceptionally rich.  It can describe an incredible number of node
+selections. 
+
+</p>
+          <p>The XML Query Language describes nodes in an  <a href="xmllib.html">XML</a> tree.  It's a mini-language 
+for specifying nodes patterns, like <a href="regexp.html">regular
+expressions</a> are a mini-language for specifying text patterns.
+
+</p>
+          <p>The language selects sets of nodes.  Each operator in XQL selects
+a new set based on the old set of nodes.  For example, given a set of
+chapters, XQL can select all sections in those chapters,
+chapters with 'advanced' attributes, or grandchildren with 'color'
+attributes of 'blue'.
+
+<p>
+            <table border="1" width="100%" cellpadding="3" cellspacing="0">
+              <tr class="section">
+                <td colspan="2">
+                  <font size="+2">
+                    <b>XML Query Language (XQL)</b>
+                  </font>
+                </td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#node">node</a></td>
+                <td>Selects all child elements with <a href="xmlnode.html#nodeName">nodeName</a> of <span class="meta">node</span>.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#star">*</a></td>
+                <td>Selects all child elements.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#attr">@attr</a></td>
+                <td>Selects the attribute <span class="meta">attr</span>.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#starattr">@*</a></td>
+                <td>Selects all attributes.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#node">node</a>()</td>
+                <td>Matches an <a href="xmlelement.html">element</a> node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#text">text</a>()</td>
+                <td>Matches a <a href="xmltext.html">text</a> node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#comment">comment</a>()</td>
+                <td>Matches a comment.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#pi">pi</a>()</td>
+                <td>Matches a <a href="xmlpi.html">processing instruction</a> node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#dot">.</a></td>
+                <td>Selects the current node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#parent">..</a></td>
+                <td>Selects the parent of current node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#root">/</a></td>
+                <td>Selects the document node.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#filter">a[expr]</a></td>
+                <td>Select only those nodes matching <span class="meta">a</span> which also satisfy the
+expression <span class="meta">expr</span>.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#nth_filter">a[n]</a></td>
+                <td>Selects the <span class="meta">n</span>th matching node matching <span class="meta">a</span>
+                </td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#compose">a/b</a></td>
+                <td>For each node matching <span class="meta">a</span>, add the nodes matching <span class="meta">b</span>
+to the result.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#descendant">a//b</a></td>
+                <td>For each node matching <span class="meta">a</span>, add the descendant nodes
+matching <span class="meta">b</span> to the result.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#root_descendant">//b</a></td>
+                <td>Returns elements in the entire document matching <span class="meta">b</span>.</td>
+              </tr>
+              <tr>
+                <td width="40%" class="code"><a href="#compose">a|b</a></td>
+                <td>All nodes matching <span class="meta">a</span> or <span class="meta">b</span>.</td>
+              </tr>
+            </table>
+
+<a name="xql"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>XML Query Language (XQL)</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+<a name="node"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">node</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects all child elements with <a href="xmlnode.html#nodeName">nodeName</a> of <span class="meta">node</span>.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+xml&nbsp;=&nbsp;caucho.xml.Xml.parseString(@&lt;&lt;END);<br>
+&lt;top&gt;<br>
+&nbsp;&nbsp;&lt;a&nbsp;id='1'/&gt;<br>
+&nbsp;&nbsp;&lt;b&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;id='2'/&gt;<br>
+&nbsp;&nbsp;&lt;/b&gt;<br>
+&nbsp;&nbsp;&lt;a&nbsp;id='3'/&gt;<br>
+&lt;/top&gt;<br>
+END<br>
+<br>
+top&nbsp;=&nbsp;xml.documentElement<br>
+<br>
+for&nbsp;(var&nbsp;node&nbsp;in&nbsp;top.select('a'))<br>
+&nbsp;&nbsp;writeln(node.nodeName,&nbsp;':&nbsp;',&nbsp;node.attribute.id);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+a:&nbsp;1<br>
+a:&nbsp;3<br>
+
+      </td></tr>
+    </table>
+              </center>
+
+</div>
+
+<a name="star"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">*</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects all child elements.
+</div>
+
+<a name="attr"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">@attr</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects the attribute <span class="meta">attr</span>.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">chapter/@title</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;title&nbsp;attributes&nbsp;of&nbsp;chapters.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">//var[@name='keywords']/@content</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">The&nbsp;contents&nbsp;of&nbsp;all&nbsp;var&nbsp;keywords.<br>
+A&nbsp;web&nbsp;spider&nbsp;might&nbsp;use&nbsp;this.<br>
+</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="starattr"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">@*</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects all attributes.
+</div>
+
+<a name="node"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">node()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Matches an <a href="xmlelement.html">element</a> node.
+</div>
+
+<a name="text"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">text()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Matches a <a href="xmltext.html">text</a> node.
+</div>
+
+<a name="comment"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">comment()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Matches a comment.
+</div>
+
+<a name="pi"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">pi()</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Matches a <a href="xmlpi.html">processing instruction</a> node.
+</div>
+
+
+<a name="dot"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">.</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects the current node.
+
+<p>The current node is primarily useful for descendant patterns.
+for some filter patterns.
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">.//image</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Any&nbsp;image&nbsp;descendant.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">.//image</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Any&nbsp;image&nbsp;descendant.</td></tr>
+</table>
+                </center>
+
+</p>
+            </div>
+
+<a name="parent"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">..</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects the parent of current node.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">../brother</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;brothers.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">../../aunt</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;aunts.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">//*[../@color='blue']</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;elements&nbsp;with&nbsp;blue&nbsp;parents.</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="root"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">/</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects the document node.
+
+<p>Useful for finding constants in a document.
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">/html</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">The&nbsp;single&nbsp;root&nbsp;element.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">/html/head</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">The&nbsp;HTML&nbsp;head&nbsp;section.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">/html/head/var</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">All&nbsp;var&nbsp;tags.</td></tr>
+</table>
+                </center>
+</p>
+            </div>
+
+<a name="filter"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a[expr]</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Select only those nodes matching <span class="meta">a</span> which also satisfy the
+expression <span class="meta">expr</span>.
+
+<p>The expression <span class="meta">b</span> is a combination of <code>and</code>,
+<code>or</code>, <code>not</code>, comparisons and XQL patterns.  An XQL
+expression, e.g. <code>chapter/verse</code>, is true if at least one node
+matches the pattern.
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">chapter[verse]</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Chapters&nbsp;with&nbsp;a&nbsp;verse.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">chapter[not(verse)]</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Chapters&nbsp;with&nbsp;no&nbsp;verses.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">chapter[not(verse)&nbsp;and&nbsp;not(section)]</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Chapters&nbsp;with&nbsp;neither&nbsp;verses&nbsp;<br>
+nor&nbsp;sections.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">*[@color='blue']</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Blue&nbsp;children.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">*[@color='blue'][position()=last()&nbsp;-&nbsp;1]</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">second&nbsp;to&nbsp;last&nbsp;blue&nbsp;child</td></tr>
+</table>
+                </center>
+</p>
+            </div>
+
+<a name="nth_filter"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a[n]</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Selects the <span class="meta">n</span>th matching node matching <span class="meta">a</span>
+When a filter's expression is a number, XQL selects based on position.
+This special case of the filter pattern treats selections as ordered
+lists.
+
+<p>The position filter is equivalent to
+<code>
+                <span class="meta">a</span>[position()=<span class="meta">n</span>]</code>
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">child[3]</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">third&nbsp;child</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">child/grandchild[1]</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">first&nbsp;grandchild&nbsp;from&nbsp;every&nbsp;child&nbsp;(not&nbsp;only&nbsp;the&nbsp;first<br>
+grandchild).</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">child[last()]</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">last&nbsp;child</td></tr>
+</table>
+              </center>
+
+</div>
+
+<a name="compose"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a/b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+For each node matching <span class="meta">a</span>, add the nodes matching <span class="meta">b</span>
+to the result.
+
+<p>The following is almost a definition of a/b. 
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" class="example">for&nbsp;(var&nbsp;a&nbsp;in&nbsp;node.select('a'))&nbsp;{<br>
+&nbsp;&nbsp;for&nbsp;(var&nbsp;b&nbsp;in&nbsp;a.select('b'))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;possible&nbsp;duplicates&nbsp;if&nbsp;a&nbsp;or&nbsp;b<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;are&nbsp;weird&nbsp;patterns.<br>
+&nbsp;&nbsp;}<br>
+}<br>
+</td>
+                    </tr>
+                  </table>
+                </center>
+
+Some example interpretations, 
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">chapter/verse</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">grandchildren&nbsp;verse&nbsp;with&nbsp;<br>
+parent&nbsp;chapter.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">../span</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">sibling&nbsp;span&nbsp;elements.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">./span</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">children&nbsp;span&nbsp;elements.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">*/*</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">All&nbsp;grandchildren.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">*[color='blue']/verse</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">All&nbsp;grandchildren&nbsp;verse&nbsp;elements<br>
+with&nbsp;blue&nbsp;colored&nbsp;parents.</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">a/b/c</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">Great&nbsp;grandchildren&nbsp;c,&nbsp;with<br>
+parent&nbsp;b&nbsp;and&nbsp;grandparent&nbsp;a.</td></tr>
+</table>
+                </center>
+</p>
+            </div>
+
+<a name="descendant"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a//b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+For each node matching <span class="meta">a</span>, add the descendant nodes
+matching <span class="meta">b</span> to the result.  The '//' operator selects all
+descendants matching <span class="meta">b</span>.  The '/' operator selects all children
+matching <span class="meta">b</span>.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">chapter//a</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">All&nbsp;links&nbsp;contained&nbsp;in&nbsp;a&nbsp;chapter.</td></tr>
+<tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">.//image</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Any&nbsp;image&nbsp;descendant.</td></tr>
+</table>
+              </center>
+</div>
+
+<a name="root_descendant"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">//b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+Returns elements in the entire document matching <span class="meta">b</span>.
+
+<p>This is equivalent to /.//<span class="meta">b</span>, but less weird.
+
+<p>
+                <center>
+                  <table width="80%" class="egpad" cellspacing="0">
+                    <tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">//image</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">All&nbsp;images&nbsp;in&nbsp;the&nbsp;document</td></tr>
+<tr>
+                      <td bgcolor="#ffeecc" width="50%" class="example">//a[@href='http://www.caucho.com']</td>
+                    </tr>
+                    <td bgcolor="#ffccdd" class="result">All&nbsp;links&nbsp;to&nbsp;caucho</td></tr>
+</table>
+                </center>
+
+</p>
+            </div>
+
+<a name="compose"></a><p>
+            <table border="0" width="100%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="code">a|b</h3>
+                </td>
+              </tr>
+            </table>
+            <div class="desc">
+All nodes matching <span class="meta">a</span> or <span class="meta">b</span>.
+
+Some example interpretations, 
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" width="50%" class="example">lion|tiger|bear</td>
+                  </tr>
+                  <td bgcolor="#ffccdd" class="result">Lions&nbsp;and&nbsp;tigers&nbsp;and&nbsp;bears.<br>
+</td></tr>
+</table>
+              </center>
+</div>
+
+
+</p>
+          <hr><table border=0 width='100%'><tr>
+<td>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:49 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

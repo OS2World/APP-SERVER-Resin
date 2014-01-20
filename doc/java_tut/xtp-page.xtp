@@ -1,0 +1,64 @@
+<title browser-title='XTP Page : Resin Tutorial'>XTP Page</title>
+
+<p/>XTP (XML template pages) lets you ease into XML and XSLT
+(XML Stylesheet Tranformations).  Your XTP pages can be almost identical to
+JSP pages and just use XSLT to eliminate repetitious error-prone patterns.
+
+<p/>XTP just takes an XML or HTML document, your XTP page, and rewrites some
+of the tags according to a stylesheet.  In this example, the stylesheet just
+copies most of the XTP page into the HTML output, but automatically inserts
+<var/response.encodeURL/> into all &lt;a href> tags.
+
+<ct:example title="stylesheet.xsl">
+&lt;xsl:stylesheet>
+
+&lt;!-- make sure '&lt;' is not printed as '&amp;lt;' -->
+&lt;xsl:output disable-output-escaping='true'/>
+
+&lt;!-- copy input to output -->
+&lt;xsl:template match='*|@*'>
+&lt;xsl:copy>
+&lt;xsl:apply-templates select='node()|@*'/>
+&lt;/xsl:copy>
+&lt;/xsl:template>
+
+&lt;!-- rewrite &lt;a href> -->
+&lt;xsl:template match='a[@href]'>
+&lt;a href='&lt;%= response.encodeURL("{@href}") %>'>
+  &lt;xsl:apply-templates select='node()|@*[name(.)!="href"]'/>
+&lt;/a>
+&lt;/xsl:template>
+
+&lt;/xsl:stylesheet>
+</ct:example>
+
+<p/>You can put <var/stylesheet.xsl/> in the same directory as the xtp
+file, or you can put in WEB-INF/xsl, or you can put it in the
+classpath like WEB-INF/classes.  The last option is useful if you want
+to create a jar of useful stylesheets and beans. 
+
+<p/>Your XTP page may look something like:
+
+<ct:example title='test.xtp'>
+&lt;?xml-stylesheet href='stylesheet.xsl'?>
+&lt;h1>My test&lt;/h1>
+
+Adding: 2 + 2 = &lt;%= 2 + 2 %>
+
+&lt;p>New? &lt;%= session.isNew() %>
+
+&lt;p>And &lt;a href='test.xtp'>linking&lt;/a>
+</ct:example>
+
+<p/>The transformed file will look like:
+
+<ct:results>
+&lt;?xml-stylesheet href='stylesheet.xsl'?>
+&lt;h1>My test&lt;/h1>
+
+Adding: 2 + 2 = &lt;%= 2 + 2 %>
+
+&lt;p>New? &lt;%= session.isNew() %>
+
+&lt;p>And &lt;a href='&lt;%= response.encodeURL("test.xtp") %>'>linking&lt;/a>
+</ct:results>

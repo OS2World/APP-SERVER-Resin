@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Resin Web Server on Unix or Windows</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><em>Resin Web Server</em>
+<tr><td><a href="cse-apache-unix.html">Unix Apache</a>
+<tr><td><a href="cse-apache-win.html">Windows Apache</a>
+<tr><td><a href="cse-netscape.html">Unix Netscape</a>
+<tr><td><a href="cse-iis.html">IIS</a>
+<tr><td><a href="srun-other.html">Other Servlets</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Resin Web Server on Unix or Windows</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Testing_and_Evaluation">Testing and Evaluation</a></li>
+                    <li><a href="#Deploying_on_Unix">Deploying on Unix</a></li>
+                    <li><a href="#Deploying_on_NT">Deploying on NT</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<p>Resin provides a standalone web server.  In our benchmarks, it actually
+serves static pages faster than Apache!  The standalone web server
+is ideal for evaluation or experimentation and is a good choice as the
+web server for many sites.
+
+<center>
+<img src="../images/httpd.gif">
+</center>
+
+<a name="Testing_and_Evaluation"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Testing and Evaluation</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+To start the Resin web server, type:
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Starting on Unix</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">>&nbsp;resin1.1/bin/httpd.sh<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Starting on Win32</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">>&nbsp;resin1.1/bin/httpd<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+The default port is 8080, so use http://localhost:8080 in your browser.
+
+<p>Go to the demos and make sure they work.
+
+<p>Now, add a file resin1.1/doc/test.jsp containing the following:
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;language=javascript&nbsp;%><br>
+2&nbsp;+&nbsp;2&nbsp;=&nbsp;&lt;%=&nbsp;2&nbsp;+&nbsp;2&nbsp;%><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+You should see the page '2 + 2 = 4'.
+
+<p>Try language=java to make sure that Java works as well.
+
+
+
+<a name="Deploying_on_Unix"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Deploying on Unix</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+A better way to run the servlet engine in a production environment is
+to use the start and stop scripts.  These scripts add extra
+reliability to the server.  If Resin should ever exit, it will
+automatically be restarted.
+
+<p>To start the web server, use
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;resin1.1/bin/httpd.sh&nbsp;start<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>To stop it, use
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;resin1.1/bin/httpd.sh&nbsp;stop<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Deploying_on_NT"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Deploying on NT</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+The Resin Web Server can be installed as an NT service.
+
+<p>To install the service, use
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;resin1.1/bin/httpd&nbsp;-install<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>To remove the service, use
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;resin1.1/bin/httpd&nbsp;-remove<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>You will either need to reboot the machine or start the service
+from the Control&nbsp;Panel/Services panel to start the server.  On a
+machine reboot, NT will automatically start the web server.
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='starting.html'>Getting Started</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='cse-apache-unix.html'>Unix Apache</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Tue, 21 Mar 2000 10:25:48 -0800 (PST)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

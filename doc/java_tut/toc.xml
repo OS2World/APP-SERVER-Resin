@@ -1,0 +1,22 @@
+<navigation threaded='true' top='../'>
+<item link='../index.html' title='Resin 1.1'>
+  <item link='../ref/faq.html' title='FAQ'/>
+  <item link='../ref/index.html' title='Reference'/>
+  <item link='../javadoc/index.html' title='JavaDoc'/>
+  <item link='index.xtp' title='Tutorial'>
+    <item link='add_page.xtp' title='JSP Page'/>
+    <item link='servlets.xtp' title='Servlets'/>
+    <item link='parse_error.xtp' title='Parse Errors'/>
+    <item link='run_error.xtp' title='Runtime Errors'/>
+    <item link='debug.xtp' title='Debugging'/>
+    <item link='form.xtp' title='Forms'/>
+    <item link='mail_form.xtp' title='Mailing Forms'/>
+    <item link='db_form.xtp' title='Database Forms'/>
+    <item link='bean.xtp' title='Beans'/>
+    <item link='cache.xtp' title='Cache'/>
+    <item link='xtp-page.xtp' title='XTP Page'/>
+    <item link='xsl-filter.xtp' title='XSL Filter'/>
+  </item>
+  <item link='../examples/index.html' title='Demo'/>
+</item>
+</navigation>

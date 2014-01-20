@@ -1,0 +1,28 @@
+<?xml-stylesheet href='guestbook.xsl'?>
+<title>Guest Book Administration</title>
+
+<table width='100%'>
+<tr>
+  <td width='25%'><em>Name</em>
+  <td><em>Comment</em>
+  <td><em>Action</em>
+</tr>
+<ct:guest-book>
+  <tr>
+     <td><ct:guest-name/>
+     <td><ct:guest-comment/>
+     <td><ct:guest-admin action='delete'/>
+</ct:guest-book>
+</table>
+
+<hr>
+
+<ct:error-message/>
+
+<ct:form-table action='GuestXtp' method='post'>
+  <ct:hidden name='action' value='login'/>
+  <ct:input name='Name'/>
+  <ct:password name='Password'/>
+  <ct:label value='Hint: the password is quiddich'/>
+  <ct:submit value='Login'/>
+</ct:form-table>

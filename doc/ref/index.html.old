@@ -1,0 +1,411 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Resin 1.1 Reference Guide</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body background="../images/background.gif" bgcolor="white">
+    <table width="100%" summary="" border="0" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td>
+                <img width="120" height="40" alt="caucho" src="../images/caucho.gif">
+              </td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><em>Reference</em>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="servlet.html">Servlet</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+</table>
+        </td>
+        <td width="30">
+          <img width="30" height="1" alt="" src="../images/pixel.gif">
+        </td>
+        <td width="100%"><!-- top navigation -->
+          <table width="100%" summary="" border="0" cellpadding="0" cellspacing="0">
+            <tr class="toptitle">
+              <td width="90%" background="../images/hbleed.gif" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Resin 1.1 Reference Guide</font>
+              </td>
+            </tr>
+          </table>
+          <img width="1" height="20" alt="" src="../images/pixel.gif">
+          <br>
+          <center>
+            <table width="80%" class="toc">
+              <tr>
+                <td>
+                  <ul>
+
+<li>
+                      <a href="../index.html">Welcome</a>
+                      <ul>
+                        <li>
+                          <a href="../changes.html">Change Log</a>
+                        </li>
+                        <li>
+                          <a href="../errata.html">Errata</a>
+                        </li>
+                        <li>
+                          <a href="../future.html">Future</a>
+                        </li>
+                      </ul>
+                    </li>
+<li>
+                      <a href="faq.html">FAQ</a>
+                    </li>
+<li>
+                      <a href="index.html">Reference</a>
+                      <ul>
+                        <li>
+                          <a href="starting.html">Getting Started</a>
+                          <ul>
+                            <li>
+                              <a href="httpd.html">Resin Web Server</a>
+                            </li>
+                            <li>
+                              <a href="cse-apache-unix.html">Unix Apache</a>
+                            </li>
+                            <li>
+                              <a href="cse-apache-win.html">Windows Apache</a>
+                            </li>
+                            <li>
+                              <a href="cse-apache-os2.html">OS/2 Apache</a>
+                            </li>
+                            <li>
+                              <a href="cse-netscape.html">Unix Netscape</a>
+                            </li>
+                            <li>
+                              <a href="cse-iis.html">IIS</a>
+                            </li>
+                            <li>
+                              <a href="srun-other.html">Other Servlets</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a href="config.html">Configuration</a>
+                          <ul>
+                            <li>
+                              <a href="resin-config.html">Resin Config</a>
+                            </li>
+                            <li>
+                              <a href="http-config.html">HTTP Config</a>
+                            </li>
+                            <li>
+                              <a href="app-config.html">App Config</a>
+                            </li>
+                            <li>
+                              <a href="servlet-config.html">Servlet Config</a>
+                            </li>
+                            <li>
+                              <a href="auth-config.html">Login Config</a>
+                            </li>
+                            <li>
+                              <a href="taglib.html">Taglib Config</a>
+                            </li>
+                            <li>
+                              <a href="virtual-host.html">Virtual Hosts</a>
+                            </li>
+                            <li>
+                              <a href="caching.html">Caching</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a href="servlet.html">Servlet</a>
+                        </li>
+                        <li>
+                          <a href="jsp.html">JSP</a>
+                          <ul>
+                            <li>
+                              <a href="jsp-directives.html">Directives</a>
+                            </li>
+                            <li>
+                              <a href="jsp-actions.html">Actions</a>
+                            </li>
+                            <li>
+                              <a href="jsp-variables.html">Variables</a>
+                            </li>
+                            <li>
+                              <a href="jsp-applications.html">Applications</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a href="xtp.html">XTP/XSL</a>
+                          <ul>
+                            <li>
+                              <a href="xtp-intro.html">XTP intro</a>
+                            </li>
+                            <li>
+                              <a href="xtp-jsp.html">XTP to JSP</a>
+                            </li>
+                            <li>
+                              <a href="xpath.html">XPath</a>
+                            </li>
+                            <li>
+                              <a href="xpath-fun.html">XPath Fun</a>
+                            </li>
+                            <li>
+                              <a href="xsl.html">XSL</a>
+                            </li>
+                            <li>
+                              <a href="xslt-lite.html">XSL lite</a>
+                            </li>
+                            <li>
+                              <a href="xslt-lite-eg.html">XSL lite examples</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a href="javascript.html">JavaScript</a>
+                          <ul>
+                            <li>
+                              <a href="sourcetext.html">Source Text</a>
+                            </li>
+                            <li>
+                              <a href="literals.html">Literals</a>
+                            </li>
+                            <li>
+                              <a href="regexp.html">Regexp</a>
+                            </li>
+                            <li>
+                              <a href="ops.html">Operators</a>
+                            </li>
+                            <li>
+                              <a href="objects.html">Objects</a>
+                            </li>
+                            <li>
+                              <a href="functions.html">Functions</a>
+                            </li>
+                            <li>
+                              <a href="statements.html">Statements</a>
+                            </li>
+                            <li>
+                              <a href="wrap.html">Java Wrapping</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a href="jslib.html">JS Library</a>
+                          <ul>
+                            <li>
+                              <a href="corelib.html">Core Library</a>
+                              <ul>
+                                <li>
+                                  <a href="globalobj.html">Global</a>
+                                </li>
+                                <li>
+                                  <a href="objobj.html">Object</a>
+                                </li>
+                                <li>
+                                  <a href="arrayobj.html">Array</a>
+                                </li>
+                                <li>
+                                  <a href="booleanobj.html">Boolean</a>
+                                </li>
+                                <li>
+                                  <a href="dateobj.html">Date</a>
+                                </li>
+                                <li>
+                                  <a href="funobj.html">Function</a>
+                                </li>
+                                <li>
+                                  <a href="mathobj.html">Math</a>
+                                </li>
+                                <li>
+                                  <a href="numberobj.html">Number</a>
+                                </li>
+                                <li>
+                                  <a href="regexpobj.html">Regexp</a>
+                                </li>
+                                <li>
+                                  <a href="stringobj.html">String</a>
+                                  <ul>
+                                    <li>
+                                      <a href="printf.html">Printf</a>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="filelib.html">File Library</a>
+                              <ul>
+                                <li>
+                                  <a href="vfs.html">VFS</a>
+                                </li>
+                                <li>
+                                  <a href="file.html">File</a>
+                                </li>
+                                <li>
+                                  <a href="read_stream.html">ReadStream</a>
+                                </li>
+                                <li>
+                                  <a href="write_stream.html">WriteStream</a>
+                                </li>
+                                <li>
+                                  <a href="input_stream.html">InputStream</a>
+                                </li>
+                                <li>
+                                  <a href="output_stream.html">OutputStream</a>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="servletlib.html">Servlet Library</a>
+                              <ul>
+                                <li>
+                                  <a href="pagecontext.html">PageContext</a>
+                                </li>
+                                <li>
+                                  <a href="request.html">Request</a>
+                                </li>
+                                <li>
+                                  <a href="response.html">Response</a>
+                                </li>
+                                <li>
+                                  <a href="session.html">Session</a>
+                                </li>
+                                <li>
+                                  <a href="application.html">Application</a>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="dblib.html">Database Library</a>
+                              <ul>
+                                <li>
+                                  <a href="dbpool.html">DBPool</a>
+                                </li>
+                                <li>
+                                  <a href="resultset.html">ResultSet</a>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="xmllib.html">XML Library</a>
+                              <ul>
+                                <li>
+                                  <a href="xmlparser.html">Parser</a>
+                                </li>
+                                <li>
+                                  <a href="xql.html">XQL</a>
+                                </li>
+                                <li>
+                                  <a href="xsl.html">XSL</a>
+                                </li>
+                                <li>
+                                  <a href="xmldoc.html">Document</a>
+                                </li>
+                                <li>
+                                  <a href="xmlnode.html">Node</a>
+                                </li>
+                                <li>
+                                  <a href="xmlelement.html">Element</a>
+                                </li>
+                                <li>
+                                  <a href="xmltext.html">Text</a>
+                                </li>
+                                <li>
+                                  <a href="xmlcomment.html">Comment</a>
+                                </li>
+                                <li>
+                                  <a href="xmler.html">EntityRef</a>
+                                </li>
+                                <li>
+                                  <a href="xmlcdata.html">CData</a>
+                                </li>
+                                <li>
+                                  <a href="xmlpi.html">PI</a>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+<li>
+                      <a href="../javadoc/index.html">JavaDoc</a>
+                    </li>
+<li>
+                      <a href="../examples/index.html">Demo</a>
+                    </li>
+<li>
+                      <a href="../java_tut/index.xtp">Java Tutorial</a>
+                      <ul>
+                        <li>
+                          <a href="../java_tut/add_page.xtp">Add a page</a>
+                        </li>
+                        <li>
+                          <a href="../java_tut/parse_error.xtp">Parse Errors</a>
+                        </li>
+                        <li>
+                          <a href="../java_tut/run_error.xtp">Runtime Errors</a>
+                        </li>
+                        <li>
+                          <a href="../java_tut/debug.xtp">Debugging</a>
+                        </li>
+                        <li>
+                          <a href="../java_tut/form.xtp">Forms</a>
+                        </li>
+                        <li>
+                          <a href="../java_tut/mail_form.xtp">Mailing Forms</a>
+                        </li>
+                        <li>
+                          <a href="../java_tut/db_form.xtp">Database Forms</a>
+                        </li>
+                        <li>
+                          <a href="../java_tut/bean.xtp">Beans</a>
+                        </li>
+                        <li>
+                          <a href="../java_tut/servlets.xtp">Servlets</a>
+                        </li>
+                        <li>
+                          <a href="../java_tut/cache.xtp">Cache</a>
+                        </li>
+                        <li>
+                          <a href="../java_tut/xtp-page.xtp">XTP Page</a>
+                        </li>
+                        <li>
+                          <a href="../java_tut/xsl-filter.xtp">XSL Filter</a>
+                        </li>
+                      </ul>
+                    </li>
+</ul>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='faq.html'>FAQ</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='starting.html'>Getting Started</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Fri, 31 Mar 2000 19:47:27 -0800 (PST)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

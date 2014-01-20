@@ -1,0 +1,524 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Objects</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="sourcetext.html">Source Text</a>
+<tr><td><a href="literals.html">Literals</a>
+<tr><td><a href="regexp.html">Regexp</a>
+<tr><td><a href="ops.html">Operators</a>
+<tr><td><em>Objects</em>
+<tr><td><a href="functions.html">Functions</a>
+<tr><td><a href="statements.html">Statements</a>
+<tr><td><a href="wrap.html">Java Wrapping</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Objects</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Objects">Objects</a><ol>
+                        <li><a href="#create">Creating an Object</a></li>
+                        <li><a href="#access">Accessing Object Properties</a></li>
+                        <li><a href="#delete">Deleting Object Properties</a></li>
+                        <li><a href="#enumerate">Enumerating Object Properties</a></li>
+                      </ol>
+                    </li>
+                    <li><a href="#class">Classes</a><ol>
+                        <li><a href="#proto">Prototype Based Inheritance</a></li>
+                      </ol>
+                    </li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<a name="Objects"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Objects</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+JavaScript objects associate string names with values, like a
+dictionary or an address book.  Unlike Java and C++ objects,
+JavaScript object properties are dynamic, i.e. it's possible to add
+new properties after the object is defined.
+
+<a name="create"></a><h3>Creating an Object</h3>
+
+<p>Scripts can create objects using <a href="literals.html#obj">object literals</a>, <a href="objobj.html#newObject">new Object()</a> or object <a href="#proto">constructors</a>.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Sample object using object literals</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">bilbo&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;first_name&nbsp;:&nbsp;'Bilbo',<br>
+&nbsp;&nbsp;&nbsp;last_name&nbsp;:&nbsp;'Baggins',<br>
+&nbsp;&nbsp;&nbsp;address&nbsp;:&nbsp;'1&nbsp;Bag&nbsp;End',<br>
+&nbsp;&nbsp;&nbsp;city&nbsp;:&nbsp;'The&nbsp;Shire',<br>
+&nbsp;&nbsp;&nbsp;age&nbsp;:&nbsp;144,<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Sample object using new Object</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">bilbo&nbsp;=&nbsp;new&nbsp;Object()<br>
+bilbo.first_name&nbsp;=&nbsp;'Bilbo'<br>
+bilbo.last_name&nbsp;=&nbsp;'Baggins'<br>
+bilbo.address&nbsp;=&nbsp;'1&nbsp;Bag&nbsp;End'<br>
+bilbo.city&nbsp;=&nbsp;'The&nbsp;Shire'<br>
+bilbo.age&nbsp;=&nbsp;144<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+<a name="access"></a><h3>Accessing Object Properties</h3>
+
+<p>Property accessors retrieve object values.  Both the field form,
+<code>
+            <span class="meta">obj</span>.<span class="meta">field</span>
+          </code>, and the expression form,
+<code>
+            <span class="meta">obj</span>[<span class="meta">expr</span>]</code>, retrieve the same value.  The
+expression form allows for more flexibility by allowing variables or
+other expressions to access the field.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Equivalence of property accessors</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" width="50%" class="example">bilbo.city</td>
+              </tr>
+              <td bgcolor="#ffccdd" class="result">The&nbsp;Shire</td></tr>
+<tr>
+                <td bgcolor="#ffeecc" width="50%" class="example">bilbo["city"]</td>
+              </tr>
+              <td bgcolor="#ffccdd" class="result">The&nbsp;Shire</td></tr>
+</table>
+          </center>
+
+Object methods are simply properties with function values.  They are
+in no way different from any other property values.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Methods</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;foo()&nbsp;{&nbsp;return&nbsp;"foo";&nbsp;}<br>
+<br>
+o&nbsp;=&nbsp;new&nbsp;Object<br>
+o.fun&nbsp;=&nbsp;foo<br>
+<br>
+(o.fun&nbsp;==&nbsp;foo)&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;o.fun()<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+true&nbsp;foo<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+When called, object methods set <a href="functions.html#this">this</a>
+to the object. 
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Method setting "this"</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;foo()&nbsp;{&nbsp;return&nbsp;this.count&nbsp;+&nbsp;10;&nbsp;}<br>
+<br>
+o&nbsp;=&nbsp;{&nbsp;fun&nbsp;:&nbsp;foo,&nbsp;count&nbsp;:&nbsp;1&nbsp;}<br>
+o.fun()<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+11<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<a name="delete"></a><h3>Deleting Object Properties</h3>
+
+Scripts can delete object properties once they are no longer needed
+using the <a href="ops.html#delete">delete</a> operator.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Deleting properties</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+delete&nbsp;bilbo.city&nbsp;+&nbsp;'&nbsp;'&nbsp;+&nbsp;bilbo.city<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+true&nbsp;undefined<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+<a name="enumerate"></a><h3>Enumerating Object Properties</h3>
+
+The <a href="statements.html#forin">
+            <code>for ... in</code>
+          </a> statement will
+enumerate the properties of an object.  Since object properties are
+essentially a hash table, the order cannot be guaranteed.  This is
+true even for array values.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Property enumeration</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+o&nbsp;=&nbsp;{a:0,&nbsp;b:1,&nbsp;c:2}<br>
+for&nbsp;(var&nbsp;i&nbsp;in&nbsp;o)<br>
+&nbsp;&nbsp;writeln(i&nbsp;+&nbsp;'&nbsp;:&nbsp;'&nbsp;+&nbsp;o[i]);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+b&nbsp;:&nbsp;1<br>
+c&nbsp;:&nbsp;2<br>
+a&nbsp;:&nbsp;0<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Array enumeration</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+o&nbsp;=&nbsp;[1,&nbsp;2,&nbsp;3]<br>
+for&nbsp;(var&nbsp;i&nbsp;in&nbsp;o)<br>
+&nbsp;&nbsp;writeln(i&nbsp;+&nbsp;'&nbsp;:&nbsp;'&nbsp;+&nbsp;o[i]);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+1&nbsp;:&nbsp;2<br>
+2&nbsp;:&nbsp;3<br>
+0&nbsp;:&nbsp;1<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+
+<a name="class"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Classes</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+Classes are collections of objects sharing properties and
+behavior.  JavaScript has no special class objects like Java does.
+Instead, JavaScript shares properties using <a href="#proto">prototypes</a>.
+
+<p>In the example defines Counter objects, objects which can count.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Counter definition</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">class&nbsp;Counter&nbsp;{<br>
+&nbsp;&nbsp;var&nbsp;count&nbsp;=&nbsp;0;&nbsp;//&nbsp;counters&nbsp;start&nbsp;at&nbsp;zero.<br>
+<br>
+&nbsp;&nbsp;/**<br>
+&nbsp;&nbsp;&nbsp;*&nbsp;Reset&nbsp;the&nbsp;counter&nbsp;to&nbsp;zero.<br>
+&nbsp;&nbsp;&nbsp;*/<br>
+&nbsp;&nbsp;function&nbsp;clear()&nbsp;{&nbsp;this.count&nbsp;=&nbsp;0&nbsp;}<br>
+<br>
+&nbsp;&nbsp;/**<br>
+&nbsp;&nbsp;&nbsp;*&nbsp;Return&nbsp;the&nbsp;next&nbsp;count.<br>
+&nbsp;&nbsp;&nbsp;*/<br>
+&nbsp;&nbsp;function&nbsp;next()&nbsp;{&nbsp;return&nbsp;this.count++&nbsp;}<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Using the counter</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+counter&nbsp;=&nbsp;new&nbsp;Counter()<br>
+<br>
+for&nbsp;(var&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;4;&nbsp;i++)&nbsp;{<br>
+&nbsp;&nbsp;writeln(counter.next());<br>
+}<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+0<br>
+1<br>
+2<br>
+3<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<p>Good classes encourage ignorance and laziness.  The less things to
+remember the better.  The value of adding classes to a script is to
+collect common behavior into one place and to ignore the
+implementation details.  Scripts should never create classes just to
+satisfy the 'object-orientation' police.
+
+<p>Trivial classes and trivial methods, like the counter example,
+should never appear in a script.  In a real script, the simpler and
+more obvious solution is just to use a numeric variable.  The
+difference between good and bad use of classes is the same as the
+difference between putting common papers into a folder and spending
+weeks creating a complicated Dewey decimal filing system when you only
+have two papers.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Avoiding useless classes.  Counter take 2.</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">for&nbsp;(var&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;4;&nbsp;i++)&nbsp;{<br>
+&nbsp;&nbsp;writeln(i);<br>
+}<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<a name="proto"></a><h3>Prototype Based Inheritance</h3>
+
+JavaScript classifies groups of objects into classes organized into a
+prototype based inheritance tree.  Unlike Java inheritance,
+JavaScript's prototype-based inheritance lets scripts add and delete
+parent properties dynamically.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Inheriting from the Object prototype</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+a&nbsp;=&nbsp;new&nbsp;Object();<br>
+writeln(a.foo);<br>
+Object.prototype.foo&nbsp;=&nbsp;"prototype";<br>
+writeln(a.foo);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+undefined<br>
+prototype<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<p>Scripts can create new classes either by using the <code>new</code>
+with a function or using Resin's <a href="statements.html#class">class</a>
+mechanism.  Both are equivalent, but the class syntax simplifies the
+code.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Inheriting from a user-defined class</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;bird()&nbsp;{}<br>
+bird.prototype.canFly&nbsp;=&nbsp;true&nbsp;//&nbsp;birds&nbsp;can&nbsp;fly<br>
+<br>
+robin&nbsp;=&nbsp;new&nbsp;bird();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;create&nbsp;a&nbsp;new&nbsp;bird<br>
+robin.canFly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;inherits&nbsp;from&nbsp;bird.prototype<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+true<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<p>Of course, not all birds can fly.  So the instance can override 
+the property.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Overriding Inheritance</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;bird()&nbsp;{}<br>
+bird.prototype.canFly&nbsp;=&nbsp;true&nbsp;//&nbsp;birds&nbsp;can&nbsp;fly<br>
+<br>
+penguin&nbsp;=&nbsp;new&nbsp;bird()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;create&nbsp;a&nbsp;new&nbsp;bird<br>
+penguin.prototype.canFly&nbsp;=&nbsp;false&nbsp;//&nbsp;penguins&nbsp;can't&nbsp;fly<br>
+penguin.prototype.canFly<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+false<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<p>Scripts can create inheritance chains, for example, penguins are
+birds.  The requested property will always come from the most specific
+prototype.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Inheritance chain restricted to EcmaScript syntax</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+function&nbsp;bird()&nbsp;{}<br>
+bird.prototype.hasFeathers&nbsp;=&nbsp;true&nbsp;//&nbsp;birds&nbsp;have&nbsp;feathers<br>
+bird.prototype.canFly&nbsp;=&nbsp;true&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;birds&nbsp;can&nbsp;fly<br>
+<br>
+function&nbsp;penguin()&nbsp;{}<br>
+penguin.prototype&nbsp;=&nbsp;new&nbsp;bird()&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;penguins&nbsp;are&nbsp;birds<br>
+penguin.prototype.canFly&nbsp;=&nbsp;false&nbsp;&nbsp;//&nbsp;penguins&nbsp;can't&nbsp;fly<br>
+<br>
+tweety&nbsp;=&nbsp;new&nbsp;bird();<br>
+writeln("Tweety&nbsp;can&nbsp;fly?&nbsp;"&nbsp;+&nbsp;tweety.canFly);<br>
+writeln("Tweety&nbsp;has&nbsp;feathers?&nbsp;"&nbsp;+&nbsp;tweety.hasFeathers);<br>
+<br>
+opus&nbsp;=&nbsp;new&nbsp;penguin();<br>
+writeln("Opus&nbsp;can&nbsp;fly?&nbsp;"&nbsp;+&nbsp;opus.canFly);<br>
+writeln("Opus&nbsp;has&nbsp;feathers?&nbsp;"&nbsp;+&nbsp;opus.hasFeathers);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Tweety&nbsp;can&nbsp;fly?&nbsp;true<br>
+Tweety&nbsp;has&nbsp;feathers?&nbsp;true<br>
+Opus&nbsp;can&nbsp;fly?&nbsp;false<br>
+Opus&nbsp;has&nbsp;feathers?&nbsp;true<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Inheriting using class syntax</font>
+              </caption><tr><td class='example' bgcolor='#ffccdd'>
+class&nbsp;bird&nbsp;{<br>
+&nbsp;&nbsp;var&nbsp;hasFeathers&nbsp;=&nbsp;true&nbsp;//&nbsp;birds&nbsp;have&nbsp;feathers<br>
+&nbsp;&nbsp;var&nbsp;canFly&nbsp;=&nbsp;true&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;birds&nbsp;can&nbsp;fly<br>
+}<br>
+<br>
+class&nbsp;penguin&nbsp;extends&nbsp;bird&nbsp;{<br>
+&nbsp;&nbsp;var&nbsp;canFly&nbsp;=&nbsp;false&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;penguins&nbsp;can't&nbsp;fly<br>
+}<br>
+<br>
+tweety&nbsp;=&nbsp;new&nbsp;bird();<br>
+writeln("Tweety&nbsp;can&nbsp;fly?&nbsp;"&nbsp;+&nbsp;tweety.canFly);<br>
+writeln("Tweety&nbsp;has&nbsp;feathers?&nbsp;"&nbsp;+&nbsp;tweety.hasFeathers);<br>
+<br>
+opus&nbsp;=&nbsp;new&nbsp;penguin();<br>
+writeln("Opus&nbsp;can&nbsp;fly?&nbsp;"&nbsp;+&nbsp;opus.canFly);<br>
+writeln("Opus&nbsp;has&nbsp;feathers?&nbsp;"&nbsp;+&nbsp;opus.hasFeathers);<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Tweety&nbsp;can&nbsp;fly?&nbsp;true<br>
+Tweety&nbsp;has&nbsp;feathers?&nbsp;true<br>
+Opus&nbsp;can&nbsp;fly?&nbsp;false<br>
+Opus&nbsp;has&nbsp;feathers?&nbsp;true<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='ops.html'>Operators</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='functions.html'>Functions</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:48 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

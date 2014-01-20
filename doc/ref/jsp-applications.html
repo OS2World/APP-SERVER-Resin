@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>JSP Applications</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="jsp-directives.html">Directives</a>
+<tr><td><a href="jsp-actions.html">Actions</a>
+<tr><td><a href="jsp-variables.html">Variables</a>
+<tr><td><em>Applications</em>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;JSP Applications</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Introduction">Introduction</a></li>
+                    <li><a href="#dir">Applications</a></li>
+                    <li><a href="#Scripts">Scripts</a></li>
+                    <li><a href="#beans">JSP Beans</a><ol>
+                        <li><a href="#Accessing_Beans">Accessing Beans</a></li>
+                      </ol>
+                    </li>
+                    <li><a href="#session">Sessions</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<a name="Introduction"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Introduction</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+A JSP application collects pages, scripts and Java Beans into a
+self-contained web application.  Applications are just generalized virtual
+hosts, only based on the URL instead of the host name.
+
+<p>For example, a
+bulletin board application groups pages for article reading, group
+listing, user registration, and new article posting into a single
+application.
+
+<p>Applications can keep track of user sessions, giving the users the
+illusion of a single application out of disjoint pages.
+
+<ul>
+<li>Resin organizes applications with an application <a href="#dir">directory</a>, WEB-INF
+<li><a href="#session">Sessions</a> share state for a user's visit to
+the site.
+</ul>
+
+<p>Many, if not most sites, will only use the default application.
+
+
+
+<a name="dir"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Applications</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+              <caption>
+                <font size="+1">application contents</font>
+              </caption>
+<tr>
+                <th>File/Directory</th>
+                <th>Contents</th>
+              </tr>
+<tr>
+                <td>.</td>
+                <td>JSP, HTML and GIF files</td>
+              </tr>
+<tr>
+                <td>WEB-INF/classes</td>
+                <td>Java class files</td>
+              </tr>
+<tr>
+                <td>WEB-INF/lib</td>
+                <td>Java jars</td>
+              </tr>
+<tr>
+                <td>WEB-INF/scripts</td>
+                <td>common scripts</td>
+              </tr>
+<tr>
+                <td>WEB-INF/xsl</td>
+                <td>XSL stylesheets for XTP pages</td>
+              </tr>
+</table>
+          </center>
+
+<ul class="none">
+<li><img src="../images/folder.gif">&nbsp;example
+<ul class="none">
+  <li><img src="../images/file.gif">&nbsp;index.html
+  </li>
+                <li><img src="../images/file.gif">&nbsp;folder.gif
+  </li>
+                <li><img src="../images/file.gif">&nbsp;article.gif
+  </li>
+                <li><img src="../images/jsp.gif">&nbsp;post-article.xtp
+  </li>
+                <li><img src="../images/folder.gif">&nbsp;jsp-interest
+  <ul class="none">
+    <li><img src="../images/jsp.gif">&nbsp;index.jsp
+    </li>
+                    <li><img src="../images/jsp.gif">&nbsp;article1.jsp
+    </li>
+                    <li><img src="../images/jsp.gif">&nbsp;article2.jsp
+  </li>
+                  </ul>
+  </li>
+                <li><img src="../images/folder.gif">&nbsp;WEB-INF
+  <ul class="none">
+    <li><img src="../images/folder.gif">&nbsp;lib
+    <ul class="none">
+      <li><img src="../images/bean.gif">&nbsp;bulletin-board.jar
+    </li>
+                      </ul>
+    </li>
+                    <li><img src="../images/folder.gif">&nbsp;classes
+    <ul class="none">
+      <li><img src="../images/bean.gif">&nbsp;Navigation.class
+      </li>
+                        <li><img src="../images/bean.gif">&nbsp;HelloWorld.class
+    </li>
+                      </ul>
+    </li>
+                    <li><img src="../images/folder.gif">&nbsp;scripts
+    <ul class="none">
+      <li><img src="../images/script.gif">&nbsp;common.js
+      </li>
+                        <li><img src="../images/script.gif">&nbsp;form.js
+    </li>
+                      </ul>
+    </li>
+                    <li><img src="../images/folder.gif">&nbsp;xsl
+    <ul class="none">
+      <li><img src="../images/style.gif">&nbsp;default.xsl
+      </li>
+                        <li><img src="../images/style.gif">&nbsp;article.xsl
+    </li>
+                      </ul>
+  </li>
+                  </ul>
+</li>
+              </ul>
+</li>
+          </ul>
+
+
+
+<a name="Scripts"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Scripts</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+JSP applications can group common functions and classes into script
+files, organizing and simplifying the application.  The individual
+pages can then <a href="statements.html#import">import</a> the common
+scripts to use them.  JSP pages can focus on HTML presentation and the script
+libraries can concentrate on the content.
+
+<p>As described in the <a href="statements.html#import">import</a>
+documentation, Resin searches for imported scripts along a
+SCRIPTPATH.  For JSP pages, the SCRIPTPATH looks in the application
+script directory first, then in the global libraries.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">JSP SCRIPTPATH</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="def">&nbsp;&nbsp;$APP-DIR/WEB-INF/scripts:$RESIN_HOME/scripts<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+<a name="beans"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>JSP Beans</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+<p>Java Beans get first class treatment in JSP 1.0.  Beans can be
+created for a page, across a session, or for the entire application.
+
+<p>The classes and lib directories can contain application beans used by <a href="jsp-actions.html#usebean">jsp:useBean</a>.  These are simply Java
+classes implementing the bitmechanic work of an application.
+
+<p>For example, a shopping cart application may have a set of Java
+classes that perform the security necessary for credit card
+processing.  The application can put those classes in the beans
+directory and access them from the JSP page.
+
+Beans can be created with different lifetimes.
+<ul>
+<li>Application beans last the lifetime of an application.
+<li>Session beans last for a user's session.
+<li>Request beans last for a single request.
+<li>Page beans only last for a single page.
+</ul>
+
+Requests and pages often last the same lifetime, but may differ if one
+page <a href="jsp-actions.html#forward">forwards</a> or <a href="jsp-actions.html#include">includes</a> another page. 
+
+<a name="Accessing_Beans"></a><h3>Accessing Beans</h3>
+Each bean is defined with a <a href="jsp.html#usebean">jsp:useBean</a>
+directive.
+
+<p>JSP assigns the created bean object to the JavaScript variable
+named by jsp:useBean.
+
+<p>In addition, the created beans are stored in JSP variables: page
+beans are stored in <code>request</code>, session beans are stored in
+<code>session</code>, and application beans are stored in
+<code>application</code>.  Storing the beans in the JSP variables lets
+other beans and functions retrieve the beans.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">Beans in variables: test.jsp</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;jsp:useBean&nbsp;id='test'&nbsp;class='java.util.Hashtable'&gt;<br>
+<br>
+&lt%&nbsp;test.put("a",&nbsp;1);&nbsp;%&gt;<br>
+&lt%=&nbsp;test.get("a");&nbsp;%&gt;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;jsp:useBean&nbsp;id='test'&nbsp;class='java.util.Hashtable'&gt;<br>
+<br>
+&lt;%&nbsp;<br>
+&nbsp;&nbsp;var&nbsp;t&nbsp;=&nbsp;request.attributes.test<br>
+&nbsp;&nbsp;t.put("a",&nbsp;1);<br>
+%&gt;<br>
+&lt%=&nbsp;test.get("a");&nbsp;%&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+1<br>
+
+      </td></tr>
+    </table>
+          </center>
+
+
+
+
+
+<a name="session"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Sessions</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+Session variables let applications keep track of the user as she moves
+through the site.  Any e-commerce site needs this capability to keep
+track of the user's purchases.
+
+<p>JSP sessions start when the page accesses the <a href="jsp.html#session">session</a> variable.  If a page never uses
+sessions, the jsp:session:onStart code will not execute and the web
+server will not send the client any cookies.
+
+<p>Sessions end when the session times out, when the session is
+invalidated, or when the application ends.
+
+<p>Resin locks the session variable before executing the page.  So
+JSP applications don't need to worry about synchronizing the session
+variable.
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='jsp-variables.html'>Variables</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='xtp.html'>XTP/XSL</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Tue, 21 Mar 2000 10:25:48 -0800 (PST)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

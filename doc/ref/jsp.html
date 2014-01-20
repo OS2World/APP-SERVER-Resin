@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>JSP</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><em>JSP</em>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="jsp-directives.html">Directives</a>
+<tr><td><a href="jsp-actions.html">Actions</a>
+<tr><td><a href="jsp-variables.html">Variables</a>
+<tr><td><a href="jsp-applications.html">Applications</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;JSP</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>Resin supports Sun's JSP 1.1 specification.  JSP creates an HTML
+page from HTML <em>template</em> text and scripting <em>actions</em>.
+Resin supports Java and JavaScript as scripting languages for JSP pages.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">
+                  <span class="eg-em">&lt;%@&nbsp;page&nbsp;language=javascript&nbsp;%&gt;<br>
+&lt;%&nbsp;var&nbsp;title='Counter'&nbsp;%&gt;</span><br>
+&lt;html&gt;<br>
+&lt;head&gt;<br>
+&lt;title&gt;<span class="eg-em">&lt;%=&nbsp;title&nbsp;%&gt;</span><br>
+&lt;/head&gt;<br>
+&lt;body&nbsp;bgcolor='white'&gt;<br>
+<span class="eg-em">&lt;jsp:useBean&nbsp;id='counter'&nbsp;class='Counter'&nbsp;scope='application'/&gt;</span><br>
+&lt;h1&gt;<span class="eg-em">&lt;%=&nbsp;title&nbsp;%&gt;</span>&lt;/h1&gt;<br>
+<br>
+Welcome,&nbsp;visitor&nbsp;<span class="eg-em">&lt;%=&nbsp;counter.hit&nbsp;%&gt;</span>!<br>
+&lt;/body&gt;&lt;/html&gt;<br>
+<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+JSP supports an equivalent XML syntax.  The XML has the benefit of
+consistency with the price of some extra verbosity.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">
+                  <span class="eg-em">&lt;jsp:directive.page&nbsp;language=javascript/&gt;<br>
+&lt;jsp:scriptlet>var&nbsp;title='Counter'&nbsp;%&lt;/jsp:scriptlet></span><br>
+&lt;html&gt;<br>
+&lt;head&gt;<br>
+&lt;title&gt;<span class="eg-em">&lt;jsp:expression>title&lt;/jsp:expression/></span><br>
+&lt;/head&gt;<br>
+&lt;body&nbsp;bgcolor='white'&gt;<br>
+<span class="eg-em">&lt;jsp:useBean&nbsp;id='counter'&nbsp;class='Counter'&nbsp;scope='application'/&gt;</span><br>
+&lt;h1&gt;<span class="eg-em">&lt;jsp:expression>&nbsp;title&nbsp;&lt;/jsp:expression></span>&lt;/h1&gt;<br>
+<br>
+Welcome,&nbsp;visitor&nbsp;<span class="eg-em">&lt;jsp:expression>&nbsp;counter.hit&lt;/jsp:expression></span>!<br>
+&lt;/body&gt;&lt;/html&gt;<br>
+<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<a name="Custom_Tag_Libraries"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Custom Tag Libraries</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Resin encourages the creation of <a href="xtp-jsp.html">custom tag
+libraries</a>.  Using <a href="xsl.html">XSL</a>, you can create
+meaningful tags for your web pages: ct:shopping-cart-summary,
+ct:example, ct:sql-query.
+</div>
+
+<a name="Directives"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Directives</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+<a href="jsp-directives.html">Directives</a> control the processing of
+an entire page.  Directive examples include setting a scripting
+language, setting an error page, including other documents, and
+setting a character encoding.
+</div>
+
+<a name="Actions"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Actions</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+<a href="jsp-actions.html">Actions</a> produce dynamic content.
+Actions range from printing the a script expression, to creating and
+storing a Java Bean.
+</div>
+
+<a name="Variables"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Variables</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+JSP makes implicit <a href="jsp-variables.html">variables</a>
+available to the script.  Scripts can use request, response, session, and
+application variables.
+</div>
+
+<a name="Applications"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">Applications</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+<a href="jsp-applications.html">Applications</a> join JSP pages,
+script libraries and Java beans into a self-contained web
+application.  Applications are controlled by the <a href="http-config.html">configuration</a> file.
+</div>
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='balance.html'>Balancing</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='jsp-directives.html'>Directives</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 06 Apr 2000 15:14:52 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

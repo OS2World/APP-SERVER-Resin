@@ -1,0 +1,1537 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Extensible Stylesheet Language</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="xtp-intro.html">XTP intro</a>
+<tr><td><a href="xtp-jsp.html">XTP to JSP</a>
+<tr><td><a href="xpath.html">XPath</a>
+<tr><td><a href="xpath-fun.html">XPath Fun</a>
+<tr><td><em>XSL</em>
+<tr><td><a href="xslt-lite.html">XSL lite</a>
+<tr><td><a href="xslt-lite-eg.html">XSL lite examples</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Extensible Stylesheet Language</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+
+The extensible stylesheet language is a language for transforming XML
+documents to new XML documents.  It's based on matching elements in
+the XML tree and replacing the element with new XML.  For example,
+replacing a 'definition' tag with an HTML table with a silver
+background.
+
+<p>XTP (XML Template Pages) uses XSL to transform HTML into new
+HTML.  XTP treats unknown tags as raw text.  Pure XML requires XSL
+stylesheets to be valid XML.  XTP can be configured to follow strict
+XSLT syntax, by setting the servlet init-param 'xsl-strict' to true.
+
+</p>
+          <p>XSL processes the input document recursively from the top down,
+essentially a depth first traversal of the tree.  When it examines
+each node, it finds the best match from all the <a href="#template">templates</a>.  XSL then follows the processing
+instructions for the matching template, usually adding text to the
+output.
+
+</p>
+          <p>If XSL cannot find a matching template, it applies default rules.
+Text gets copied to the output.  The children of elements are
+processed, but the elements themselves are not copied.  So a
+completely blank XSL stylesheet will remove all the tags and just
+print out the text.
+
+</p>
+          <p>When it's done with the current node, XSL moves to the next one
+until the entire input tree is complete.
+
+For example, it might process an HTML file in the following order:
+</p>
+          <ol>
+<li>HTML
+</li>
+            <li>HEAD
+</li>
+            <li>TITLE
+</li>
+            <li>META
+</li>
+            <li>BODY
+</li>
+            <li>P
+</li>
+            <li>TEXT
+</li>
+            <li>etc
+</li>
+          </ol>
+
+<p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>XSLT core</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#template">&lt;xsl:stylesheet&gt;</a></td>
+              <td>The top-level element of an XSL stylesheet.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#template">&lt;xsl:template ... &gt; ...</a></td>
+              <td>Establishes a pattern and replacement text.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#apply_templates">&lt;xsl:apply-templates ... &gt; ...</a></td>
+              <td>Evaluates the children of the current node.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#text">&lt;xsl:text&gt; ...</a></td>
+              <td>Writes the contents to the output.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#value_of">&lt;xsl:value-of .../&gt;</a></td>
+              <td>Writes a calculated value output.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#for_each">&lt;xsl:for-each ...&gt; ...</a></td>
+              <td>Loops over child select patterns.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#if">&lt;xsl:if ...&gt; ...</a></td>
+              <td>Evaluates the containing content if an expression evaluates to
+true.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#import">&lt;xsl:import .../&gt;</a></td>
+              <td>Imports a stylesheet.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#output">&lt;xsl:output .../&gt;</a></td>
+              <td>Control the output printing.</td>
+            </tr>
+          </table>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>XSLT</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#element">&lt;xsl:element&gt;</a></td>
+              <td>Creates a new element.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#attribute">&lt;xsl:attribute&gt;</a></td>
+              <td>Adds an attribute to the element.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#attribute_set">&lt;xsl:attribute-set&gt;</a></td>
+              <td>Defines a named attribute set.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#pi">&lt;xsl:processing-instruction&gt;</a></td>
+              <td>Creates a new processing instruction.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#comment">&lt;xsl:comment&gt;</a></td>
+              <td>Creates a new comment.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#copy">&lt;xsl:copy&gt;</a></td>
+              <td>Copies the current node, but not children or attributes, to the
+output.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#copy_of">&lt;xsl:copy-of .../&gt;</a></td>
+              <td>Copies a sub-tree into the output.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#variable">&lt;xsl:variable&gt;</a></td>
+              <td>Assignes an XSL variable.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#call_template">&lt;xsl:call-template&gt;</a></td>
+              <td>Calls a named template with the current node.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#param">&lt;xsl:param&gt;</a></td>
+              <td>Declares an XSL parameter.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#apply_imports">&lt;xsl:apply-imports&gt;</a></td>
+              <td>Like Java's <code>super</code>, calls the overridden template.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#sort">&lt;xsl:sort&gt;</a></td>
+              <td>Sorts nodes in xsl:apply-templates or
+xsl:for-each.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#choose">&lt;xsl:choose ...&gt; ...</a></td>
+              <td>Implements an if-elsif-else block.</td>
+            </tr>
+          </table>
+          <p>
+          <table border="1" width="100%" cellpadding="3" cellspacing="0">
+            <tr class="section">
+              <td colspan="2">
+                <font size="+2">
+                  <b>Resin extensions</b>
+                </font>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#expression">&lt;xtp:expression>expression ...</a></td>
+              <td>Executes <span class="meta">expression</span> and prints it to the output.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#scriptlet">&lt;xtp:scriptlet> statement_list</a></td>
+              <td>Executes the <span class="meta">statement_list</span> scriptlet.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#declaration">&lt;xtp:declaration></a></td>
+              <td>Adds declaration code, i.e. code outside of any function.</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#page">&lt;xtp:directive.page attributes /></a></td>
+              <td>Sets page directives</td>
+            </tr>
+            <tr>
+              <td width="40%" class="code"><a href="#cache">&lt;xtp:directive.cache attributes/></a></td>
+              <td>Caches the generated JSP file by default.</td>
+            </tr>
+          </table>
+
+<a name="xslt_core"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>XSLT core</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="template"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:stylesheet&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+The top-level element of an XSL stylesheet.
+
+<p>Resin adds a single attribute to xsl:stylesheet, parsed-content.
+If parsed-content is set to false, xsl elements are treated as text.
+By default, the normal XSL behaviour is assumed.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <td>parsed-content</td>
+                  <td>false if non-xsl elements should be treated
+as raw text.
+</td>
+                </tr>
+              </table>
+            </center> 
+</div>
+
+<a name="template"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:template ... &gt; ...</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Establishes a pattern and replacement text.
+<code>xsl:template</code> registers its pattern with the XSL processing
+engine.  When a node matches the pattern, XSL will process the
+contents of the template.
+
+<p>Pure XSL processes the contents slightly differently than XTP.  XSL
+expects all tags to be valid XML.  XTP is more forgiving.  If the tag is not
+one of those defined by XSL, it will treat the tag as raw text.</p>
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>attribute</th>
+                  <th>meaning
+</th>
+                </tr>
+                <tr>
+                  <td>match</td>
+                  <td>the XPath match pattern (required)
+</td>
+                </tr>
+                <tr>
+                  <td>mode</td>
+                  <td>string grouping templates into a special mode
+</td>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>Name for later use by xsl:call-template
+</td>
+                </tr>
+                <tr>
+                  <td>priority</td>
+                  <td>conflict-resolving priority, an integer
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>In the following example, the template matches any 'box' tag.  The
+contents of the box are placed in a centered table 80% of the current
+width.
+
+</p>
+            <p>This example is legal in XTP because the &lt;td&gt; and &lt;tr&gt;
+are treated as raw text.  The example is illegal in XSL because those
+tags are missing their close tags.</p>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:template&nbsp;match='box'&gt;<br>
+<span class="eg-em">&nbsp;&nbsp;&lt;center&gt;<br>
+&nbsp;&nbsp;&lt;table&nbsp;width='80%'&gt;<br>
+&nbsp;&nbsp;&lt;tr&gt;&lt;td&gt;</span><br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:apply-templates/&gt;<br>
+<br>
+<span class="eg-em">&nbsp;&nbsp;&lt;/table&gt;<br>
+&nbsp;&nbsp;&lt;/center&gt;</span><br>
+<br>
+&lt;/xsl:template&gt;<br>
+
+      </td></tr>
+    <tr><td class='example' bgcolor='#ffccdd'>
+&lt;p&gt;Here's&nbsp;a&nbsp;boxed&nbsp;quote,&lt;/p&gt;<br>
+<br>
+&lt;box&gt;<br>
+To&nbsp;be&nbsp;or&nbsp;not&nbsp;to&nbsp;be...<br>
+&lt;/box&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;p&gt;Here's&nbsp;a&nbsp;boxed&nbsp;quote,&lt;/p&gt;<br>
+<br>
+&lt;center&gt;<br>
+&lt;table&nbsp;width='80%'&gt;<br>
+&lt;tr&gt;&lt;td&gt;<br>
+<br>
+&nbsp;&nbsp;To&nbsp;be&nbsp;or&nbsp;not&nbsp;to&nbsp;be...<br>
+<br>
+&lt;/table&gt;<br>
+&lt;/center&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="apply_templates"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:apply-templates ... &gt; ...</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Evaluates the children of the current node.
+<code>xsl:apply-templates</code> recursively processes the children.  If a
+template has no <code>xsl:apply-templates</code>, then the children are
+ignored.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>attribute</th>
+                  <th>meaning
+</th>
+                </tr>
+                <tr>
+                  <td>select</td>
+                  <td>An XPath select pattern selecting the nodes to
+evaluate next. (optional)
+</td>
+                </tr>
+                <tr>
+                  <td>mode</td>
+                  <td>only selects templates with the given <span class="meta">mode</span>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>The first example doubles the contents by calling
+<code>xsl:apply-templates</code> twice.</p>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:template&nbsp;match='double'&gt;<br>
+&nbsp;&nbsp;&lt;xsl:apply-templates/&gt;<br>
+&nbsp;&nbsp;&lt;xsl:apply-templates/&gt;<br>
+&lt;/xsl:template&gt;<br>
+
+      </td></tr>
+    <tr><td class='example' bgcolor='#ffccdd'>
+&lt;double&gt;<br>
+Some&nbsp;&lt;foo/&gt;&nbsp;text.<br>
+&lt;/double&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+Some&nbsp;&lt;foo/&gt;&nbsp;text.<br>
+Some&nbsp;&lt;foo/&gt;&nbsp;text.<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+<p>The <code>select</code> pattern can restrict the children to evaluate.
+Stylesheets can use it to select elements and to reorder them.
+
+</p>
+            <p>The following example writes the 'a' nodes followed by the 'b'
+nodes and ignores everything else.
+</p>
+
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:template&nbsp;match='a-b-test'&gt;<br>
+&nbsp;&nbsp;&lt;xsl:apply-templates&nbsp;select='a'/&gt;<br>
+&nbsp;&nbsp;&lt;xsl:apply-templates&nbsp;select='b'/&gt;<br>
+&lt;/xsl:template&gt;<br>
+
+      </td></tr>
+    <tr><td class='example' bgcolor='#ffccdd'>
+&lt;a-b-test&gt;<br>
+&nbsp;&nbsp;Junk&nbsp;Text.<br>
+&nbsp;&nbsp;&lt;b/&gt;<br>
+&nbsp;&nbsp;&lt;a&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Good&nbsp;text.<br>
+&nbsp;&nbsp;&lt;/a&gt;<br>
+&nbsp;&nbsp;More&nbsp;Junk.<br>
+&nbsp;&nbsp;&lt;b&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Some&nbsp;B&nbsp;text.<br>
+&nbsp;&nbsp;&lt;/b&gt;<br>
+&nbsp;&nbsp;&lt;a&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;More&nbsp;Good&nbsp;text.<br>
+&nbsp;&nbsp;&lt;/a&gt;<br>
+&lt;/a-b-test&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;a&gt;<br>
+&nbsp;&nbsp;Good&nbsp;text.<br>
+&lt;/a&gt;<br>
+&lt;a&gt;<br>
+&nbsp;&nbsp;More&nbsp;Good&nbsp;text.<br>
+&lt;/a&gt;<br>
+&lt;b/&gt;<br>
+&lt;b&gt;<br>
+&nbsp;&nbsp;Some&nbsp;B&nbsp;text.<br>
+&lt;b&gt;<br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+<a name="text"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:text&gt; ...</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Writes the contents to the output.  <code>xsl:text</code> is
+useful when you need to force spacing or special text.  Usually,
+Resin will produce the text you expect.  <code>xsl:text</code> is there
+for the strange cases when you need full control.
+</div>
+
+<a name="value_of"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:value-of .../&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Writes a calculated value output.  
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>attribute</th>
+                  <th>meaning
+</th>
+                </tr>
+                <tr>
+                  <td>select</td>
+                  <td>An XPath expression to be printed.
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <code>value-of</code> is particularly useful for extracting attribute
+values.  The following example creates a JSP tag which adds two
+numbers.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;xsl:template&nbsp;match='ct:sum'><br>
+<span class="eg-em">&lt;jsp:expression></span><br>
+&lt;xsl:value-of&nbsp;select='@a'><span class="eg-em">&nbsp;+&nbsp;</span>&lt;xsl:value-of&nbsp;select='@b'><br>
+<span class="eg-em">&lt;/jsp:expression></span><br>
+&lt;/xsl:template><br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="for_each"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:for-each ...&gt; ...</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Loops over child select patterns.  <code>xsl:foreach</code>
+gives stylesheets complete control over the actions for child nodes.
+
+<p>Usually, stylesheets will want to use the full pattern matching
+capability given by XSL.  Sometimes the specific structure is known,
+like sections in a chapter.  When generating a table of contents, it
+may be easier to scan over the sections.</p>
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>select</td>
+                  <td>XPath select pattern
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;xsl:template&nbsp;match='contents'&gt;<br>
+<span class="eg-em">&nbsp;&nbsp;&lt;ol&gt;</span><br>
+<br>
+&nbsp;&nbsp;&lt;xsl:for-each&nbsp;select='section'&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="eg-em">&lt;li&gt;</span>&lt;xsl:value-of&nbsp;select='@title'/><br>
+&nbsp;&nbsp;&lt;/xsl:for-each&gt;<br>
+<span class="eg-em">&nbsp;&nbsp;&lt;/ol&gt;</span><br>
+<br>
+&lt;/xsl:template&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="if"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:if ...&gt; ...</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Evaluates the containing content if an expression evaluates to
+true.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>test</td>
+                  <td>XPath expression evaluating to a boolean.
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="import"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:import .../&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Imports a stylesheet.  <code>xsl:import</code> lets stylesheets
+borrow from each other.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>href</td>
+                  <td>Path to the imported stylesheet
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="output"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:output .../&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Control the output printing.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>method</td>
+                  <td>xml or html or text.  Select printing method
+</td>
+                </tr>
+                <tr>
+                  <td>version</td>
+                  <td>XML version
+</td>
+                </tr>
+                <tr>
+                  <td>encoding</td>
+                  <td>character set to print the results
+</td>
+                </tr>
+                <tr>
+                  <td>omit-xml-declaration</td>
+                  <td>skip the XML or HTML declaration
+</td>
+                </tr>
+                <tr>
+                  <td>indent</td>
+                  <td>pretty-print or not
+</td>
+                </tr>
+                <tr>
+                  <td>media-type</td>
+                  <td>mime-type
+</td>
+                </tr>
+                <tr>
+                  <td>disable-output-encoding</td>
+                  <td>'&lt;' gets printed as '&lt;', not '&amp;lt;'
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+
+
+<a name="xslt"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>XSLT</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="element"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:element&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new element.  The name can be computed using
+an attribute value template.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>Name of the new element.
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:template&nbsp;match='a'><br>
+&nbsp;&nbsp;&lt;xsl:element&nbsp;name='b{@id}'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;c/><br>
+&nbsp;&nbsp;&lt;/xsl:element><br>
+&lt;/xsl:template><br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;b3>&lt;c/>&lt;/b3><br>
+
+      </td></tr>
+    </table>
+            </center>
+
+<br>
+            <b>Note: </b>The namespace attribute is not yet implemented in Resin.
+</div>
+
+<a name="attribute"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:attribute&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Adds an attribute to the element.  The name can be computed
+using an attribute value template.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>Name of the new attribute.
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:template&nbsp;match='a'><br>
+&nbsp;&nbsp;&lt;c><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:attribute&nbsp;name='b{@id}'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:value-of&nbsp;select='c{@id}'/><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/xsl:attribute><br>
+&nbsp;&nbsp;&lt;/c><br>
+&lt;/xsl:template><br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;c&nbsp;b3='c3'/><br>
+
+      </td></tr>
+    </table>
+            </center>
+
+<br>
+            <b>Note: </b>The namespace attribute is not yet implemented in Resin.
+</div>
+
+<a name="attribute_set"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:attribute-set&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Defines a named attribute set.  The attributes in the set
+are defined by xsl:attribute elements.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>Name of the attribute set.
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:attribute-set&nbsp;name='font'><br>
+&nbsp;&nbsp;&lt;xsl:attribute&nbsp;name='font-size'>12pt&lt;/xsl:attribute><br>
+&nbsp;&nbsp;&lt;xsl:attribute&nbsp;name='font-weight'>bold&lt;/xsl:attribute><br>
+&lt;/xsl:attribute-set><br>
+<br>
+&lt;xsl:template&nbsp;match='a'><br>
+&nbsp;&nbsp;&lt;c&nbsp;xsl:use-attribute-sets='font'/><br>
+&lt;/xsl:template><br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;c&nbsp;font-size='12pt'&nbsp;font-weight='bold'/><br>
+
+      </td></tr>
+    </table>
+            </center>
+
+<br>
+            <b>Note: </b>The xsl:use-attribute-sets is not recognized in xsl:attribute-set.
+</div>
+
+<a name="pi"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:processing-instruction&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new processing instruction.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>Processing instruction name.
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:template&nbsp;match='a'><br>
+&nbsp;&nbsp;&lt;xsl:processing-instruction&nbsp;name='foo'><br>
+&nbsp;&nbsp;&lt;xsl:text>Text&nbsp;for&nbsp;the&nbsp;PI&lt;/xsl:text><br>
+&nbsp;&nbsp;&lt;/xsl:processing-instruction/><br>
+&lt;/xsl:template><br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;?foo&nbsp;Text&nbsp;for&nbsp;the&nbsp;PI?><br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="comment"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:comment&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Creates a new comment.  The contents of the xsl:comment element
+become the contents of the comment.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:template&nbsp;match='a'><br>
+&nbsp;&nbsp;&lt;xsl:comment><br>
+&nbsp;&nbsp;&lt;xsl:text>Text&nbsp;for&nbsp;the&nbsp;comment&lt;/xsl:text><br>
+&nbsp;&nbsp;&lt;/xsl:processing-instruction/><br>
+&lt;/xsl:template><br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;!--Text&nbsp;for&nbsp;the&nbsp;comment--><br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="copy"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:copy&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Copies the current node, but not children or attributes, to the
+output. 
+
+<p>To copy an element, a stylesheet must copy the attributes as well.
+
+</p>
+            <p>The following example is the identity stylesheet. It copies input
+to the output including the attributes.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:template&nbsp;match='@*|node()'><br>
+&nbsp;&nbsp;&lt;xsl:copy><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:apply-templates&nbsp;select='@*|node()'/><br>
+&nbsp;&nbsp;&lt;/xsl:copy><br>
+&lt;/xsl:template><br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="copy_of"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:copy-of .../&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Copies a sub-tree into the output.  <code>copy-of</code> resembles
+<code>value-of</code>.  <code>value-of</code> always converts the value to a
+string.  <code>copy-of</code> will copy subtrees. 
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>attribute</th>
+                  <th>meaning
+</th>
+                </tr>
+                <tr>
+                  <td>select</td>
+                  <td>An XPath expression to be copied.
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="variable"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:variable&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Assignes an XSL variable.  Variables can be retrieved using
+the XPath variable syntax.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>variable name
+</td>
+                </tr>
+                <tr>
+                  <td>select</td>
+                  <td>variable value
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:variable&nbsp;name='foo'&nbsp;select='1+1'/><br>
+<br>
+&lt;xsl:template&nbsp;match='a'><br>
+&nbsp;&nbsp;&lt;xsl:value-of&nbsp;select='$foo'/><br>
+&lt;/xsl:template><br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+2<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="call_template"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:call-template&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Calls a named template with the current node.
+<code>xsl:call-template</code> lets stylesheets reuse common code, like
+functions.  It works like <code>xsl:apply-templates select='.'</code>
+except that it calls based on a template name.
+
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>template name to call
+</td>
+                </tr>
+                <tr>
+                  <td>mode</td>
+                  <td>template mode
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+
+<a name="param"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:param&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Declares an XSL parameter.  <code>xsl:param</code>'s
+<code>select</code> parameter as a default.  If the variable has been
+assigned, it uses the old value.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>variable name
+</td>
+                </tr>
+                <tr>
+                  <td>select</td>
+                  <td>variable value
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:template&nbsp;name='fun'><br>
+&nbsp;&nbsp;&lt;xsl:param&nbsp;name='foo'&nbsp;select='15'/><br>
+&nbsp;&nbsp;&lt;xsl:value-of&nbsp;select='$foo'/><br>
+&lt;/xsl:template><br>
+<br>
+&lt;xsl:template&nbsp;match='a'><br>
+&nbsp;&nbsp;&lt;xsl:call-template&nbsp;name='foo'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:with-param&nbsp;name='foo'&nbsp;select='1+2'/><br>
+&nbsp;&nbsp;&lt;/xsl:call-template><br>
+&lt;/xsl:template><br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+3<br>
+
+      </td></tr>
+    </table>
+            </center>
+</div>
+
+<a name="apply_imports"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:apply-imports&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Like Java's <code>super</code>, calls the overridden template.
+</div>
+
+<a name="sort"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:sort&gt;</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sorts nodes in xsl:apply-templates or
+xsl:for-each.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>select</td>
+                  <td>value to sort on (default = '.')
+</td>
+                </tr>
+                <tr>
+                  <td>order</td>
+                  <td>ascending or descending  (default = ascending)
+</td>
+                </tr>
+                <tr>
+                  <td>data-type</td>
+                  <td>text or number (default = text)
+</td>
+                </tr>
+              </table>
+            </center>
+
+<br>
+            <b>Note: </b>case-order is not implemented
+</div>
+
+<a name="choose"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xsl:choose ...&gt; ...</h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Implements an if-elsif-else block.  The <code>xsl:when</code>
+statements are tested in order.  The first matching one is executed.
+If none match, the <code>xsl:otherwise</code> block is executed.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Attribute</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>test</td>
+                  <td>XPath expression evaluating to a boolean.
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;xsl:template&nbsp;match='a'><br>
+&nbsp;&nbsp;&lt;xsl:choose><br>
+&nbsp;&nbsp;&lt;xsl:when&nbsp;test='@color="red"'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:text>stop&lt;/xsl:text><br>
+&nbsp;&nbsp;&lt;/xsl:when><br>
+&nbsp;&nbsp;&lt;xsl:when&nbsp;test='@color="green"'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:text>go&lt;/xsl:text><br>
+&nbsp;&nbsp;&lt;/xsl:when><br>
+&nbsp;&nbsp;&lt;xsl:otherwise><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:text>yield&lt;/xsl:text><br>
+&nbsp;&nbsp;&lt;/xsl:otherwise><br>
+&nbsp;&nbsp;&lt;/xsl:choose><br>
+&lt;/xsl:template><br>
+
+      </td></tr>
+    </table>
+            </center>
+
+</div>
+
+
+<a name="xsl"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Resin extensions</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<a name="expression"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xtp:expression>expression ...</h3>
+              </td><td align=right><h3>Resin 1.0</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Executes <span class="meta">expression</span> and prints it to the output.
+ Stylesheets can use any JavaScript expression.  The following
+variables are pre-defined in stylesheets.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>Variable</th>
+                  <th>Meaning
+</th>
+                </tr>
+                <tr>
+                  <td>node</td>
+                  <td>The current <a href="xmlnode.html">node</a>.
+</td>
+                </tr>
+                <tr>
+                  <td>out</td>
+                  <td>The <a href="output_stream.html">output stream</a>.
+</td>
+                </tr>
+              </table>
+            </center>
+
+In addition, the <span class="meta">out</span> variable gives access to the servlet
+PageContext with the <span class="meta">page</span> property.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;xsl:template&nbsp;match='welcome-user'&gt;<br>
+&nbsp;&nbsp;&lt;xsl:text>Welcome&nbsp;back,&nbsp;&lt;/xsl:text><br>
+&nbsp;&nbsp;&lt;xtp:expression><br>
+&nbsp;&nbsp;&nbsp;&nbsp;out.page.session.value.user<br>
+&nbsp;&nbsp;&lt;xtp:expression><br>
+&lt;/xsl:template&gt;<br>
+</td>
+                </tr>
+              </table>
+            </center>
+</div>
+<a name="scriptlet"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xtp:scriptlet> statement_list</h3>
+              </td><td align=right><h3>Resin 1.0</h3></td>
+</tr>
+          </table>
+          <div class="desc">
+Executes the <span class="meta">statement_list</span> scriptlet.  The
+JavaScript code can be any statement list.  The same implicit
+variables are allowed in scriptlets as in expressions.
+
+<p>The following example creates a number of stars:
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;@#&nbsp;page&nbsp;language='javascript'&nbsp;#><br>
+&lt;xsl:template&nbsp;match='ct:stars'&gt;<br>
+&nbsp;&nbsp;&lt;xtp:scriptlet&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(var&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;<&nbsp;node.attribute.count;&nbsp;i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out.write('*');<br>
+&nbsp;&nbsp;&lt;/xtp:scriptlet&gt;<br>
+&lt;/xsl:template&gt;<br>
+
+      </td></tr>
+    <tr><td class='example' bgcolor='#ffccdd'>
+1&nbsp;=&nbsp;&lt;ct:stars&nbsp;count='1'/><br><br>
+9&nbsp;=&nbsp;&lt;ct:stars&nbsp;count='9'/><br><br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+1&nbsp;=&nbsp;*<br>
+9&nbsp;=&nbsp;*********<br>
+
+      </td></tr>
+    </table>
+              </center>
+
+</p>
+          </div>
+
+<a name="declaration"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xtp:declaration></h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Adds declaration code, i.e. code outside of any function.
+
+<p>
+            <center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;xtp:declaration><br>
+function&nbsp;dist(x1,&nbsp;y1,&nbsp;x2,&nbsp;y2)<br>
+{<br>
+&nbsp;&nbsp;return&nbsp;Math.sqrt((x1&nbsp;-&nbsp;x2)&nbsp;*&nbsp;(x1&nbsp;-&nbsp;x2)&nbsp;+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(y1&nbsp;-&nbsp;y2)&nbsp;*&nbsp;(y1&nbsp;-&nbsp;y2));<br>
+}<br>
+&lt;/xtp:declaration><br>
+<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="page"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xtp:directive.page attributes /></h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+Sets page directives
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>name</th>
+                  <th>meaning
+</th>
+                </tr>
+                <tr>
+                  <td>language</td>
+                  <td>script language, default Java
+</td>
+                </tr>
+                <tr>
+                  <td>session</td>
+                  <td>use sessions, default false
+</td>
+                </tr>
+                <tr>
+                  <td>errorPage</td>
+                  <td>page to display for errors
+</td>
+                </tr>
+                <tr>
+                  <td>errorPage</td>
+                  <td>page to display for errors
+</td>
+                </tr>
+                <tr>
+                  <td>import</td>
+                  <td>imports Java packages 
+</td>
+                </tr>
+                <tr>
+                  <td>contentType</td>
+                  <td>content-type of the generated page
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+<a name="cache"></a><p>
+          <table border="0" width="100%" cellspacing="0">
+            <tr>
+              <td>
+                <h3 class="code">&lt;xtp:directive.cache attributes/></h3>
+              </td>
+            </tr>
+          </table>
+          <div class="desc">
+
+Caches the generated JSP file by default.
+
+<p>Caching for XSL is more complicated than for JSP because only some
+templates may be used in a page.  Caching is based on the generated
+page, not simply on the stylesheet.
+
+</p>
+            <p>A page that just uses static
+templates is automatically cached.  Pages that use scripts just for
+simple calculation can also be cached.  But pages that use scripts
+based on the request cannot be cached.
+
+<p>
+            <center>
+              <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                  <th>name</th>
+                  <th>meaning
+</th>
+                </tr>
+                <tr>
+                  <td>file</td>
+                  <td>the JSP file depends on <span class="meta">file</span>.
+</td>
+                </tr>
+                <tr>
+                  <td>no-cache</td>
+                  <td>do not cache the generated JSP.
+</td>
+                </tr>
+              </table>
+            </center>
+
+</div>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='xpath-fun.html'>XPath Fun</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='xslt-lite.html'>XSL lite</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 06 Apr 2000 15:14:52 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

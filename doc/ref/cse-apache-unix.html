@@ -1,0 +1,577 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Caucho Servlet Engine on Apache Unix</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><a href="httpd.html">Resin Web Server</a>
+<tr><td><em>Unix Apache</em>
+<tr><td><a href="cse-apache-win.html">Windows Apache</a>
+<tr><td><a href="cse-netscape.html">Unix Netscape</a>
+<tr><td><a href="cse-iis.html">IIS</a>
+<tr><td><a href="srun-other.html">Other Servlets</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Caucho Servlet Engine on Apache Unix</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Installation">Installation</a><ol>
+                        <li><a href="#Compiling_Apache">Compiling Apache</a></li>
+                        <li><a href="#Compiling_mod_caucho_so">Compiling mod_caucho.so</a></li>
+                        <li><a href="#Configuring_Apache_by_hand">Configuring Apache by hand</a></li>
+                        <li><a href="#Configure_the_Environment">Configure the Environment</a></li>
+                        <li><a href="#Configuring_resin_conf">Configuring resin.conf</a></li>
+                        <li><a href="#Starting_the_Servlet_Engine">Starting the Servlet Engine</a></li>
+                        <li><a href="#Testing_the_servlet_engine">Testing the servlet engine</a></li>
+                        <li><a href="#Troubleshooting">Troubleshooting</a></li>
+                      </ol>
+                    </li>
+                    <li><a href="#Load_Balancing">Load Balancing</a></li>
+                    <li><a href="#Error_Page">Error Page</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+Resin provides a fast servlet runner for Apache, allowing Apache
+to run servlets and JSP files.  The servlet runner needs Apache 1.3.x
+and DSO support.
+
+<center>
+<img src="../images/apache_srun.gif">
+</center>
+
+<a name="Installation"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Installation</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<p>To configure Resin with Apache, you must follow the following steps:
+<ol>
+<li>Compiling Apache
+</li>
+            <li>Compile mod_caucho.so
+</li>
+            <li>Configure Apache
+</li>
+            <li>Set up environment
+</li>
+            <li>Configure resin.conf
+</li>
+            <li>Restart Apache and start srun
+</li>
+          </ol>
+
+<a name="Compiling_Apache"></a><h3>Compiling Apache</h3>
+You need a version of Apache with DSO support enabled.  Most
+distributions, e.g. Red Hat Linux, will have Apache preinstalled.
+However, because the standard distribution has files all over the
+place, some people prefer to recompile Apache from scratch.
+
+<p>Once you untar Apache, build it like:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">unix>&nbsp;./configure&nbsp;--prefix=/usr/local/apache&nbsp;\<br>
+&nbsp;&nbsp;--enable-module=all<br>
+unix>&nbsp;make<br>
+unix>&nbsp;make&nbsp;install<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Compiling_mod_caucho_so"></a><h3>Compiling mod_caucho.so</h3>
+
+To compile and install <span class="meta">mod_caucho</span> on Unix, you'll need to run
+Resin's <code>configure</code> and then make.  This step will create 
+mod_caucho.so and put it in the Apache module directory.  Usually,
+mod_caucho.so will end up in /usr/local/apache/libexec/mod_caucho.so.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">unix>&nbsp;./configure&nbsp;--with-apache=/usr/local/apache<br>
+unix>&nbsp;make<br>
+unix>&nbsp;make&nbsp;install<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>If you know where your <span class="meta">apxs</span> executable is, you can use:
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="def">unix>&nbsp;./configure&nbsp;--with-apxs=/usr/local/apache/bin/apxs<br>
+unix>&nbsp;make<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+          <span class="meta">apxs</span> is a little Perl script that the Apache configuration
+makes.  It lets modules like Resin know how all the Apache directories
+are configured.
+
+<p>If you need finer control over the apache configuration, you can use
+the following arguments to ./configure.  Resin needs
+<span class="meta">apache-include</span>, <span class="meta">apache-libexec</span>, and <span class="meta">apache-conf</span>.
+
+<p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                <td>--with-apache=dir</td>
+                <td>The Apache root directory.
+</td>
+              </tr>
+              <tr>
+                <td>--with-apxs=apxs</td>
+                <td>Pointer to the Apache extension script
+</td>
+              </tr>
+              <tr>
+                <td>--with-apache-include=dir</td>
+                <td>The Apache include directory
+</td>
+              </tr>
+              <tr>
+                <td>--with-apache-libexec=dir</td>
+                <td>The Apache module directory
+</td>
+              </tr>
+              <tr>
+                <td>--with-apache-conf=httpd.conf</td>
+                <td>The Apache config file
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Configuring_Apache_by_hand"></a><h3>Configuring Apache by hand</h3>
+
+<p>Making mod_caucho will automatically change your httpd.conf file.
+For reference, here are the changes:
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">httpd.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">LoadModule&nbsp;caucho_module&nbsp;libexec/mod_caucho.so<br>
+AddModule&nbsp;mod_caucho.c<br>
+<br>
+&lt;IfModule&nbsp;mod_caucho.c&gt;<br>
+&nbsp;&nbsp;CauchoConfigFile&nbsp;&lt;installdir>/resin1.1/conf/resin.conf<br>
+&nbsp;&nbsp;&lt;Location&nbsp;/caucho-status><br>
+&nbsp;&nbsp;&nbsp;&nbsp;SetHandler&nbsp;caucho-status<br>
+&nbsp;&nbsp;&lt;/Location><br>
+&lt;/IfModule&gt;<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<br>
+          <b>Note: </b>The caucho-status is optional and probably should be avoided in
+a production site.  It lets you ask the Caucho Apache module about the
+Caucho status, valuable for debugging.
+
+<p>Restart Apache.  Now browse http://localhost/caucho-status.  It
+should return a table indicating that the servlet runner is stopped.
+
+<p>Browse http://localhost/test.jsp.  It should return a message like:
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffccdd" class="result">Cannot&nbsp;connect&nbsp;to&nbsp;Servlet&nbsp;Runner.<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                <td>caucho-status</td>
+                <td>Handler to display /caucho-status
+</td>
+              </tr>
+              <tr>
+                <td>caucho-request</td>
+                <td>Handler to connect to srun
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Configure_the_Environment"></a><h3>Configure the Environment</h3>
+
+If you don't already have Java installed, you'll need to download a
+JDK and set some environment variables.  Good JDKs are available at
+<a href="http://www.blackdown.org">blackdown</a>
+and at
+<a href="http://www.ibm.com/java/jdk/download/index.html">IBM</a>
+
+<p>Here's a typical environment that you might put in ~/.profile or
+/etc/profile
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">#&nbsp;Java&nbsp;Location<br>
+JAVA_HOME=/&lt;installdir>/jdk1.2.2<br>
+export&nbsp;JAVA_HOME<br>
+<br>
+#&nbsp;Resin&nbsp;location&nbsp;(optional).&nbsp;&nbsp;Usually&nbsp;Resin&nbsp;can&nbsp;figure&nbsp;this&nbsp;out.<br>
+RESIN_HOME=/&lt;installdir>/resin1.1<br>
+export&nbsp;RESIN_HOME<br>
+<br>
+#&nbsp;If&nbsp;you're&nbsp;using&nbsp;additional&nbsp;class&nbsp;libraries,&nbsp;you'll&nbsp;need&nbsp;to&nbsp;put&nbsp;them<br>
+#&nbsp;in&nbsp;the&nbsp;classpath.<br>
+CLASSPATH=<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Configuring_resin_conf"></a><h3>Configuring resin.conf</h3>
+
+By default, Resin will look in resin1.1/doc for JSP files and
+resin1.1/doc/WEB-INF/classes for servlets and beans.  To tell Resin
+to use Apache's document area, you configure the <span class="meta">app-dir</span>.
+Change <span class="meta">app-dir</span> from 'doc' to something like '/usr/local/apache/htdocs'.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">resin.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&nbsp;&nbsp;&lt;http-server<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app-dir='/usr/local/apache/htdocs'><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='/servlets/*'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='invoker'/><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='*.xtp'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='com.caucho.jsp.XtpServlet'/><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-mapping&nbsp;url-pattern='*.jsp'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servlet-name='com.caucho.jsp.JspServlet'/><br>
+&nbsp;&nbsp;&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Starting_the_Servlet_Engine"></a><h3>Starting the Servlet Engine</h3>
+
+Now you need to start the servlet engine.
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">>&nbsp;resin1.1/bin/srun.sh<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>The servlet runner takes the same optional arguments as
+<span class="meta">http.sh</span>:
+<p>
+          <center>
+            <table border="border" width="80%" class="deftable" cellpadding="2" cellspacing="0">
+<tr>
+                <td>-verbose</td>
+                <td>Information about the arguments to start Java
+</td>
+              </tr>
+              <tr>
+                <td>-conf &lt;conf></td>
+                <td>Specify a new configuration path
+</td>
+              </tr>
+              <tr>
+                <td>-java_home &lt;java_home></td>
+                <td>Specify the Java location
+</td>
+              </tr>
+              <tr>
+                <td>-resin_home &lt;resin_home></td>
+                <td>Specify the Resin home directory
+</td>
+              </tr>
+              <tr>
+                <td>-classpath &lt;path></td>
+                <td>Specify a global CLASSPATH
+</td>
+              </tr>
+              <tr>
+                <td>-nojit</td>
+                <td>Disable JIT compilation.  Useful for debugging.
+</td>
+              </tr>
+              <tr>
+                <td>-J&lt;arg></td>
+                <td>Pass <span class="meta">arg</span> to the JVM
+</td>
+              </tr>
+              <tr>
+                <td>&lt;-Darg></td>
+                <td>Pass <span class="meta">-Darg</span> to the JVM
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>A better way to run the servlet engine in a production environment is
+to use the start and stop scripts.  These scripts add extra
+reliability to the server.  If Resin should ever exit, it will
+automatically be restarted.
+
+<p>To start the servlet runner, use
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;resin1.1/bin/srun.sh&nbsp;start<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>To stop it, use
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">unix>&nbsp;resin1.1/bin/srun.sh&nbsp;stop<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Testing_the_servlet_engine"></a><h3>Testing the servlet engine</h3>
+
+<p>Create a test file '/usr/local/apache/htdocs/test.jsp'
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;%@&nbsp;page&nbsp;language=javascript&nbsp;%><br>
+2&nbsp;+&nbsp;2&nbsp;=&nbsp;&lt;%=&nbsp;2&nbsp;+&nbsp;2&nbsp;%><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+<p>Browse http://localhost/test.jsp again.  You should now get
+
+<p>
+          <center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <tr>
+                <td bgcolor="#ffccdd" class="result">2&nbsp;+&nbsp;2&nbsp;=&nbsp;4<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+
+<a name="Troubleshooting"></a><h3>Troubleshooting</h3>
+
+<ol>
+<li>First, check your configuration with the standalone httpd.sh.
+Both httpd.sh and srun.sh use the same configuration file, so the
+results should be identical.
+</li>
+            <li>Check http://localhost:8080/caucho-status.  That will tell if
+mod_caucho has properly read the resin.conf.  
+</li>
+            <li>Each srun host should be green and the mappings should
+match your resin.conf.
+</li>
+            <li>If caucho-status fails entirely, the problem is in the mod_caucho
+installation and the Apache httpd.conf.
+</li>
+            <li>If caucho-status shows the wrong mappings, there's something wrong
+with the resin.conf or the pointer to resin.conf in httpd.conf.
+</li>
+            <li>If caucho-status shows a red servlet runner, then srun.sh hasn't
+properly started.
+</li>
+            <li>If you get a "cannot connect to servlet engine", caucho-status
+will show red, and srun.sh hasn't started properly.
+</li>
+            <li>If srun.sh doesn't start properly, you should look at the logs
+in resin1.1/log.  You should start <span class="meta">srun.sh -verbose</span> to get
+more information.
+</li>
+            <li>If you get Resin's file not found, the Apache configuration
+is good but the resin.conf probably points to the wrong directories.
+</li>
+          </ol>
+
+
+
+
+
+<a name="balance"></a>
+<a name="Load_Balancing"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Load Balancing</b>
+                </font>
+              </td><td align=right>Resin 1.1</td>
+</tr>
+          </table>
+          <p>
+
+In Resin 1.1, you can distribute requests to multiple machines.  All
+requests in a session will go to the same host.  In addition, if one
+host goes down, Resin will send the request to the next available machine.
+
+<p>In addition, you can specify backup machines.  The backup only will serve
+requests if all primaries are down.
+
+<p>See the <a href="http-config.html">http config</a> section for more
+details.
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">resin.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">&lt;caucho.com><br>
+&lt;http-server><br>
+&nbsp;&nbsp;&lt;srun&nbsp;host='host1'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun&nbsp;host='host2'&nbsp;port='6802'/><br>
+&nbsp;&nbsp;&lt;srun-backup&nbsp;host='backup&nbsp;port='6802'/><br>
+&nbsp;&nbsp;...<br>
+&lt;/http-server><br>
+&lt;/caucho.com><br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+<a name="Error_Page"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Error Page</b>
+                </font>
+              </td><td align=right>Resin 1.1</td>
+</tr>
+          </table>
+          <p>
+
+When mod_caucho can't reach any JVM, it will send a default error
+page.  Sites can customize the error page with the
+<span class="meta">CauchoErrorPage</span> directive.
+
+<center>
+            <table width="80%" class="egpad" cellspacing="0">
+              <caption>
+                <font size="+1">httpd.conf</font>
+              </caption>
+              <tr>
+                <td bgcolor="#ffeecc" class="example">CauchoErrorPage&nbsp;/usr/local/apache/htdocs/resin_error_page.html<br>
+</td>
+              </tr>
+            </table>
+          </center>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='httpd.html'>Resin Web Server</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='cse-apache-win.html'>Windows Apache</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Tue, 25 Apr 2000 12:33:35 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

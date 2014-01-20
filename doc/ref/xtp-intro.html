@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>
+XML Template Pages Introduction</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin 1.1</a>
+<tr><td><a href="faq.html">FAQ</a>
+<tr><td><a href="index.html">Reference</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><a href="../examples/index.html">Demo</a>
+<tr><td><a href="../java_tut/index.xtp">Java Tutorial</a>
+<tr><td><hr>
+<tr><td><a href="starting.html">Getting Started</a>
+<tr><td><a href="config.html">Configuration</a>
+<tr><td><a href="topics.html">Topics</a>
+<tr><td><a href="jsp.html">JSP</a>
+<tr><td><a href="xtp.html">XTP/XSL</a>
+<tr><td><a href="javascript.html">JavaScript</a>
+<tr><td><a href="jslib.html">JS Library</a>
+<tr><td><hr>
+<tr><td><em>XTP intro</em>
+<tr><td><a href="xtp-jsp.html">XTP to JSP</a>
+<tr><td><a href="xpath.html">XPath</a>
+<tr><td><a href="xpath-fun.html">XPath Fun</a>
+<tr><td><a href="xsl.html">XSL</a>
+<tr><td><a href="xslt-lite.html">XSL lite</a>
+<tr><td><a href="xslt-lite-eg.html">XSL lite examples</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;
+XML Template Pages Introduction</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#blank">Blank Stylesheet Example</a></li>
+                    <li><a href="#page">Simple Page Template</a></li>
+                    <li><a href="#counter">Dynamic XSL</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<p>XTP (XML Template Pages) creates web pages from XML using XSL
+stylesheets.
+
+</p>
+          <p>The documentation for the specific tags is in the <a href="xsl.html">XSL
+stylesheet</a> section.  This section describes how XTP works.
+
+</p>
+          <p>XTP lets web designers create active pages
+without changing the original text.  It uses a separate <a href="xsl.html">XSL</a> stylesheet to transform the original document
+into a fancy formatted document.  Because the active stylesheet is
+separate from the passive content, XTP gives designers a tighter
+focus.  When worrying about style, designers can concentrate on the
+stylesheet.  When concentrating on content, designers can focus on the
+text.
+
+</p>
+          <p>XTP makes the input file simpler: it can be plain old HTML.  It
+separates the content (*.xtp) from the style (*.xsl).  The tradeoff
+is that XSL stylesheets are slightly more complicated than JSP active
+pages.  For JSP, scripts execute exactly where they're placed.
+XTP has to match HTML to script fragments using patterns.
+
+</p>
+          <p>XTP works by matching stylesheet patterns to the input HTML,
+creating the result HTML following the pattern actions.
+XTP analyzing the input HTML into a structured HTML tree
+using the <a href="xmllib.html">XML document object model</a>.  For
+each node, it finds the best pattern in the XSL and applies the
+action.  The action prints to the output HTML.
+
+<a name="blank"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Blank Stylesheet Example</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+In this example, we're using a blank stylesheet.  Even with a blank
+stylesheet, Resin does something useful: it prints out all text,
+removing the tags.
+
+<center>
+              <table width="80%" class="egpad" cellspacing="0">
+                <caption>
+                  <font size="+1">hello.xtp</font>
+                </caption>
+                <tr>
+                  <td bgcolor="#ffeecc" class="example">&lt;TITLE&gt;Hello,&nbsp;world&lt;/TITLE&gt;<br>
+<br>
+&lt;H1&gt;Hi,&nbsp;World!&lt;/H1&gt;<br>
+<br>
+&lt;P&gt;The&nbsp;hello,&nbsp;world&nbsp;example&nbsp;is&nbsp;simple.<br>
+</td>
+                </tr>
+              </table>
+            </center>
+
+<p>Resin first reads in the XTP file, parsing it like an HTML
+file.  It adds optional tags, like &lt;html&gt; and &lt;/p&gt; and
+forces all HTML tags to be lower case.
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">hello$9342.dom</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;html&gt;<br>
+&nbsp;&nbsp;&lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Hello,&nbsp;world&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;/head&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;body&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Hi,&nbsp;World!&lt;/h1&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;The&nbsp;hello,&nbsp;world&nbsp;example&nbsp;is&nbsp;simple.&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;/body&gt;<br>
+&lt;/html&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+            <p>Next, Resin starts its matching process at the top.  Since the stylesheet
+is empty, it uses the default rules.  The default rules say: process
+an element's children and print a text node's data.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td class="green">
+<ol>
+<li>#document, process children
+ <ol>
+ <li>&lt;html&gt;, process children
+  <ol>
+  <li>&lt;head&gt;, process children
+   <ol>
+   <li>&lt;title&gt;, process children
+    <ol>
+    <li>"Hello, world", print to output
+    </li>
+                                      </ol>
+   </li>
+                                  </ol>
+  </li>
+                                <li>&lt;body&gt;, process children
+   <ol>
+   <li>&lt;h1&gt;, process children
+    <ol>
+    <li>"Hi, World!", print to output
+    </li>
+                                      </ol>
+   </li>
+                                    <li>&lt;p&gt;, process children
+    <ol>
+    <li>"The hello, ...", print to output
+    </li>
+                                      </ol>
+   </li>
+                                  </ol>
+  </li>
+                              </ol>
+ </li>
+                          </ol>
+</li>
+                      </ol>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">hello$9342.html</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">Hello,&nbsp;world<br>
+<br>
+Hi,&nbsp;World!<br>
+The&nbsp;hello,&nbsp;world&nbsp;example&nbsp;is&nbsp;simple.<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+
+<a name="page"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Simple Page Template</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+Resin's XTP can create standard page layout: common backgrounds,
+navigation, headers and footers.  This is a common use for any of the
+active content creation tools.
+
+<p>This example adds two things to the default stylesheet.  All
+elements are copied instead of ignored, and the body of the HTML gets
+a background and a margin.
+
+</p>
+            <p>Copying elements is easy.  The copy template matches all elements
+<code>match='*'</code>.  When Resin processes a node whose pattern
+matches nothing else, it will execute the copy action.  The action
+copies the element (<code>xsl:copy</code>) and processes the
+children (<code>xsl:apply-templates</code>).
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;xsl:template&nbsp;match='*|@*'&gt;<br>
+&nbsp;&nbsp;&lt;xsl:copy&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;xsl:apply-templates&nbsp;select='@*|*'/&gt;<br>
+&nbsp;&nbsp;&lt;/xsl:copy&gt;<br>
+&lt;/xsl:template&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+            <p>For the page template pattern, we use <code>match='/html/body'</code>.
+Resin will execute the template in place of the body.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;xsl:template&nbsp;match='/html/body'&gt;<br>
+<span class="eg-em">&nbsp;&nbsp;&lt;!--&nbsp;cyan&nbsp;background&nbsp;--&gt;<br>
+&nbsp;&nbsp;&lt;body&nbsp;bgcolor='cyan'&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;table&nbsp;width='100%'&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;!--&nbsp;left&nbsp;margin&nbsp;--&gt;<br>
+&nbsp;&nbsp;&lt;tr&gt;&lt;td&nbsp;width='240'&gt;&lt;/td&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;!--&nbsp;center&nbsp;column&nbsp;--&gt;<br>
+&nbsp;&nbsp;&lt;td&nbsp;width='80%'&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;!--&nbsp;insert&nbsp;body&nbsp;contents&nbsp;--&gt;<br>
+</span><br>
+<br>
+&nbsp;&nbsp;&lt;xsl:apply-templates/&gt;<br>
+<br>
+<span class="eg-em">&nbsp;&nbsp;&lt;!--&nbsp;copyright&nbsp;footer&nbsp;--&gt;<br>
+&nbsp;&nbsp;&lt;hr&gt;<br>
+&nbsp;&nbsp;Copyright&nbsp;&amp;copy;&nbsp;1999&nbsp;Caucho&nbsp;Technology<br>
+<br>
+&nbsp;&nbsp;&lt;/td&gt;&lt;/tr&gt;<br>
+&nbsp;&nbsp;&lt;/table&gt;<br>
+&nbsp;&nbsp;&lt;/body&gt;<br>
+</span><br>
+&lt;/xsl:template&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+            <p>The translation follows the same order as in the blank stylesheet
+example.  The body rule is used for the body and the copy rule
+is used for every other tag.
+
+<p>
+              <center>
+                <table width="80%" class="egpad" cellspacing="0"><tr><td class='example' bgcolor='#ffccdd'>
+&lt;TITLE&gt;Hello,&nbsp;world&lt;/TITLE&gt;<br>
+<br>
+&lt;H1&gt;Hi,&nbsp;World!&lt;/H1&gt;<br>
+<br>
+&lt;P&gt;The&nbsp;hello,&nbsp;world&nbsp;example&nbsp;is&nbsp;simple.<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+&lt;html&gt;<br>
+&nbsp;&nbsp;&lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Hello,&nbsp;world&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;/head&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;body&nbsp;bgcolor='cyan'&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;table&nbsp;width='100%'&gt;<br>
+&nbsp;&nbsp;&lt;tr&gt;&lt;td&nbsp;width='240'&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&lt;td&nbsp;width='80%'&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Hi,&nbsp;World!&lt;/h1&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&lt;p&gt;The&nbsp;hello,&nbsp;world&nbsp;example&nbsp;is&nbsp;simple.<br>
+&nbsp;&nbsp;&nbsp;&lt;/p&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;hr&gt;<br>
+&nbsp;&nbsp;Copyright&nbsp;&amp;copy;&nbsp;1999&nbsp;Caucho&nbsp;Technology<br>
+<br>
+&nbsp;&nbsp;&lt;/td&gt;&lt;/tr&gt;<br>
+&nbsp;&nbsp;&lt;/table&gt;<br>
+&nbsp;&nbsp;&lt;/body&gt;<br>
+&lt;/html&gt;<br>
+
+      </td></tr>
+    </table>
+              </center>
+
+</p>
+
+<a name="counter"></a><p>
+            <table border="0" width="100%" cellpadding="5" cellspacing="0">
+              <tr class="section">
+                <td>
+                  <font size="+2">
+                    <b>Dynamic XSL</b>
+                  </font>
+                </td>
+              </tr>
+            </table>
+            <p>
+
+All by itself, the template example is useful.  But here's something
+more interesting, creating a dynamic tag.  In this case, we'll just
+create a simple counter.
+
+<p>To use the counter tag, just add it to the XTP file.
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">counter.xtp</font>
+                  </caption><tr><td class='example' bgcolor='#ffccdd'>
+<span class="eg-em">A&nbsp;counter&nbsp;example:</span>&lt;counter/&gt;<br>
+
+      </td></tr>
+    <tr><td class='result' bgcolor='#ffeecc'>
+A&nbsp;counter&nbsp;example:&nbsp;2<br>
+
+      </td></tr>
+    </table>
+              </center>
+
+</p>
+            <p>Here's the addition to the stylesheet file.  The
+xtp:directive.page, like the same directive for JSP, tells Resin to
+generate JavaScript for the stylesheet.  The default is Java.  Since
+the counter example is trivial with JavaScript and cumbersome with
+Java, we're using JavaScript.
+
+<center>
+                <table width="80%" class="egpad" cellspacing="0">
+                  <caption>
+                    <font size="+1">default.xsl</font>
+                  </caption>
+                  <tr>
+                    <td bgcolor="#ffeecc" class="example">&lt;xtp:directive.page&nbsp;language='javascript'/&gt;<br>
+<br>
+&lt;xsl:template&nbsp;match='counter'&gt;<br>
+&nbsp;&nbsp;&lt;xtp:expression&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;out.page.application.attribute.counter++<br>
+&nbsp;&nbsp;&lt;/xtp:expression&gt;<br>
+&lt;/xsl:template&gt;<br>
+</td>
+                  </tr>
+                </table>
+              </center>
+
+</p>
+            <p>The <code>xsl:template</code> tag says we're defining a new tag.  The
+<code>match='counter'</code> tells Resin to apply the counter tag
+whenever it sees <code>&lt;counter/&gt;</code>.
+
+</p>
+            <p>JavaScript code is between the xtp:expression tags.
+Resin will insert the value of the expression into the
+generated text.
+
+</p>
+            <p>Similar to JSP, stylesheets also allow the xtp:scriptlet and
+xtp:declaration tags.
+
+</p>
+            <p>The <code>out</code> variable is an XslWriter object.  Its getPage()
+method gives stylesheets the PageContext variable from JSP.
+
+</p>
+</p>
+          <hr><table border=0 width='100%'><tr>
+<td>
+<a href='xtp.html'>XTP/XSL</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='xtp-jsp.html'>XTP to JSP</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Thu, 16 Sep 1999 14:56:49 -0700 (PDT)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

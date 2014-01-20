@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC '-//W3C/DTD HTML 4.0 Frameset//EN' 'http://www.w3c.org/TR/REC-html40/frameset.dtd'>
+<html>
+  <head>
+    <title>Resin Examples</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="STYLESHEET" href="../css/default.css" type="text/css">
+  </head>
+  <body bgcolor="white" background="../images/background.gif">
+    <table border="0" summary="" width="100%" cellpadding="0" cellspacing="0">
+      <tr valign="top">
+        <td width="120">
+          <table border="0" width="120" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img height="40" width="120" alt="caucho" src="../images/caucho.gif"></td>
+            </tr><tr><td><a href="../index.html">Resin</a>
+<tr><td><a href="../ref/faq.html">FAQ</a>
+<tr><td><a href="../ref/index.html">Reference Guide</a>
+<tr><td><a href="../javadoc/index.html">JavaDoc</a>
+<tr><td><em>Demo</em>
+<tr><td><a href="../java_tut/index.xtp">Tutorial</a>
+</table>
+        </td>
+        <td width="30"><img height="1" width="30" alt="" src="../images/pixel.gif"></td>
+        <td width="100%"><!-- top navigation -->
+          <table border="0" summary="" width="100%" cellspacing="0" cellpadding="0">
+            <tr class="toptitle">
+              <td background="../images/hbleed.gif" width="90%" rowspan="2">
+                <font size="+3" class="toptitle">
+          &nbsp;Resin Examples</font>
+              </td>
+            </tr>
+          </table><img height="20" width="1" alt="" src="../images/pixel.gif"><br>
+          <center>
+            <table border="3" width="90%" class="toc">
+              <tr>
+                <td>
+                  <ol>
+                    <li><a href="#Servlets">Servlets</a></li>
+                    <li><a href="#basic_jsp">Basic JSP</a></li>
+                    <li><a href="#basic_xtp">Basic XTP</a></li>
+                    <li><a href="#JSP_and_XTP_Templates">JSP and XTP Templates</a></li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </center>
+
+<a name="Servlets"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Servlets</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<ul>
+<li>
+              <bigger><a href="/servlet/HelloServlet">Hello, World</a></bigger>
+              <br>
+    Trivial page using Servlets.<br>&nbsp;
+</li>
+
+<li>
+              <bigger><a href="/snoop?a=b">Servlet Parameters</a></bigger>
+              <br>
+    Shows the servlet environment: parameters and attributes.  Servlet and
+    application init parameters are defined in resin.conf<br>&nbsp;
+</li>
+
+</ul>
+
+
+
+<a name="basic_jsp"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Basic JSP</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<ul>
+<li>
+              <bigger><a href="basic/hello.jsp">Hello, World (Java)</a></bigger>
+              <br>
+    <a href="view_source.jsp?basic/hello.jsp">hello.jsp</a><br>
+    Example of a trivial page.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="basic/env.jsp?foo=bar+baz&test=test1">Environment (Java)</a></bigger>
+              <br>
+    <a href="view_source.jsp?basic/env.jsp">env.jsp</a><br>
+    Displays information about the web request.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="basic/counter.jsp">Counter (Java)</a></bigger>
+              <br>
+    <a href="view_source.jsp?basic/counter.jsp">counter.jsp</a><br>
+    How to implement a simple counter.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="login/index.jsp">Login (Java)</a></bigger>
+              <br>
+    <a href="view_source.jsp?login/WEB-INF/web.xml">web.xml</a>, 
+    <a href="view_source.jsp?login/WEB-INF/classes/test/TestAuthenticator.java">TestAuthenticator</a><br>
+    Authentication and simple page protection.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="basic/stats.jsp">Statistics (Java)</a></bigger>
+              <br>
+    <a href="view_source.jsp?basic/stats.jsp">stats.jsp</a>, 
+    Simple statistics on the server's load.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="basic/form.html">Form (JavaScript)</a></bigger>
+              <br>
+    <a href="view_source.jsp?basic/form.jsp">form.jsp</a><br>
+    Retrieving form information.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="basic/session.jsp">Session (JavaScript)</a></bigger>
+              <br>
+    <a href="view_source.jsp?basic/session.jsp">session.jsp</a><br>
+    Information persistent between requests.  Reload the page to see the state change.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="basic/dir.jsp">Directory (JavaScript)</a></bigger>
+              <br>
+    <a href="view_source.jsp?basic/dir.jsp">dir.jsp</a><br>
+    Displays the contents of the directory.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="basic/file.jsp">File (JavaScript)</a></bigger>
+              <br>
+    <a href="view_source.jsp?basic/file.jsp">file.jsp</a><br>
+    A fortune program, randomly choosing a file to display.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="navigation/navigation.jsp">Navigation (JavaScript)</a></bigger>
+              <br>
+    <a href="view_source.jsp?navigation/toc.xml">toc.xml</a>&nbsp;
+    <a href="view_source.jsp?navigation/navigation.jsp">navigation.jsp</a>&nbsp;
+    <a href="view_source.jsp?navigation/WEB-INF/scripts/Navigation.js">
+      Navigation.js</a>&nbsp;
+    <a href="view_source.jsp?navigation/WEB-INF/scripts/header.js">
+      header.js</a><br>
+    Generates web page navigation automatically, using a simple XML
+    site map file.<br>&nbsp;
+    
+</li>
+            <li>
+              <bigger><a href="tictactoe/tictactoe.jsp">Tic-Tac-Toe (JavaScript)</a></bigger>
+              <br>
+    <a href="view_source.jsp?tictactoe/tictactoe.jsp">tictactoe.jsp</a>&nbsp;
+    <a href="view_source.jsp?tictactoe/WEB-INF/scripts/score.js">score.js</a><br>
+    A simple tic-tac-toe game with limited intelligence.  Illustrates
+breaking up projects into different files.<br>&nbsp;
+</li>
+          </ul>
+
+
+
+<a name="basic_xtp"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>Basic XTP</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<ul>
+<li>
+              <bigger><a href="xsl/basic.xtp">Basic</a></bigger>
+              <br>
+    <a href="view_source.jsp?xsl/basic.xtp">basic.xtp</a>&nbsp;
+    <a href="view_source.jsp?xsl/WEB-INF/xsl/basic.xsl">basic.xsl</a><br>
+    Trivial example of using XTP to automatically rewrite &lt;a href> to deal with non-cookie browsers.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="xsl/navigation.xtp">Navigation</a></bigger>
+              <br>
+    <a href="view_source.jsp?xsl/navigation.xtp">navigation.xtp</a>&nbsp;
+    <a href="view_source.jsp?xsl/WEB-INF/xsl/header.xsl">header.xsl</a>&nbsp;
+    <a href="view_source.jsp?xsl/WEB-INF/scripts/Navigation.js">Navigation.js</a><br>
+    Basic navigation and site headers.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="xsl/counter.xtp">Counter</a></bigger>
+              <br>
+    <a href="view_source.jsp?xsl/counter.xtp">counter.xtp</a>&nbsp;
+    <a href="view_source.jsp?xsl/WEB-INF/xsl/counter.xsl">counter.xsl</a><br>
+    A simple counter.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="xsl/control.xtp">JSP tag library</a></bigger>
+              <br>
+    <a href="view_source.jsp?xsl/control.xtp">control.xtp</a>&nbsp;
+    <a href="view_source.jsp?xsl/WEB-INF/xsl/js-control-strict.xsl">control.xsl</a><br>
+    JSP tag libraries created with XSL<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="xsl/file.xtp">File</a></bigger>
+              <br>
+    <a href="view_source.jsp?xsl/file.xtp">file.xtp</a>&nbsp;
+    <a href="view_source.jsp?xsl/WEB-INF/xsl/file.xsl">file.xsl</a><br>
+    A doubled fortune.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="xsl/verify-bad.xtp">Verify</a></bigger>
+              <br>
+    <a href="view_source.jsp?xsl/verify-bad.xtp">verify-bad.xtp</a>&nbsp;
+    <a href="view_source.jsp?xsl/WEB-INF/xsl/verify.xsl">verify.xsl</a><br>
+    Verifies an XTP file against an expected XML format. 
+</li>
+          </ul>
+
+
+
+<a name="JSP_and_XTP_Templates"></a><p>
+          <table border="0" width="100%" cellpadding="5" cellspacing="0">
+            <tr class="section">
+              <td>
+                <font size="+2">
+                  <b>JSP and XTP Templates</b>
+                </font>
+              </td>
+            </tr>
+          </table>
+          <p>
+
+<ul>
+<li>
+              <bigger><a href="templates/rss.xtp">Syndication</a></bigger>
+              <br>
+    <a href="view_source.jsp?templates/rss.xtp">rss.xtp</a>&nbsp
+    <a href="view_source.jsp?templates/WEB-INF/classes/jsp/RSS.java">RSS.java</a>&nbsp;
+    <a href="view_source.jsp?templates/WEB-INF/xsl/rss.xsl">rss.xsl</a><br>
+    A simple use of syndication (rss/rdf and xsl): Slashdot's current stories.<br>&nbsp;
+    
+</li>
+            <li>
+              <bigger><a href="templates/guestbook.jsp">Simple JSP Guest Book</a></bigger>
+              <br>
+    <a href="view_source.jsp?templates/guestbook.jsp">guestbook.jsp</a><br>
+    A simple guest book implemented with flat JSP.<br>&nbsp;
+    
+</li>
+            <li>
+              <bigger><a href="templates/guestbook.xtp">Simple XTP Guest Book</a></bigger>
+              <br>
+    <a href="view_source.jsp?templates/guestbook.xtp">guestbook.xtp</a>&nbsp;
+    <a href="view_source.jsp?templates/simple-format.xsl">simple-format.xsl</a><br>
+    A simple XTP guest book with a basic XSL stylesheet.<br>&nbsp;
+    
+</li>
+            <li>
+              <bigger><a href="templates/guestbook_bean.jsp">JSP Bean Guest Book</a></bigger>
+              <br>
+    <a href="view_source.jsp?templates/guestbook_bean.jsp">guestbook_bean.jsp</a>&nbsp;
+    <a href="view_source.jsp?templates/guestbook_inc.jsp">guestbook_inc.jsp</a>&nbsp;
+    <a href="view_source.jsp?templates/WEB-INF/classes/jsp/GuestBook.java">GuestBook.java</a>&nbsp;
+    <a href="view_source.jsp?templates/WEB-INF/classes/jsp/Guest.java">Guest.java</a><br>
+    Using beans and included pages to factor the guestbook.<br>&nbsp;
+    
+</li>
+            <li>
+              <bigger><a href="templates/GuestJsp">JSP Template Guest Book</a></bigger>
+              <br>
+    <a href="view_source.jsp?templates/WEB-INF/classes/jsp/GuestJsp.java">
+GuestJsp.java</a>&nbsp;
+    <a href="view_source.jsp?templates/login.jsp">login.jsp</a>&nbsp;
+    <a href="view_source.jsp?templates/add.jsp">add.jsp</a>&nbsp;
+    <a href="view_source.jsp?templates/admin.jsp">admin.jsp</a><br>
+    A simple guest book using JSP templates to format the results.<br>&nbsp;
+
+</li>
+            <li>
+              <bigger><a href="templates/GuestXtp">XTP Template Guest Book</a></bigger>
+              <br>
+    <a href="view_source.jsp?templates/WEB-INF/classes/jsp/GuestXtp.java">
+GuestXtp.java</a>&nbsp;
+    <a href="view_source.jsp?templates/login.xtp">login.xtp</a>&nbsp;
+    <a href="view_source.jsp?templates/add.xtp">add.xtp</a>&nbsp;
+    <a href="view_source.jsp?templates/admin.xtp">admin.xtp</a>&nbsp;
+    <a href="view_source.jsp?templates/WEB-INF/xsl/guestbook.xsl">guestbook.xsl</a>&nbsp;
+    <a href="view_source.jsp?templates/WEB-INF/xsl/form.xsl">form.xsl</a><br>
+    A simple guest book using XTP templates to format the results.
+</li>
+          </ul>
+
+
+<hr><table border=0 width='100%'><tr>
+<td>
+<a href='../javadoc/index.html'>JavaDoc</a>
+<td align=center width='*'>&nbsp;
+</td><td align=right>
+<a href='../java_tut/index.xtp'>Tutorial</a>
+</table>
+<center>
+            <em>Copyright &copy; 1998-2000 Caucho Technology.  All rights reserved.</em>
+          </center>
+          <font size="-1">Last modified: Tue, 21 Mar 2000 10:23:54 -0800 (PST)</font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
